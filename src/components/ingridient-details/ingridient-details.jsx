@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import ingridientStyles from "./ingridient-details.module.css"
 import Modal from "../modal/modal";
 import ModalOverlay from "../modal-overlay/modal-overlay"
@@ -30,4 +31,19 @@ export default function IngridientDetails({data, handleClose}) {
             <ModalOverlay handleClose={handleClose}></ModalOverlay>
     </Modal>
     )
+}
+
+const dataPropTypes = PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    calories: PropTypes.number.isRequired,
+    carbohydrates: PropTypes.number.isRequired,
+    fat: PropTypes.number.isRequired,
+    image_large: PropTypes.string.isRequired,
+    proteins: PropTypes.number.isRequired,
+})
+
+IngridientDetails.propTypes = {
+    data: dataPropTypes.isRequired,
+    handleClose: PropTypes.func.isRequired
 }

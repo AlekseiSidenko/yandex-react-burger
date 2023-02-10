@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import modalStyles from "./modal.module.css"
 import ReactDOM from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -21,4 +22,10 @@ export default function Modal({children, modalName, handleClose}) {
             </div>
         </div>, reactModal
     )
+}
+
+Modal.propTypes = {
+    children: PropTypes.arrayOf(PropTypes.element),
+    modalName: PropTypes.string,
+    handleClose: PropTypes.func.isRequired
 }

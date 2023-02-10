@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Modal from "../modal/modal";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -17,4 +18,8 @@ export default function OrderDetails({ handleClose }) {
             <ModalOverlay handleClose={handleClose}/>
         </Modal>
     )
+}
+
+OrderDetails.propTypes = {
+    handleClose: PropTypes.func.isRequired
 }

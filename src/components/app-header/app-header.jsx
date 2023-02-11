@@ -9,7 +9,7 @@ export default function AppHeader() {
     return(
         <header className={headerStyles.header}>
             <div className={headerStyles.elements}>
-                <div style={{display: "flex"}}>
+                <div className={headerStyles.left}>
                     <a href="#" className={headerStyles.link}>
                         <BurgerIcon type="primary"/>
                         <p className="text text_type_main-default ml-2">

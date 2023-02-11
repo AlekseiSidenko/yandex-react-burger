@@ -1,37 +1,22 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import BurgerIngridient from "../burger-ingridient/burger-ingridient";
 import ingridientStyles from "./burger-ingridients.module.css"
 import IngridientDetails from "../ingridient-details/ingridient-details";
+import Modal from "../modal/modal";
+import ingridientType from "../utils/types";
 
-export default function BurgerIngridients() {
+export default function BurgerIngridients({ data, isLoading, hasError }) {
 
-    const [state, setState] = React.useState({
-        isLoading: false,
-        hasError: false,
-        data: []
-      });
+    const [popup, setPopup] = React.useState({
+    visible: false,
+    popupData: []
+    });
 
-      const [popup, setPopup] = React.useState({
-        visible: false,
-        popupData: []
-      });
+    const [current, setCurrent] = React.useState('one')
 
-      const [current, setCurrent] = React.useState('one')
-
-      const getIngridients = () => {
-        setState({...state, isLoading: true, hasError: false});
-        fetch(`https://norma.nomoreparties.space/api/ingredients`)
-        .then(res => res.json())
-        .then(res => setState({...state, data: res.data, isLoading: false}))
-        .catch(e => setState({...state, isLoading: false, hasError: true}));
-      }
-
-      React.useEffect(() => {
-        getIngridients()
-      }, [])
-
-      const handleClose = () => {
+    const handleClose = () => {
         setPopup({...popup, visible:false, popupData: []})
     }
 
@@ -40,15 +25,14 @@ export default function BurgerIngridients() {
         console.log(data)
       }
 
-       const { data, isLoading, hasError } = state;
-       const { visible, popupData } = popup
+    const { visible, popupData } = popup
 
     return (
         <section className={ingridientStyles.ingridients}>
             <p className="text text_type_main-large mb-5">
                 Соберите бургер
             </p>
-            <div style={{ display: 'flex' }}>
+            <div className={ingridientStyles.tab}>
                 <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                     Булки
                 </Tab>
@@ -85,7 +69,15 @@ export default function BurgerIngridients() {
                         <BurgerIngridient showIngridient={showIngridient} key={item._id} data={item}/>)}
                 </div>
             </div>
-            {visible && <IngridientDetails handleClose={handleClose} data={popupData}/>}
+            {visible &&  <Modal handleClose={handleClose}>
+                            <IngridientDetails data={popupData}/>
+                        </Modal>}
         </section>
     )
+}
+
+BurgerIngridients.propTypes = {
+    data: PropTypes.arrayOf(ingridientType.isRequired),
+    isLoading: PropTypes.bool.isRequired,
+    hasError: PropTypes.bool.isRequired
 }

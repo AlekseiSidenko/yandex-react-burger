@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingridientStyles from "./burger-ingridient.module.css"
+import ingridientType from "../utils/types";
 
 export default function BurgerIngridient({data, showIngridient}) {
     return (
@@ -11,7 +12,7 @@ export default function BurgerIngridient({data, showIngridient}) {
             <div className={ingridientStyles.counter}>
                 <Counter count={data.__v} size="default" extraClass="m-1" />
             </div>}
-            <img src={data.image} />
+            <img src={data.image} alt={data.name}/>
             <div className={ingridientStyles.price}>
                 <p className="text text_type_digits-default mt-1 mb-1 mr-2">{data.price}</p>
                 <CurrencyIcon type="primary" />
@@ -23,16 +24,7 @@ export default function BurgerIngridient({data, showIngridient}) {
     )
 }
 
-const dataPropTypes = PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired
-})
-
 BurgerIngridient.propTypes = {
-    data: dataPropTypes.isRequired,
+    data: ingridientType.isRequired,
     showIngridient: PropTypes.func.isRequired
 }

@@ -5,6 +5,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import OrderDetails from "../order-details/order-details";
 import Currency  from "../../images/Currency.svg";
+import Modal from "../modal/modal";
 
 export default function BurgerConstructor () {
 
@@ -89,10 +90,12 @@ export default function BurgerConstructor () {
             </ul>
             <div className={constructorStyles.order}>
                 <p className="text text_type_digits-medium">4081</p>
-                <img src={Currency} alt="" className={constructorStyles.currency} />
+                <img src={Currency} alt="Иконка текущей валюты" className={constructorStyles.currency} />
                 <Button onClick={handleOpenPopup} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
             </div>
-            {popup.visible && <OrderDetails handleClose={handleClosePopup}/>}
+            {popup.visible && <Modal handleClose={handleClosePopup}>
+                                <OrderDetails handleClose={handleClosePopup}/>
+                            </Modal>}
         </section>
     )
 }

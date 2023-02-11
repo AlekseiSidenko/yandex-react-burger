@@ -12,6 +12,10 @@
 
 .menu {
     height: 60vh;
-    overflow: scroll;
+    overflow-y: scroll;
     scrollbar-color: red;
+}
+
+.tab {
+    display: flex;
 }

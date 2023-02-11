@@ -39,3 +39,7 @@
     display: grid;
     justify-self: center;
 }
+
+.left {
+    display: flex;
+}

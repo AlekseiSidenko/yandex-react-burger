@@ -4,11 +4,11 @@ import ingridientStyles from "./ingridient-details.module.css"
 import Modal from "../modal/modal";
 import ModalOverlay from "../modal-overlay/modal-overlay"
 
-export default function IngridientDetails({data, handleClose}) {
+export default function IngridientDetails({ data }) {
     
     return (
-    <Modal handleClose={handleClose} modalName="Детали ингридиента">
-            <img className={ingridientStyles.image} src={data.image_large}/>
+        <>
+            <img className={ingridientStyles.image} src={data.image_large} alt={data.name}/>
             <p className="text text_type_main-medium mt-4 mb-8">{data.name}</p>
             <ul className={ingridientStyles.nutrition}>
                 <li className={ingridientStyles.nutrition_item}>
@@ -28,8 +28,7 @@ export default function IngridientDetails({data, handleClose}) {
                     <p className="text text_type_digits-default text_color_inactive">{data.carbohydrates}</p>
                 </li>
             </ul>
-            <ModalOverlay handleClose={handleClose}></ModalOverlay>
-    </Modal>
+        </>
     )
 }
 
@@ -44,6 +43,5 @@ const dataPropTypes = PropTypes.shape({
 })
 
 IngridientDetails.propTypes = {
-    data: dataPropTypes.isRequired,
-    handleClose: PropTypes.func.isRequired
+    data: dataPropTypes.isRequired
 }

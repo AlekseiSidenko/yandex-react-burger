@@ -1,16 +1,45 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux"
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingridientStyles from "./burger-ingridient.module.css"
 import ingridientType from "../utils/types";
+import { useDrag } from "react-dnd"
+import { showIngeidient } from "../../services/actions/ingridient-details";
 
-export default function BurgerIngridient({data, showIngridient}) {
+export default function BurgerIngridient({ data }) {
+
+    const { draggedElements } = useSelector(state => state.elements)
+    const dispatch = useDispatch()
+
+    const ingridientCounter = React.useMemo (() => {
+        let counter = 0
+        draggedElements.forEach(element => {
+            if (element._id === data._id) {
+                counter = counter + 1
+            }
+        })
+        return counter
+    }, [draggedElements])
+    
+    const [{isDrag}, dragRef] = useDrag({
+        type: "ingridient",
+        item: data,
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    })
+
+    const showPopup = (data) => {
+        dispatch(showIngeidient(data))
+    }
+
     return (
-        <div onClick={() => showIngridient(data)} className={ingridientStyles.item}>
-            {data.__v > 0 &&
+        !isDrag &&
+        <div ref={dragRef} onClick={() => showPopup(data)} className={ingridientStyles.item}>
+            {ingridientCounter > 0 &&
             <div className={ingridientStyles.counter}>
-                <Counter count={data.__v} size="default" extraClass="m-1" />
+                <Counter count={ingridientCounter} size="default" extraClass="m-1" />
             </div>}
             <img src={data.image} alt={data.name}/>
             <div className={ingridientStyles.price}>
@@ -24,7 +53,6 @@ export default function BurgerIngridient({data, showIngridient}) {
     )
 }
 
-BurgerIngridient.propTypes = {
-    data: ingridientType.isRequired,
-    showIngridient: PropTypes.func.isRequired
-}
+// BurgerIngridient.propTypes = {
+//     data: ingridientType.isRequired,
+// }

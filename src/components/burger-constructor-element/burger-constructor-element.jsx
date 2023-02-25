@@ -76,9 +76,9 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
     )
 }
 
-// BurgerConstructorElement.propTypes = {
-//     index: PropTypes.number,
-//     element: ingridientType.isRequired,
-//     topOrBottom: PropTypes.string,
-//     extraName: PropTypes.string
-// }
+BurgerConstructorElement.propTypes = {
+    index: PropTypes.number,
+    element: ingridientType.isRequired,
+    topOrBottom: PropTypes.string,
+    extraName: PropTypes.string
+}

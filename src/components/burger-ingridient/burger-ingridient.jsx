@@ -53,6 +53,6 @@ export default function BurgerIngridient({ data }) {
     )
 }
 
-// BurgerIngridient.propTypes = {
-//     data: ingridientType.isRequired,
-// }
+BurgerIngridient.propTypes = {
+    data: ingridientType.isRequired,
+}

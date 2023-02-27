@@ -7,8 +7,8 @@ const initialState = {
     order: []
 }
 
-export const orderDetailsReducer = (state=initialState, action) => {
-    switch(action.type) {
+export const orderDetailsReducer = (state = initialState, action) => {
+    switch (action.type) {
         case SEND_ORDER: {
             return {
                 ...state,

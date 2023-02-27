@@ -1,5 +1,4 @@
-import { ADD_INGRIDIENT, MOVE_INGRIDIENT, REMOVE_INGRIDIENT } from "../actions/burger-constructor";
-import uuid from 'react-uuid'
+import { ADD_INGRIDIENT, CLEAN_CONSTRUCTOR, MOVE_INGRIDIENT, REMOVE_INGRIDIENT } from "../actions/burger-constructor";
 
 const initialState = {
     draggedElements: [],
@@ -10,20 +9,21 @@ const initialState = {
 export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_INGRIDIENT: {
-            const element = {...action.payload.item, uid: uuid()}
+            const element = { ...action.payload.item, uid: action.payload.uid }
             if (element.type === 'bun') {
-        return {
-            ...state,
-            draggedElements: [...state.draggedElements.filter(bun => bun.type !== 'bun'), element],
-            bunsPrice: element.price * 2
-        }} else {
-            return {
-                ...state,
-                draggedElements: [...state.draggedElements, element],
-                elementsPrice: state.elementsPrice + element.price
+                return {
+                    ...state,
+                    draggedElements: [...state.draggedElements.filter(bun => bun.type !== 'bun'), element],
+                    bunsPrice: element.price * 2
+                }
+            } else {
+                return {
+                    ...state,
+                    draggedElements: [...state.draggedElements, element],
+                    elementsPrice: state.elementsPrice + element.price
+                }
             }
         }
-    }
         case REMOVE_INGRIDIENT: {
             return {
                 ...state,
@@ -41,6 +41,13 @@ export const constructorReducer = (state = initialState, action) => {
             return {
                 ...state,
                 draggedElements: [...newState]
+            }
+        }
+        case CLEAN_CONSTRUCTOR: {
+            return {
+                draggedElements: [],
+                bunsPrice: 0,
+                elementsPrice: 0
             }
         }
         default: {

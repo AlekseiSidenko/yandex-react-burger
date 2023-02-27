@@ -4,7 +4,7 @@ export const HIDE_INGRIDIENT_DETAILS = "HIDE_INGRIDIENT_DETAILS";
 export const showIngeidient = (data) => {
     return {
         type: SHOW_INGRIDIENT_DETAILS,
-        payload : {
+        payload: {
             data
         }
     }

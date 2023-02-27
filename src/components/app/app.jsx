@@ -17,12 +17,12 @@ function App() {
   return (
     <>
       <AppHeader />
-        <main className={appStyles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngridients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
+      <main className={appStyles.main}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngridients />
+          <BurgerConstructor />
+        </DndProvider>
+      </main>
     </>
   );
 }

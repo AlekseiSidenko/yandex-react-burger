@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import orderStyles from "./order-details.module.css";
-import orderDone  from "../../images/done.jpg";
+import orderDone from "../../images/done.jpg";
 
 export default function OrderDetails() {
     const { number } = useSelector(state => state.orderDetails.order)
-    return(
+    return (
         <>
             <p className="text text_type_digits-large mt-30">{number}</p>
             <p className="text text_type_main-medium mt-8">идентификатор заказа</p>

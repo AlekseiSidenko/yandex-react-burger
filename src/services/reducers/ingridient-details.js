@@ -5,8 +5,8 @@ const initialState = ({
     data: []
 })
 
-export const ingridientDetailsReduser = (state=initialState, action) => {
-    switch(action.type) {
+export const ingridientDetailsReduser = (state = initialState, action) => {
+    switch (action.type) {
         case SHOW_INGRIDIENT_DETAILS: {
             return {
                 visible: true,

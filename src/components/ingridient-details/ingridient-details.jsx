@@ -5,10 +5,10 @@ import ingridientStyles from "./ingridient-details.module.css"
 export default function IngridientDetails() {
 
     const { data } = useSelector(state => state.ingridientDetails)
-    
+
     return (
         <>
-            <img className={ingridientStyles.image} src={data.image_large} alt={data.name}/>
+            <img className={ingridientStyles.image} src={data.image_large} alt={data.name} />
             <p className="text text_type_main-medium mt-4 mb-8">{data.name}</p>
             <ul className={ingridientStyles.nutrition}>
                 <li className={ingridientStyles.nutrition_item}>

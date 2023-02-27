@@ -8,21 +8,21 @@ const initialState = {
 
 export const ingridientsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_BURGER_INGRIDIENTS : {
+        case GET_BURGER_INGRIDIENTS: {
             return {
                 ...state,
                 ingridientsRequest: true,
                 ingridientsFailed: false
             };
         }
-        case GET_BURGER_INGRIDIENTS_SUCCESS : {
+        case GET_BURGER_INGRIDIENTS_SUCCESS: {
             return {
                 ...state,
                 ingridients: action.ingridients,
                 ingridientsRequest: false
             };
         }
-        case GET_BURGER_INGRIDIENTS_FAILED : {
+        case GET_BURGER_INGRIDIENTS_FAILED: {
             return {
                 ...state,
                 ingridientsFailed: true,

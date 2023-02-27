@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import ingridientType from "../utils/types";
+import ingridientType from "../../utils/types";
 import { useDispatch } from 'react-redux'
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,7 +14,7 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
     const dispatch = useDispatch()
     const { _id } = element
 
-    const [{isDragging}, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag({
         type: "element",
         item: () => {
             return { _id, index }
@@ -31,12 +31,12 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
         hover: (item, monitor) => {
             if (!ref.current) {
                 return
-              }
+            }
             const dragIndex = item.index
             const hoverIndex = index
             if (dragIndex === hoverIndex) {
                 return
-              }
+            }
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
@@ -57,12 +57,12 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
     }
     drag(drop(ref))
 
-    return(
-            <li 
-            ref={element.type !== 'bun' ? ref : null} 
-            className={element.type === 'bun' ? elementStyles.bun : elementStyles.filling} 
-            style={{opacity}}> 
-            {element.type !== 'bun' && <DragIcon type="primary"/>}
+    return (
+        <li
+            ref={element.type !== 'bun' ? ref : null}
+            className={element.type === 'bun' ? elementStyles.bun : elementStyles.filling}
+            style={{ opacity }}>
+            {element.type !== 'bun' && <DragIcon type="primary" />}
             <ConstructorElement
                 handleClose={() => deleteElement(element.uid, element.price)}
                 type={topOrBottom}
@@ -72,7 +72,7 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
                 thumbnail={element.image}
                 className="ml-2"
             />
-            </li>
+        </li>
     )
 }
 

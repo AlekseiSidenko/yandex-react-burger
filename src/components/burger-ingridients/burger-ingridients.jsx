@@ -7,6 +7,7 @@ import IngridientDetails from "../ingridient-details/ingridient-details";
 import Modal from "../modal/modal";
 import { getIngridients } from "../../services/actions/burger-ingridients";
 import { useInView } from 'react-intersection-observer'
+import { hideIngridient } from "../../services/actions/ingridient-details";
 
 export default function BurgerIngridients() {
 
@@ -14,15 +15,19 @@ export default function BurgerIngridients() {
     const { visible } = useSelector(state => state.ingridientDetails)
     const dispatch = useDispatch()
 
-    React.useEffect(()=> {
+    React.useEffect(() => {
         dispatch(getIngridients())
     }, [])
 
+    function handleClosePopup() {
+        dispatch(hideIngridient())
+    }
+
     const [current, setCurrent] = React.useState('one')
 
-    const { ref: bunsRef, inView: inViewBuns} = useInView();
-    const { ref: sauceRef, inView: inViewSauce} = useInView();
-    const { ref: mainRef, inView: inViewMain} = useInView();
+    const { ref: bunsRef, inView: inViewBuns } = useInView();
+    const { ref: sauceRef, inView: inViewSauce } = useInView();
+    const { ref: mainRef, inView: inViewMain } = useInView();
 
     function tabSwitch(viewBuns, viewSauce, viewMain) {
         if (viewBuns) {
@@ -51,13 +56,13 @@ export default function BurgerIngridients() {
                 Соберите бургер
             </p>
             <div className={ingridientStyles.tab}>
-                <Tab value="one" active={current === 'one'} onClick={() => {handleClickScroll('one')}}>
+                <Tab value="one" active={current === 'one'} onClick={() => { handleClickScroll('one') }}>
                     Булки
                 </Tab>
-                <Tab href="#two" value="two" active={current === 'two'} onClick={() => {handleClickScroll('two')}}>
+                <Tab href="#two" value="two" active={current === 'two'} onClick={() => { handleClickScroll('two') }}>
                     Соусы
                 </Tab>
-                <Tab href="#three" value="three" active={current === 'three'} onClick={() => {handleClickScroll('three')}}>
+                <Tab href="#three" value="three" active={current === 'three'} onClick={() => { handleClickScroll('three') }}>
                     Начинки
                 </Tab>
             </div>
@@ -66,30 +71,30 @@ export default function BurgerIngridients() {
                 <div ref={bunsRef} className={ingridientStyles.grid}>
                     {ingridientsRequest && 'Загрузка...'}
                     {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) => 
+                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
                         item.type === "bun" &&
-                        <BurgerIngridient key={item._id} data={item}/>)}
+                        <BurgerIngridient key={item._id} data={item} />)}
                 </div>
                 <p id='two' className="text text_type_main-medium mt-10 mb-6">Соусы</p>
                 <div ref={sauceRef} className={ingridientStyles.grid}>
                     {ingridientsRequest && 'Загрузка...'}
                     {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) => 
-                        item.type === "sauce" && 
-                        <BurgerIngridient key={item._id} data={item}/>)}
+                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
+                        item.type === "sauce" &&
+                        <BurgerIngridient key={item._id} data={item} />)}
                 </div>
                 <p id='three' className="text text_type_main-medium mt-10 mb-6">Начинки</p>
                 <div ref={mainRef} className={ingridientStyles.grid}>
                     {ingridientsRequest && 'Загрузка...'}
                     {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) => 
-                        item.type === "main" && 
-                        <BurgerIngridient key={item._id} data={item}/>)}
+                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
+                        item.type === "main" &&
+                        <BurgerIngridient key={item._id} data={item} />)}
                 </div>
             </div>
-            {visible &&  <Modal>
-                            <IngridientDetails />
-                        </Modal>}
+            {visible && <Modal handleClose={handleClosePopup} headName={'Детали ингридиента'}>
+                <IngridientDetails />
+            </Modal>}
         </section>
     )
 }

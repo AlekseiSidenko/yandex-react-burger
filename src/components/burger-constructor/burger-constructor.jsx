@@ -1,101 +1,67 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import constructorStyles from "./burger-constructor.module.css"
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components"
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components"
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import OrderDetails from "../order-details/order-details";
-import Currency  from "../../images/Currency.svg";
+import Currency from "../../images/Currency.svg";
 import Modal from "../modal/modal";
+import { useDrop } from "react-dnd";
+import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
+import { addIngridient } from "../../services/actions/burger-constructor";
+import { hideOrder, sendOrder } from "../../services/actions/order-details";
 
-export default function BurgerConstructor () {
+export default function BurgerConstructor() {
 
-    const [popup, setPopup] = React.useState({visible: false})
+    const { draggedElements, bunsPrice, elementsPrice } = useSelector((state) => state.elements)
+    const { popupVisible, orderRequest } = useSelector(state => state.orderDetails)
 
-    const handleOpenPopup = () => {
-        setPopup({visible: true})
+    const dispatch = useDispatch()
+
+    function handleClosePopup() {
+        dispatch(hideOrder())
     }
 
-    const handleClosePopup = () => {
-        setPopup({visible: false})
+    const [, dropTarget] = useDrop({
+        accept: 'ingridient',
+        drop(item) {
+            dispatch(addIngridient(item));
+        }
+    })
+
+    const orderIt = (draggedElements) => {
+        dispatch(sendOrder(draggedElements))
     }
+
 
     return (
-        <section className={constructorStyles.constructor}>
+        <section ref={dropTarget} className={constructorStyles.constructor}>
+
+
             <ul className={constructorStyles.list}>
-                <li className={constructorStyles.bun}>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text="Краторная булка N-200i (верх)"
-                        price={1255}
-                        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-                    />
-                </li>
+                {draggedElements.map((item) =>
+                    item.type === 'bun' &&
+                    <BurgerConstructorElement key={item.uid + 'top'} element={item} topOrBottom={"top"} extraName={' (верх)'} />)}
                 <ul className={constructorStyles.filling}>
-                    <li className={constructorStyles.filling_item}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text="Соус традиционный галактический"
-                            price={15}
-                            thumbnail={"https://code.s3.yandex.net/react/code/sauce-03.png"}
-                            className="ml-2"
-                        />
-                    </li>
-                    <li className={constructorStyles.filling_item}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text="Мясо бессмертных моллюсков Protostomia"
-                            price={1337}
-                            thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-                            className="ml-2"
-                        />
-                    </li>
-                    <li className={constructorStyles.filling_item}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text="Плоды Фалленианского дерева"
-                            price={874}
-                            thumbnail={"https://code.s3.yandex.net/react/code/sp_1.png"}
-                            className="ml-2"
-                        />
-                    </li>
-                    <li className={constructorStyles.filling_item}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text="Хрустящие минеральные кольца"
-                            price={300}
-                            thumbnail={"https://code.s3.yandex.net/react/code/mineral_rings.png"}
-                            className="ml-2"
-                        />
-                    </li>
-                    <li className={constructorStyles.filling_item}>
-                        <DragIcon type="primary" />
-                        <ConstructorElement
-                            text="Хрустящие минеральные кольца"
-                            price={300}
-                            thumbnail={"https://code.s3.yandex.net/react/code/mineral_rings.png"}
-                            className="ml-2"
-                        />
-                    </li>
+                    {draggedElements.map((item, index) =>
+                        item.type !== 'bun' &&
+                        <BurgerConstructorElement key={item.uid} index={index} element={item} />)}
                 </ul>
-               <li className={constructorStyles.bun}> 
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text="Краторная булка N-200i (низ)"
-                        price={1255}
-                        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-                    />
-                </li>
+                {draggedElements.map((item) =>
+                    item.type === 'bun' &&
+                    <BurgerConstructorElement key={item.uid + 'bottom'} element={item} topOrBottom={"bottom"} extraName={' (низ)'} />)}
             </ul>
             <div className={constructorStyles.order}>
-                <p className="text text_type_digits-medium">4081</p>
+                <p className="text text_type_digits-medium">{bunsPrice + elementsPrice}</p>
                 <img src={Currency} alt="Иконка текущей валюты" className={constructorStyles.currency} />
-                <Button onClick={handleOpenPopup} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
+                <Button onClick={() => orderIt(draggedElements)} disabled={draggedElements.length ? false : true} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
             </div>
-            {popup.visible && <Modal handleClose={handleClosePopup}>
-                                <OrderDetails handleClose={handleClosePopup}/>
-                            </Modal>}
+            {orderRequest &&
+            <Modal headName={'Загрузка...'} handleClose={handleClosePopup}></Modal>
+            }
+            {popupVisible && 
+             <Modal handleClose={handleClosePopup}>
+                <OrderDetails />
+            </Modal>}
         </section>
     )
 }

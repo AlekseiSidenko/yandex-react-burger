@@ -7,40 +7,37 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const reactModal = document.getElementById('react-modals')
 
-export default function Modal({children, modalName, handleClose}) {
+export default function Modal({ children, handleClose, headName }) {
 
     React.useEffect(() => {
-
         const handleEsc = (evt) => {
-          evt.key === "Escape" && handleClose()
+            evt.key === "Escape" && handleClose()
         }
-    
         document.addEventListener("keydown", handleEsc)
-    
-        return() => {
-          document.removeEventListener("keydown", handleEsc)
+        return () => {
+            document.removeEventListener("keydown", handleEsc)
         }
-      },[handleClose])
-    
-    return ReactDOM.createPortal (
+    }, [handleClose])
+
+    return ReactDOM.createPortal(
         <div className={modalStyles.modal}>
             <div className={modalStyles.component}>
-                {modalName !== ' ' &&
-                <div className={modalStyles.head}>
-                    <p className="text text_type_main-large mt-10 ml-10">{modalName}</p>
-                </div>}
-                    <button onClick={() => handleClose()} className={modalStyles.close}>
-                        <CloseIcon type="primary" />
-                    </button>
+                {headName &&
+                    <div className={modalStyles.head}>
+                        <p className="text text_type_main-large mt-10 ml-10">{headName}</p>
+                    </div>}
+                <button onClick={handleClose} className={modalStyles.close}>
+                    <CloseIcon type="primary" />
+                </button>
                 {children}
             </div>
-            <ModalOverlay handleClose={handleClose}/>
+            <ModalOverlay handleClose={handleClose} />
         </div>, reactModal
     )
 }
 
 Modal.propTypes = {
     children: PropTypes.element,
-    modalName: PropTypes.string,
-    handleClose: PropTypes.func.isRequired
+    handleClose: PropTypes.func.isRequired,
+    headName: PropTypes.string
 }

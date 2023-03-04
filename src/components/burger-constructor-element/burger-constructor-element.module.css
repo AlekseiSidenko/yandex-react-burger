@@ -1,0 +1,20 @@
+.bun {
+    margin: 0 16px 0 48px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.filling {
+    display: flex;
+    list-style-type: none;
+    margin: 0 16px 0 16px;
+    flex-direction: row;
+    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.padding_top {
+    padding-top: 100px;
+}

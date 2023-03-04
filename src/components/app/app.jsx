@@ -2,41 +2,26 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngridients from '../burger-ingridients/burger-ingridients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import appStyles from "./app.module.css"
+import appStyles from "./app.module.css";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { compose, createStore } from 'redux';
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
 
 function App() {
-
-  const [state, setState] = React.useState({
-    isLoading: false,
-    hasError: false,
-    data: []
-  });
-
-  const getIngridients = () => {
-    setState({...state, isLoading: true, hasError: false});
-    fetch(`https://norma.nomoreparties.space/api/ingredients`)
-    .then(res => {
-      if (res.ok) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка ${res.status}`);
-  })
-    .then(res => setState({...state, data: res.data, isLoading: false}))
-    .catch(e => setState({...state, isLoading: false, hasError: true}));
-  }
-
-  React.useEffect(() => {
-    getIngridients()
-  }, [])
-
-  const { data, isLoading, hasError } = state
 
   return (
     <>
       <AppHeader />
       <main className={appStyles.main}>
-        <BurgerIngridients data={data} isLoading={isLoading} hasError={hasError}/>
-        <BurgerConstructor />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngridients />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
     </>
   );

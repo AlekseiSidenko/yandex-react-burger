@@ -9,28 +9,42 @@ import { useDrop } from "react-dnd";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import { addIngridient } from "../../services/actions/burger-constructor";
 import { hideOrder, sendOrder } from "../../services/actions/order-details";
+import { getNewToken } from "../../services/actions/token";
+import { getCookie } from "../../utils/cookie";
+import { useNavigate } from "react-router-dom"
 
 export default function BurgerConstructor() {
 
     const { draggedElements, bunsPrice, elementsPrice } = useSelector((state) => state.elements)
     const { popupVisible, orderRequest } = useSelector(state => state.orderDetails)
-
+    const { newToken } = useSelector(state => state.newToken)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     function handleClosePopup() {
         dispatch(hideOrder())
     }
-
     const [, dropTarget] = useDrop({
         accept: 'ingridient',
         drop(item) {
             dispatch(addIngridient(item));
         }
     })
-
     const orderIt = (draggedElements) => {
-        dispatch(sendOrder(draggedElements))
+        if (getCookie('refToken') === undefined && getCookie('token') === undefined) {
+            return navigate('/login')
+        } if (getCookie('token') === undefined) {
+            return dispatch(getNewToken())
+        } else {
+            return dispatch(sendOrder(draggedElements))
+        }
     }
+
+    React.useEffect(() => {
+        if (newToken.success) {
+            dispatch(sendOrder(draggedElements))
+        }
+    }, [newToken])
 
 
     return (
@@ -56,7 +70,7 @@ export default function BurgerConstructor() {
                 <Button onClick={() => orderIt(draggedElements)} disabled={draggedElements.length ? false : true} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
             </div>
             {orderRequest &&
-            <Modal headName={'Загрузка...'} handleClose={handleClosePopup}></Modal>
+            <Modal headName={'Отправляю заказ...'} handleClose={handleClosePopup}></Modal>
             }
             {popupVisible && 
              <Modal handleClose={handleClosePopup}>

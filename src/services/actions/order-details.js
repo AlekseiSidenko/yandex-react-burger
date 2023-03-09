@@ -1,6 +1,7 @@
 import { config } from "../../utils/api";
 import checkResponse from "../../utils/api";
 import { CLEAN_CONSTRUCTOR } from "./burger-constructor";
+import { getCookie } from "../../utils/cookie";
 
 export const SEND_ORDER = "SEND_ORDER";
 export const SEND_ORDER_SUCCESS = "SEND_ORDER_SUCCESS";
@@ -14,7 +15,10 @@ export const sendOrder = (ingridients) => {
     })
     fetch(`${config.baseUrl}/orders`, {
       method: "POST",
-      headers: config.headers,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + `${getCookie('token')}`
+      },
       body: JSON.stringify({
         ingredients: ingridients.map(ingridient => ingridient._id)
       })

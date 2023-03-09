@@ -6,11 +6,13 @@ import ingridientStyles from "./burger-ingridient.module.css"
 import ingridientType from "../../utils/types";
 import { useDrag } from "react-dnd"
 import { showIngeidient } from "../../services/actions/ingridient-details";
+import { useParams } from 'react-router-dom'
 
 export default function BurgerIngridient({ data }) {
 
     const { draggedElements } = useSelector(state => state.elements)
     const dispatch = useDispatch()
+    const { _id } = useParams()
 
     const ingridientCounter = React.useMemo(() => {
         let counter = 0
@@ -30,13 +32,9 @@ export default function BurgerIngridient({ data }) {
         })
     })
 
-    const showPopup = (data) => {
-        dispatch(showIngeidient(data))
-    }
-
     return (
         !isDrag &&
-        <div ref={dragRef} onClick={() => showPopup(data)} className={ingridientStyles.item}>
+        <div ref={dragRef} onClick={() => dispatch(showIngeidient(data))} className={ingridientStyles.item}>
             {ingridientCounter > 0 &&
                 <div className={ingridientStyles.counter}>
                     <Counter count={ingridientCounter} size="default" extraClass="m-1" />

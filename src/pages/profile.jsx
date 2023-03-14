@@ -3,6 +3,7 @@ import styles from "./styles.module.css";
 import { Link, useLocation } from 'react-router-dom'
 import { logOut } from "../services/actions/logout";
 import { useDispatch } from "react-redux";
+import { getCookie } from "../utils/cookie";
 
 export function ProfilePage({ children }) {
     
@@ -20,7 +21,7 @@ export function ProfilePage({ children }) {
                 <Link to='/profile/orders' className={orderHistoryPage ? styles.profile_link_active : styles.profile_link_inactive}>
                     <p className="text text_type_main-medium">История заказов</p>
                 </Link>
-                <Link onClick={() => dispatch(logOut())} className={styles.profile_link_inactive}>
+                <Link onClick={() => dispatch(logOut(getCookie('refToken')))} className={styles.profile_link_inactive}>
                     <p className="text text_type_main-medium">Выход</p>
                 </Link>
                 <p className="text text_type_main-default mt-20 text_color_inactive">

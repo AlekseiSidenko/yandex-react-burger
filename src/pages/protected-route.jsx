@@ -10,7 +10,7 @@ export function ProtectedRoute({anonimous, element}) {
     const { from } = location.state || {from: {pathname: '/'}}
 
     if (!authChecked) {
-        return <h1>Загрузка...</h1>
+        return <p className="text text_type_main-large mt-10 mb-10">Загрузка...</p>
     }
 
     if (anonimous && isLoggedIn) {

@@ -3,26 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import BurgerIngridient from "../burger-ingridient/burger-ingridient";
 import ingridientStyles from "./burger-ingridients.module.css"
-import IngridientDetails from "../ingridient-details/ingridient-details";
-import Modal from "../modal/modal";
-import { getIngridients } from "../../services/actions/burger-ingridients";
+// import IngridientDetails from "../ingridient-details/ingridient-details";
+// import Modal from "../modal/modal";
+// import { getIngridients } from "../../services/actions/burger-ingridients";
 import { useInView } from 'react-intersection-observer'
-import { hideIngridient } from "../../services/actions/ingridient-details";
-import { Link } from 'react-router-dom'
+// import { hideIngridient } from "../../services/actions/ingridient-details";
 
 export default function BurgerIngridients() {
 
     const { ingridients, ingridientsRequest, ingridientsFailed } = useSelector(state => state.ingridients)
-    const { visible } = useSelector(state => state.ingridientDetails)
-    const dispatch = useDispatch()
-
-    React.useEffect(() => {
-        dispatch(getIngridients())
-    }, [])
-
-    function handleClosePopup() {
-        dispatch(hideIngridient())
-    }
 
     const [current, setCurrent] = React.useState('one')
 
@@ -74,10 +63,8 @@ export default function BurgerIngridients() {
                     {ingridientsFailed && 'Произошла ошибка'}
                     {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
                         item.type === "bun" &&
-                        <BurgerIngridient key={item._id} data={item} />
-                        // <Link state={{ pathname: `/ingredients/${item._id}` }} className={ingridientStyles.link}>
-                        // </Link>
-                        )}
+                            <BurgerIngridient key={item._id} data={item} />
+                    )}
                 </div>
                 <p id='two' className="text text_type_main-medium mt-10 mb-6">Соусы</p>
                 <div ref={sauceRef} className={ingridientStyles.grid}>
@@ -96,9 +83,6 @@ export default function BurgerIngridients() {
                         <BurgerIngridient key={item._id} data={item} />)}
                 </div>
             </div>
-            {visible && <Modal handleClose={handleClosePopup} headName={'Детали ингридиента'}>
-                <IngridientDetails />
-            </Modal>}
         </section>
     )
 }

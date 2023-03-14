@@ -1,7 +1,5 @@
-
 import { config } from "../../utils/api";
 import checkResponse from "../../utils/api";
-import { getCookie, deleteCookie } from "../../utils/cookie";
 import { CLEAN_USER_INFO } from "./profile";
 
 export const LOG_OUT = "LOG_OUT";
@@ -9,7 +7,7 @@ export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILED = "LOG_OUT_FAILED";
 export const CLEAN_LOG_OUT_INFO = "CLEAN_LOG_OUT_INFO";
 
-export const logOut = () => {
+export const logOut = (token) => {
     return function (dispatch) {
         dispatch({
             type: LOG_OUT
@@ -18,7 +16,7 @@ export const logOut = () => {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
-                "token": `${getCookie('refToken')}`,
+                "token": `${token}`,
             })
         })
             .then(res => checkResponse(res))

@@ -41,7 +41,7 @@ export const userInfoReduser = (state = initialState, action) => {
             }
         }
         case GET_NEW_TOKEN_SUCCESS: {
-            setCookie('token', action.res.accessToken, 200000);
+            setCookie('token', action.res.accessToken);
             setCookie('refToken', action.res.refreshToken)
         }
         case GET_USER_INFO_FAILED: {

@@ -19,8 +19,3 @@
 .tab {
     display: flex;
 }
-
-.link {
-    text-decoration: none;
-    color: rgba(242, 242, 243, 1);
-}

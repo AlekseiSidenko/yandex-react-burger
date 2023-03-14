@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
 export function LoginPage() {
 
-    const [email, setEmail] = React.useState('sidoi90@bk.ru')
-    const [pass, setPass] = React.useState('asdf1234')
+    const [email, setEmail] = React.useState('')
+    const [pass, setPass] = React.useState('')
     const dispatch = useDispatch()
 
     return (

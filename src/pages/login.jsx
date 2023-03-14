@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { userLogin } from "../services/actions/login";
-import { Navigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export function LoginPage() {
@@ -11,16 +11,6 @@ export function LoginPage() {
     const [email, setEmail] = React.useState('sidoi90@bk.ru')
     const [pass, setPass] = React.useState('asdf1234')
     const dispatch = useDispatch()
-    function logIn() {
-        dispatch(userLogin(email, pass))
-    }
-    const { userLoginRequest } = useSelector(state => state.userLogin)
-
-        if (userLoginRequest) {
-            return (
-          <Navigate to="/" replace/>
-        );
-        }
 
     return (
         <div className={styles.head}>
@@ -42,7 +32,7 @@ export function LoginPage() {
                 name={'password'}
                 extraClass="mb-6"
             />
-            <Button onClick={logIn} htmlType="button" type="primary" size="large" extraClass="mb-20">
+            <Button onClick={() => dispatch(userLogin(email, pass))} htmlType="button" type="primary" size="large" extraClass="mb-20">
                 Войти
             </Button>
             <div className={styles.signature}>

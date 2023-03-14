@@ -1,9 +1,9 @@
+import { setCookie } from "../../utils/cookie"
 import { USER_LOGIN, USER_LOGIN_FAILED, USER_LOGIN_SUCCESS } from "../actions/login"
 
 const initialState = {
     userLoginRequest: false,
     userLoginFailed: false,
-    res: {}
 }
 
 export const userLoginReduser = (state=initialState, action) => {
@@ -16,10 +16,11 @@ export const userLoginReduser = (state=initialState, action) => {
             }
         }
         case USER_LOGIN_SUCCESS: {
+            setCookie('token', action.res.accessToken);
+            setCookie('refToken', action.res.refreshToken)
             return {
                 ...state,
                 userLoginRequest: false,
-                res: action.res
             }
         }
         case USER_LOGIN_FAILED: {

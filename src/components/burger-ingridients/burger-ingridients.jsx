@@ -8,6 +8,7 @@ import Modal from "../modal/modal";
 import { getIngridients } from "../../services/actions/burger-ingridients";
 import { useInView } from 'react-intersection-observer'
 import { hideIngridient } from "../../services/actions/ingridient-details";
+import { Link } from 'react-router-dom'
 
 export default function BurgerIngridients() {
 
@@ -73,7 +74,10 @@ export default function BurgerIngridients() {
                     {ingridientsFailed && 'Произошла ошибка'}
                     {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
                         item.type === "bun" &&
-                        <BurgerIngridient key={item._id} data={item} />)}
+                        <BurgerIngridient key={item._id} data={item} />
+                        // <Link state={{ pathname: `/ingredients/${item._id}` }} className={ingridientStyles.link}>
+                        // </Link>
+                        )}
                 </div>
                 <p id='two' className="text text_type_main-medium mt-10 mb-6">Соусы</p>
                 <div ref={sauceRef} className={ingridientStyles.grid}>

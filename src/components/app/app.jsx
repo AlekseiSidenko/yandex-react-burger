@@ -2,13 +2,23 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {
   HomePage, LoginPage, RegisterPage, ForgotPasswordPage,
-  PasswordResetPage, ProfilePage
+  PasswordResetPage, ProfilePage, IngridientPage
 } from '../../pages';
-import IngridientDetails from '../ingridient-details/ingridient-details';
+import { ProtectedRoute } from '../../pages/protected-route';
 import AppHeader from '../app-header/app-header';
+import { useDispatch } from 'react-redux';
+import { getUserInfo } from '../../services/actions/profile';
+import { getCookie } from '../../utils/cookie';
+import ProfileEdit from '../profile-edit/profile-edit';
 
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    dispatch(getUserInfo(getCookie('token'), getCookie('refToken')))
+  },[])
 
   return (
     <>
@@ -16,12 +26,13 @@ function App() {
         <AppHeader />
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/:_id' element={<IngridientDetails />}/>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path='/forgot-password' element={<ForgotPasswordPage />} />
-          <Route path='/reset-password' element={<PasswordResetPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/ingredients/:_id' element={<IngridientPage />}/>
+          <Route path='/login' element={<ProtectedRoute anonimous={true} element={<LoginPage />}/>} />
+          <Route path='/register' element={<ProtectedRoute anonimous={true} element={<RegisterPage />}/>} />
+          <Route path='/forgot-password' element={<ProtectedRoute anonimous={true} element={<ForgotPasswordPage />}/>} />
+          <Route path='/reset-password' element={<ProtectedRoute anonimous={true} element={<PasswordResetPage />}/>} />
+          <Route path='/profile' element={<ProtectedRoute anonimous={false} element={<ProfilePage><ProfileEdit/></ProfilePage>} />} />
+          <Route path='/profile/orders' element={<ProtectedRoute anonimous={false} element={<ProfilePage />} />}/>
         </Routes>
       </BrowserRouter>
     </>

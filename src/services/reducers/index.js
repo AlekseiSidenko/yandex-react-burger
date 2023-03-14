@@ -8,7 +8,6 @@ import { userRegisterReduser } from "./register";
 import { passwordResetReduser } from "./password-reset";
 import { getTokenReduser } from "./forgot-password";
 import { userInfoReduser } from "./profile";
-import { newTokenReduser } from "./token";
 import { logOutReduser } from "./logout";
 
 
@@ -22,6 +21,5 @@ export default combineReducers({
     getToken: getTokenReduser,
     passwordReset: passwordResetReduser,
     userInfo: userInfoReduser,
-    newToken: newTokenReduser,
     logOutSucces: logOutReduser
 })

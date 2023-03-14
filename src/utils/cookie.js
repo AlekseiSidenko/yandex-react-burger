@@ -4,7 +4,7 @@ export function setCookie(name, value, age) {
     } if (name === 'token') {
         let authToken;
         authToken = value.split('Bearer ')[1];
-        document.cookie = `${name}=${authToken}; path=/; max-age=${age}`
+        document.cookie = `${name}=${authToken}; path=/`
     } if (name === 'refToken') {
         document.cookie = `${name}=${value}; path=/`
     }
@@ -20,3 +20,12 @@ export function getCookie(name) {
 export function deleteCookie(name) {
     setCookie(name, null, -1);
 }
+
+
+// export default function checkResponse(res) {
+//     if (res.ok) {
+//         return res.json()
+//     }
+
+//     return res.json().then((res) => Promise.reject(res));
+// } 

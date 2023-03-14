@@ -2,9 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux"
 import ingridientStyles from "./ingridient-details.module.css"
 
+
 export default function IngridientDetails() {
 
     const { data } = useSelector(state => state.ingridientDetails)
+    localStorage.setItem('Ingridient', JSON.stringify(data));
+    
 
     return (
         <>

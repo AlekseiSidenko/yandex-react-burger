@@ -32,24 +32,16 @@
     margin: 0 60px 0 0;
 }
 
-.profile_link {
+.profile_link_active {
     text-decoration: none;
     margin: 17px 0 17px 0;
-}
-
-.profile_link_active {
     color: rgba(242, 242, 243, 1);
 }
 
 .profile_link_inactive {
+    text-decoration: none;
+    margin: 17px 0 17px 0;
     color: rgba(133, 133, 173, 1)
-}
-
-.profile_inputs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .signature {
@@ -60,4 +52,12 @@
     color: rgba(76, 76, 255, 1);
     margin: 0 0 0 8px;
     text-decoration: none;
+}
+
+.ingridient {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 120px auto 0 auto;
 }

@@ -6,13 +6,13 @@ import ingridientStyles from "./burger-ingridient.module.css"
 import ingridientType from "../../utils/types";
 import { useDrag } from "react-dnd"
 import { showIngeidient } from "../../services/actions/ingridient-details";
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 export default function BurgerIngridient({ data }) {
 
     const { draggedElements } = useSelector(state => state.elements)
     const dispatch = useDispatch()
-    const { _id } = useParams()
+    // let { state } = useLocation();
 
     const ingridientCounter = React.useMemo(() => {
         let counter = 0

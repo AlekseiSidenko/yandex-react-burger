@@ -1,14 +1,13 @@
 import { config } from "../../utils/api";
 import checkResponse from "../../utils/api";
 import { CLEAN_CONSTRUCTOR } from "./burger-constructor";
-import { getCookie } from "../../utils/cookie";
 
 export const SEND_ORDER = "SEND_ORDER";
 export const SEND_ORDER_SUCCESS = "SEND_ORDER_SUCCESS";
 export const SEND_ORDER_FAILED = "SEND_ORDER_FAILED";
 export const HIDE_ORDER = "HIDE_ORDER"
 
-export const sendOrder = (ingridients) => {
+export const sendOrder = (ingridients, token) => {
   return function (dispatch) {
     dispatch({
       type: SEND_ORDER
@@ -17,7 +16,7 @@ export const sendOrder = (ingridients) => {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + `${getCookie('token')}`
+        Authorization: 'Bearer ' + `${token}`
       },
       body: JSON.stringify({
         ingredients: ingridients.map(ingridient => ingridient._id)

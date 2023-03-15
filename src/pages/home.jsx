@@ -1,5 +1,5 @@
 import React from "react";
-import BurgerIngridients from "../components/burger-ingridients/burger-ingridients";
+import BurgerIngredients from "../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
 import styles from "./styles.module.css";
 import { DndProvider } from "react-dnd";
@@ -9,7 +9,7 @@ export function HomePage() {
     return (
         <main className={styles.main}>
             <DndProvider backend={HTML5Backend}>
-                <BurgerIngridients />
+                <BurgerIngredients />
                 <BurgerConstructor />
             </DndProvider>
         </main>

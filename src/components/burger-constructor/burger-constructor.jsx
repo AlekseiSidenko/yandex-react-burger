@@ -7,7 +7,7 @@ import Currency from "../../images/Currency.svg";
 import Modal from "../modal/modal";
 import { useDrop } from "react-dnd";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
-import { addIngridient } from "../../services/actions/burger-constructor";
+import { addIngredient } from "../../services/actions/burger-constructor";
 import { hideOrder, sendOrder } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom"
 import { getCookie } from "../../utils/cookie";
@@ -25,9 +25,9 @@ export default function BurgerConstructor() {
         dispatch(hideOrder())
     }
     const [, dropTarget] = useDrop({
-        accept: 'ingridient',
+        accept: 'ingredient',
         drop(item) {
-            dispatch(addIngridient(item));
+            dispatch(addIngredient(item));
         }
     })
     const orderIt = (draggedElements) => {

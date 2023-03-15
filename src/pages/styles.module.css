@@ -54,7 +54,7 @@
     text-decoration: none;
 }
 
-.ingridient {
+.ingredient {
     display: flex;
     flex-direction: column;
     justify-content: center;

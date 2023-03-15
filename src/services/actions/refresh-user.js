@@ -1,4 +1,4 @@
-import { config } from "../../utils/api";
+import { config, fetchWithRefresh } from "../../utils/api";
 import checkResponse from "../../utils/api";
 
 export const REFRESH_USER_INFO = "REFRESH_USER_INFO";
@@ -7,7 +7,7 @@ export const REFRESH_USER_INFO_FAILED = "REFRESH_USER_INFO_FAILED";
 
 export const refreshUserInfo = (userName, email, pass, token) => {
     return function (dispatch) {
-        fetch(`${config.baseUrl}/auth/user`, {
+        fetchWithRefresh(`${config.baseUrl}/auth/user`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json',
@@ -19,21 +19,16 @@ export const refreshUserInfo = (userName, email, pass, token) => {
                 "name": `${userName}`
             })
         })
-            .then(res => checkResponse(res))
             .then(res => {
                 if (res) {
                     dispatch({
                         type: REFRESH_USER_INFO_SUCCESS,
                         res: res
                     })
-                } else {
-                    dispatch({
-                        type: REFRESH_USER_INFO_FAILED
-                    })
                 }
             })
             .catch(err => {
-                alert(err)
+                console.log(err)
                 dispatch({
                     type: REFRESH_USER_INFO_FAILED
                 })

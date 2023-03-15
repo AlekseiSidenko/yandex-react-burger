@@ -3,6 +3,7 @@ import { GET_TOKEN, GET_TOKEN_CLEAN_STATE, GET_TOKEN_FAILED, GET_TOKEN_SUCCESS }
 const initialState = {
     sentPassRequest: false,
     sentPassFailed: false,
+    isMailSent: false,
     res: {}
 }
 
@@ -19,7 +20,8 @@ export const getTokenReduser = (state = initialState, action) => {
             return {
                 ...state,
                 sentPassRequest: false,
-                res: action.res
+                res: action.res,
+                isMailSent: true
             }
         }
         case GET_TOKEN_FAILED: {
@@ -31,6 +33,7 @@ export const getTokenReduser = (state = initialState, action) => {
         }
         case GET_TOKEN_CLEAN_STATE: {
             return {
+                isMailSent: true,
                 sentPassRequest: false,
                 sentPassFailed: false,
                 res: {}

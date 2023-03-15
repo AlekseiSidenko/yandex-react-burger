@@ -1,5 +1,4 @@
-import { config } from "../../utils/api";
-import checkResponse from "../../utils/api";
+import { config, request } from "../../utils/api";
 import { CLEAN_USER_INFO } from "./profile";
 
 export const LOG_OUT = "LOG_OUT";
@@ -12,23 +11,17 @@ export const logOut = (token) => {
         dispatch({
             type: LOG_OUT
         })
-        fetch(`${config.baseUrl}/auth/logout`, {
+        request(`${config.baseUrl}/auth/logout`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
                 "token": `${token}`,
             })
         })
-            .then(res => checkResponse(res))
             .then(res => {
                 if (res) {
                     dispatch({
                         type: LOG_OUT_SUCCESS,
-                    })
-                } else {
-                    dispatch({
-                        type: LOG_OUT_FAILED,
-                        
                     })
                 }
             })

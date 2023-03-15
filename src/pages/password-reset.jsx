@@ -11,8 +11,15 @@ export function PasswordResetPage() {
     const [code, setCode] = React.useState('')
     const [newPass, setNewPass] = React.useState('')
     const dispatch = useDispatch()
+    const { isMailSent } = useSelector(state => state.getToken)
     const { res } = useSelector(state => state.passwordReset)
     const navigate = useNavigate()
+
+    React.useEffect(() => {
+        if (!isMailSent) {
+            navigate('/forgot-password')
+        }
+    })
 
     React.useEffect(() => {
         if (res.success) {

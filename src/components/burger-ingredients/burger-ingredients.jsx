@@ -1,17 +1,13 @@
 import React from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import BurgerIngridient from "../burger-ingridient/burger-ingridient";
-import ingridientStyles from "./burger-ingridients.module.css"
-// import IngridientDetails from "../ingridient-details/ingridient-details";
-// import Modal from "../modal/modal";
-// import { getIngridients } from "../../services/actions/burger-ingridients";
+import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import ingredientStyles from "./burger-ingredients.module.css"
 import { useInView } from 'react-intersection-observer'
-// import { hideIngridient } from "../../services/actions/ingridient-details";
 
-export default function BurgerIngridients() {
+export default function BurgerIngredients() {
 
-    const { ingridients, ingridientsRequest, ingridientsFailed } = useSelector(state => state.ingridients)
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients)
 
     const [current, setCurrent] = React.useState('one')
 
@@ -41,11 +37,11 @@ export default function BurgerIngridients() {
     }, [inViewBuns, inViewSauce, inViewMain])
 
     return (
-        <section className={ingridientStyles.ingridients}>
+        <section className={ingredientStyles.ingredients}>
             <p className="text text_type_main-large mb-5">
                 Соберите бургер
             </p>
-            <div className={ingridientStyles.tab}>
+            <div className={ingredientStyles.tab}>
                 <Tab value="one" active={current === 'one'} onClick={() => { handleClickScroll('one') }}>
                     Булки
                 </Tab>
@@ -56,31 +52,31 @@ export default function BurgerIngridients() {
                     Начинки
                 </Tab>
             </div>
-            <div className={ingridientStyles.menu}>
+            <div className={ingredientStyles.menu}>
                 <p id='one' className="text text_type_main-medium mt-10 mb-6">Булки</p>
-                <div ref={bunsRef} className={ingridientStyles.grid}>
-                    {ingridientsRequest && 'Загрузка...'}
-                    {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
+                <div ref={bunsRef} className={ingredientStyles.grid}>
+                    {ingredientsRequest && 'Загрузка...'}
+                    {ingredientsFailed && 'Произошла ошибка'}
+                    {!ingredientsRequest && !ingredientsFailed && ingredients.length && ingredients.map((item) =>
                         item.type === "bun" &&
-                            <BurgerIngridient key={item._id} data={item} />
+                            <BurgerIngredient key={item._id} data={item} />
                     )}
                 </div>
                 <p id='two' className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-                <div ref={sauceRef} className={ingridientStyles.grid}>
-                    {ingridientsRequest && 'Загрузка...'}
-                    {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
+                <div ref={sauceRef} className={ingredientStyles.grid}>
+                    {ingredientsRequest && 'Загрузка...'}
+                    {ingredientsFailed && 'Произошла ошибка'}
+                    {!ingredientsRequest && !ingredientsFailed && ingredients.length && ingredients.map((item) =>
                         item.type === "sauce" &&
-                        <BurgerIngridient key={item._id} data={item} />)}
+                        <BurgerIngredient key={item._id} data={item} />)}
                 </div>
                 <p id='three' className="text text_type_main-medium mt-10 mb-6">Начинки</p>
-                <div ref={mainRef} className={ingridientStyles.grid}>
-                    {ingridientsRequest && 'Загрузка...'}
-                    {ingridientsFailed && 'Произошла ошибка'}
-                    {!ingridientsRequest && !ingridientsFailed && ingridients.length && ingridients.map((item) =>
+                <div ref={mainRef} className={ingredientStyles.grid}>
+                    {ingredientsRequest && 'Загрузка...'}
+                    {ingredientsFailed && 'Произошла ошибка'}
+                    {!ingredientsRequest && !ingredientsFailed && ingredients.length && ingredients.map((item) =>
                         item.type === "main" &&
-                        <BurgerIngridient key={item._id} data={item} />)}
+                        <BurgerIngredient key={item._id} data={item} />)}
                 </div>
             </div>
         </section>

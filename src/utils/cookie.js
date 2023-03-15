@@ -20,12 +20,3 @@ export function getCookie(name) {
 export function deleteCookie(name) {
     setCookie(name, null, -1);
 }
-
-
-// export default function checkResponse(res) {
-//     if (res.ok) {
-//         return res.json()
-//     }
-
-//     return res.json().then((res) => Promise.reject(res));
-// } 

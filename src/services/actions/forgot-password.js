@@ -1,5 +1,4 @@
-import { config } from "../../utils/api";
-import checkResponse from "../../utils/api";
+import { config, request } from "../../utils/api";
 
 export const GET_TOKEN = "GET_TOKEN_CODE";
 export const GET_TOKEN_SUCCESS = "GET_TOKEN_SUCCESS";
@@ -11,23 +10,18 @@ export const getToken = (email) => {
         dispatch({
             type: GET_TOKEN
         })
-        fetch(`${config.baseUrl}/password-reset`, {
+        request(`${config.baseUrl}/password-reset`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
                 "email": `${email}`,
             })
         })
-            .then(res => checkResponse(res))
             .then(res => {
                 if (res) {
                     dispatch({
                         type: GET_TOKEN_SUCCESS,
                         res: res
-                    })
-                } else {
-                    dispatch({
-                        type: GET_TOKEN_FAILED
                     })
                 }
             })

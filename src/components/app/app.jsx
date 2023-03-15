@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
 import {
   HomePage, LoginPage, RegisterPage, ForgotPasswordPage,
-  PasswordResetPage, ProfilePage, IngridientPage
+  PasswordResetPage, ProfilePage, IngredientPage
 } from '../../pages';
 import { ProtectedRoute } from '../../pages/protected-route';
 import AppHeader from '../app-header/app-header';
@@ -10,9 +10,9 @@ import { useDispatch } from 'react-redux';
 import { getUserInfo } from '../../services/actions/profile';
 import { getCookie } from '../../utils/cookie';
 import ProfileEdit from '../profile-edit/profile-edit';
-import IngridientDetails from '../ingridient-details/ingridient-details';
 import Modal from '../modal/modal';
-import { getIngridients } from '../../services/actions/burger-ingridients';
+import { getIngredients } from '../../services/actions/burger-ingredients';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 
 
 function App() {
@@ -20,13 +20,14 @@ function App() {
   const dispatch = useDispatch()
   const location = useLocation()
   const background = location.state && location.state.background;
+
   const navigate = useNavigate()
   const handleClose = () => {
     navigate(-1)
   }
   React.useEffect(() => {
-    dispatch(getIngridients())
-    dispatch(getUserInfo(getCookie('token'), getCookie('refToken')))
+    dispatch(getIngredients())
+    dispatch(getUserInfo(getCookie('token')))
   }, [])
 
   return (
@@ -34,19 +35,19 @@ function App() {
       <AppHeader />
       <Routes location={background || location}>
         <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<ProtectedRoute anonimous={true} element={<LoginPage />} />} />
-        <Route path='/register' element={<ProtectedRoute anonimous={true} element={<RegisterPage />} />} />
-        <Route path='/forgot-password' element={<ProtectedRoute anonimous={true} element={<ForgotPasswordPage />} />} />
-        <Route path='/reset-password' element={<ProtectedRoute anonimous={true} element={<PasswordResetPage />} />} />
-        <Route path='/profile' element={<ProtectedRoute anonimous={false} element={<ProfilePage><ProfileEdit /></ProfilePage>} />} />
-        <Route path='/profile/orders' element={<ProtectedRoute anonimous={false} element={<ProfilePage />} />} />
-        <Route path='/ingredients/:ingridientId' element={<IngridientPage />} />
+        <Route path='/login' element={<ProtectedRoute anonymous element={<LoginPage />} />} />
+        <Route path='/register' element={<ProtectedRoute anonymous element={<RegisterPage />} />} />
+        <Route path='/forgot-password' element={<ProtectedRoute anonymous element={<ForgotPasswordPage />} />} />
+        <Route path='/reset-password' element={<ProtectedRoute anonymous element={<PasswordResetPage />} />} />
+        <Route path='/profile' element={<ProtectedRoute element={<ProfilePage><ProfileEdit /></ProfilePage>} />} />
+        <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage />} />} />
+        <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
       </Routes>
       {background && (
         <Routes location={location}>
-          <Route path='/ingredients/:ingridientId' element={
+          <Route path='/ingredients/:ingredientId' element={
             <Modal handleClose={handleClose} headName={'Детали ингридиента'}>
-              <IngridientDetails />
+              <IngredientDetails />
             </Modal>}
           />
         </Routes>

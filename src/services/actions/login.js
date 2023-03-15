@@ -1,5 +1,4 @@
-import { config } from "../../utils/api";
-import checkResponse from "../../utils/api";
+import { config, request } from "../../utils/api";
 
 export const USER_LOGIN = "USER_LOGIN";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
@@ -10,7 +9,7 @@ export const userLogin = (email, pass) => {
         dispatch({
             type: USER_LOGIN
         })
-        fetch(`${config.baseUrl}/auth/login`, {
+        request(`${config.baseUrl}/auth/login`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -18,16 +17,11 @@ export const userLogin = (email, pass) => {
                 "password": `${pass}`
             })
         })
-            .then(res => checkResponse(res))
             .then(res => {
                 if (res) {
                     dispatch({
                         type: USER_LOGIN_SUCCESS,
                         res: res
-                    })
-                } else {
-                    dispatch({
-                        type: USER_LOGIN_FAILED
                     })
                 }
             })

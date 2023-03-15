@@ -1,6 +1,5 @@
-import { setCookie } from "../../utils/cookie"
 import { USER_LOGIN_SUCCESS } from "../actions/login"
-import { CLEAN_USER_INFO, GET_NEW_TOKEN_SUCCESS, GET_USER_INFO, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS } from "../actions/profile"
+import { CLEAN_USER_INFO, GET_USER_INFO, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS } from "../actions/profile"
 import { REFRESH_USER_INFO_SUCCESS } from "../actions/refresh-user"
 
 const initialState = {
@@ -39,10 +38,6 @@ export const userInfoReduser = (state = initialState, action) => {
                 ...state,
                 userInfo: action.res
             }
-        }
-        case GET_NEW_TOKEN_SUCCESS: {
-            setCookie('token', action.res.accessToken);
-            setCookie('refToken', action.res.refreshToken)
         }
         case GET_USER_INFO_FAILED: {
             return {

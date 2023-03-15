@@ -1,5 +1,4 @@
-import { config } from "../../utils/api";
-import checkResponse from "../../utils/api";
+import { config, request } from "../../utils/api";
 
 export const PASSWORD_RESET = "PASSWORD_RESET";
 export const PASSWORD_RESET_SUCCESS = "PASSWORD_RESET_SUCCESS";
@@ -11,7 +10,7 @@ export const passwordReset = (pass, token) => {
         dispatch({
             type: PASSWORD_RESET
         })
-        fetch(`${config.baseUrl}/password-reset/reset`, {
+        request(`${config.baseUrl}/password-reset/reset`, {
             method: "POST",
             headers: config.headers,
             body: JSON.stringify({
@@ -19,16 +18,11 @@ export const passwordReset = (pass, token) => {
                 "token": `${token}`
             })
         })
-            .then(res => checkResponse(res))
             .then(res => {
                 if (res) {
                     dispatch({
                         type: PASSWORD_RESET_SUCCESS,
                         res: res
-                    })
-                } else {
-                    dispatch({
-                        type: PASSWORD_RESET_FAILED
                     })
                 }
             })

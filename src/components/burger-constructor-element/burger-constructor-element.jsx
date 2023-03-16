@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import ingridientType from "../../utils/types";
+import ingredientType from "../../utils/types";
 import { useDispatch } from 'react-redux'
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from "./burger-constructor-element.module.css";
 import { useDrag, useDrop } from "react-dnd";
-import { deleteIngridient, moveIngridient } from "../../services/actions/burger-constructor";
+import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
 
 export default function BurgerConstructorElement({ index, element, topOrBottom, extraName }) {
 
@@ -47,13 +47,13 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
                 return
             }
-            dispatch(moveIngridient(dragIndex, hoverIndex))
+            dispatch(moveIngredient(dragIndex, hoverIndex))
             item.index = hoverIndex
         }
     })
 
     const deleteElement = (uid, price) => {
-        dispatch(deleteIngridient(uid, price))
+        dispatch(deleteIngredient(uid, price))
     }
     drag(drop(ref))
 
@@ -78,7 +78,7 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
 
 BurgerConstructorElement.propTypes = {
     index: PropTypes.number,
-    element: ingridientType.isRequired,
+    element: ingredientType.isRequired,
     topOrBottom: PropTypes.string,
     extraName: PropTypes.string
 }

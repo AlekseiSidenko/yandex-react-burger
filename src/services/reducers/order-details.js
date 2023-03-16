@@ -21,7 +21,8 @@ export const orderDetailsReducer = (state = initialState, action) => {
                 ...state,
                 orderRequest: false,
                 order: action.order,
-                popupVisible: true
+                popupVisible: true,
+                
             }
         }
         case SEND_ORDER_FAILED: {

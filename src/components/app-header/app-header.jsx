@@ -4,18 +4,36 @@ import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import headerStyles from './app-header.module.css'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function AppHeader() {
+
+    const { pathname } = useLocation()
+    const constrPage = pathname === "/"
+    const profPage = pathname === "/profile"
+
     return (
         <header className={headerStyles.header}>
             <div className={headerStyles.elements}>
                 <div className={headerStyles.left}>
-                    <a href="#" className={headerStyles.link}>
-                        <BurgerIcon type="primary" />
-                        <p className="text text_type_main-default ml-2">
-                            Конструктор
-                        </p>
-                    </a>
+                    <Link to="/" className={headerStyles.link}>
+                        {constrPage ?
+                            <>
+                                <BurgerIcon type="primary" />
+                                <p className="text text_type_main-default ml-2">
+                                    Конструктор
+                                </p>
+                            </>
+                            :
+                            <>
+                                <BurgerIcon type="secondary" />
+                                <p className="text text_type_main-default text_color_inactive  ml-2">
+                                    Конструктор
+                                </p>
+                            </>
+                        }
+
+                    </Link>
                     <a href="#" className={headerStyles.link}>
                         <ListIcon type="secondary" />
                         <p className="text text_type_main-default text_color_inactive ml-2">
@@ -26,12 +44,23 @@ export default function AppHeader() {
                 <div className={headerStyles.logo}>
                     <Logo />
                 </div>
-                <a href="#" className={headerStyles.link}>
-                    <ProfileIcon type="secondary" />
-                    <p className="text text_type_main-default text_color_inactive ml-2">
-                        Личный кабинет
-                    </p>
-                </a>
+                <Link to="/profile" className={headerStyles.link}>
+                    {profPage ?
+                        <>
+                            <ProfileIcon type="primary" />
+                            <p className="text text_type_main-default ml-2">
+                                Личный кабинет
+                            </p>
+                        </>
+                        :
+                        <>
+                            <ProfileIcon type="secondary" />
+                            <p className="text text_type_main-default text_color_inactive ml-2">
+                                Личный кабинет
+                            </p>
+                        </>
+                    }
+                </Link>
             </div>
         </header>
     )

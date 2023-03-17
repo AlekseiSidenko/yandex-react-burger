@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from 'react-redux';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
-import BurgerIngredient from "../burger-ingredient/burger-ingredient";
+import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";
 import ingredientStyles from "./burger-ingredients.module.css"
 import { useInView } from 'react-intersection-observer'
+import { IRootState } from "../../services/store";
+import { TElement } from "../../utils/types";
+
+type TState = {
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean,
+    ingredients: [TElement]
+}
 
 export default function BurgerIngredients() {
 
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients)
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector<IRootState, TState>(state => state.ingredients)
 
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState<'one' | 'two' | 'three'>('one')
+    const pBunsRef = useRef<HTMLParagraphElement>(null)
+    const pSauceRef = useRef<HTMLParagraphElement>(null)
+    const pMainRef = useRef<HTMLParagraphElement>(null)
 
     const { ref: bunsRef, inView: inViewBuns } = useInView();
     const { ref: sauceRef, inView: inViewSauce } = useInView();
     const { ref: mainRef, inView: inViewMain } = useInView();
 
-    function tabSwitch(viewBuns, viewSauce, viewMain) {
+    function tabSwitch(viewBuns: boolean, viewSauce: boolean, viewMain: boolean) {
         if (viewBuns) {
             return setCurrent('one')
         } if (viewSauce) {
@@ -25,10 +36,10 @@ export default function BurgerIngredients() {
         }
     }
 
-    const handleClickScroll = (current) => {
-        const element = document.getElementById(`${current}`);
+    const handleClickScroll = (element: any) => {
+        console.log(element)
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -42,18 +53,18 @@ export default function BurgerIngredients() {
                 Соберите бургер
             </p>
             <div className={ingredientStyles.tab}>
-                <Tab value="one" active={current === 'one'} onClick={() => { handleClickScroll('one') }}>
+                <Tab value="one" active={current === 'one'} onClick={() => handleClickScroll(pBunsRef)}>
                     Булки
                 </Tab>
-                <Tab href="#two" value="two" active={current === 'two'} onClick={() => { handleClickScroll('two') }}>
+                <Tab value="two" active={current === 'two'} onClick={() => { handleClickScroll(pSauceRef) }}>
                     Соусы
                 </Tab>
-                <Tab href="#three" value="three" active={current === 'three'} onClick={() => { handleClickScroll('three') }}>
+                <Tab value="three" active={current === 'three'} onClick={() => { handleClickScroll(pMainRef) }}>
                     Начинки
                 </Tab>
             </div>
             <div className={ingredientStyles.menu}>
-                <p id='one' className="text text_type_main-medium mt-10 mb-6">Булки</p>
+                <p ref={pBunsRef} className="text text_type_main-medium mt-10 mb-6">Булки</p>
                 <div ref={bunsRef} className={ingredientStyles.grid}>
                     {ingredientsRequest && 'Загрузка...'}
                     {ingredientsFailed && 'Произошла ошибка'}
@@ -62,7 +73,7 @@ export default function BurgerIngredients() {
                             <BurgerIngredient key={item._id} data={item} />
                     )}
                 </div>
-                <p id='two' className="text text_type_main-medium mt-10 mb-6">Соусы</p>
+                <p ref={pSauceRef} className="text text_type_main-medium mt-10 mb-6">Соусы</p>
                 <div ref={sauceRef} className={ingredientStyles.grid}>
                     {ingredientsRequest && 'Загрузка...'}
                     {ingredientsFailed && 'Произошла ошибка'}
@@ -70,7 +81,7 @@ export default function BurgerIngredients() {
                         item.type === "sauce" &&
                         <BurgerIngredient key={item._id} data={item} />)}
                 </div>
-                <p id='three' className="text text_type_main-medium mt-10 mb-6">Начинки</p>
+                <p ref={pMainRef} className="text text_type_main-medium mt-10 mb-6">Начинки</p>
                 <div ref={mainRef} className={ingredientStyles.grid}>
                     {ingredientsRequest && 'Загрузка...'}
                     {ingredientsFailed && 'Произошла ошибка'}

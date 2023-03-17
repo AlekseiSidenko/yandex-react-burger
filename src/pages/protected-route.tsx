@@ -1,11 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { FC, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import { useAppSelector } from "../hooks/hooks";
 
-export function ProtectedRoute({anonymous, element}) {
+type TProtectedRoute = {
+    anonymous?: boolean, 
+    element: ReactNode
+}
 
-    const authChecked = useSelector(state => state.userInfo.authChecked)
-    const isLoggedIn = !!useSelector(state => state.userInfo.userInfo)
+export const ProtectedRoute: FC<TProtectedRoute> = ({anonymous, element}) => {
+
+    const authChecked = useAppSelector(state => state.userInfo.authChecked)
+    const isLoggedIn = !!useAppSelector(state => state.userInfo.userInfo)
     const location = useLocation()
     const { from } = location.state || {from: {pathname: '/'}}
 
@@ -25,5 +30,5 @@ export function ProtectedRoute({anonymous, element}) {
         )
     }
 
-    return element
+    return <> {element} </>
 }

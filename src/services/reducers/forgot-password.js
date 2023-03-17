@@ -17,6 +17,7 @@ export const getTokenReduser = (state = initialState, action) => {
             }
         }
         case GET_TOKEN_SUCCESS: {
+            console.log(action.res)
             return {
                 ...state,
                 sentPassRequest: false,

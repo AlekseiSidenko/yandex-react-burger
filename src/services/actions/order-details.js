@@ -1,4 +1,4 @@
-import { config, request } from "../../utils/api";
+import { config, fetchWithRefresh } from "../../utils/api";
 import { CLEAN_CONSTRUCTOR } from "./burger-constructor";
 
 export const SEND_ORDER = "SEND_ORDER";
@@ -11,7 +11,7 @@ export const sendOrder = (ingredients, token) => {
     dispatch({
       type: SEND_ORDER
     })
-    request(`${config.baseUrl}/orders`, {
+    fetchWithRefresh(`${config.baseUrl}/orders`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

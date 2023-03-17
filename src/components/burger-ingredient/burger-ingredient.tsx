@@ -1,15 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import { useSelector } from "react-redux"
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingredientStyles from "./burger-ingredient.module.css"
-import ingredientType from "../../utils/types";
 import { useDrag } from "react-dnd"
 import { Link, useLocation } from 'react-router-dom'
+import { TElement, TStateElements } from "../../utils/types";
+import { IRootState } from "../../services/store";
 
-export default function BurgerIngredient({ data }) {
+export const BurgerIngredient: FC<{ data: TElement }> = ({ data }) => {
 
-    const { draggedElements } = useSelector(state => state.elements)
+    const { draggedElements } = useSelector<IRootState, TStateElements>((state) => state.elements)
     const location = useLocation();
 
     const ingredientCounter = React.useMemo(() => {
@@ -31,7 +32,7 @@ export default function BurgerIngredient({ data }) {
     })
 
     return (
-        !isDrag &&
+        !isDrag ?
         <Link
             to={{ pathname: `/ingredients/${data._id}` }}
             state={{ background: location }}
@@ -51,9 +52,7 @@ export default function BurgerIngredient({ data }) {
                 </div>
             </div>
         </Link>
-    )
-}
-
-BurgerIngredient.propTypes = {
-    data: ingredientType.isRequired,
+        :
+        <></>
+    ) 
 }

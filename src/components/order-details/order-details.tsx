@@ -1,10 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { FC } from "react";
 import orderStyles from "./order-details.module.css";
 import orderDone from "../../images/done.jpg";
+import { useAppSelector } from "../../hooks/hooks";
 
-export default function OrderDetails() {
-    const { number } = useSelector(state => state.orderDetails.order)
+
+export const OrderDetails: FC = () => {
+    const { number } = useAppSelector(state => state.orderDetails.order)
     return (
         <>
             <p className="text text_type_digits-large mt-30">{number}</p>

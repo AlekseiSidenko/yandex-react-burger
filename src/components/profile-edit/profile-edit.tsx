@@ -1,13 +1,13 @@
 import React from "react";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux'
 import { getCookie } from "../../utils/cookie";
 import editStyles from "./profile-edit.module.css"
 import { refreshUserInfo } from "../../services/actions/refresh-user";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export default function ProfileEdit() {
 
-    const { user } = useSelector(state => state.userInfo.userInfo)
+    const { user } = useAppSelector(state => state.userInfo.userInfo)
 
     const [email, setEmail] = React.useState({
         mail: `${user.email}`,
@@ -18,9 +18,9 @@ export default function ProfileEdit() {
         disabled: true
     })
     const [pass, setPass] = React.useState('')
-    const dispatch = useDispatch()
-    const nameRef = React.useRef(null)
-    const emailRef = React.useRef(null)
+    const dispatch = useAppDispatch()
+    const nameRef = React.useRef<HTMLInputElement>(null!)
+    const emailRef = React.useRef<HTMLInputElement>(null!)
     const onNameClick = () => {
         setTimeout(() => nameRef.current.focus(), 0)
         setName({ ...name, disabled: false })

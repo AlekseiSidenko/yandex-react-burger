@@ -1,4 +1,4 @@
-export function setCookie(name, value, age) {
+export function setCookie(name: string, value: string | null, age?: number) {
     if (value === null) {
         return document.cookie = `${name}=${'value'}; path=/; max-age=${age}`
     } if (name === 'token') {
@@ -10,13 +10,13 @@ export function setCookie(name, value, age) {
     }
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
     setCookie(name, null, -1);
 }

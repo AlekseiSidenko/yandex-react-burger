@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux'
 import { userLogin } from "../services/actions/login";
 import { Link } from 'react-router-dom'
+import { useAppDispatch } from "../hooks/hooks";
 
 
 export function LoginPage() {
 
     const [email, setEmail] = React.useState('')
     const [pass, setPass] = React.useState('')
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     return (
         <div className={styles.head}>

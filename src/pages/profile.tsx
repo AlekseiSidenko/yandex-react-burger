@@ -1,13 +1,13 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import styles from "./styles.module.css";
 import { Link, useLocation } from 'react-router-dom'
 import { logOut } from "../services/actions/logout";
-import { useDispatch } from "react-redux";
 import { getCookie } from "../utils/cookie";
+import { useAppDispatch } from "../hooks/hooks";
 
-export function ProfilePage({ children }) {
+export const ProfilePage: FC<{children?: ReactNode}> = ({ children }) => {
     
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { pathname } = useLocation()
     const editPage = pathname === "/profile"
     const orderHistoryPage = pathname === "/profile/orders"
@@ -21,9 +21,9 @@ export function ProfilePage({ children }) {
                 <Link to='/profile/orders' className={orderHistoryPage ? styles.profile_link_active : styles.profile_link_inactive}>
                     <p className="text text_type_main-medium">История заказов</p>
                 </Link>
-                <Link onClick={() => dispatch(logOut(getCookie('refToken')))} className={styles.profile_link_inactive}>
+                <a onClick={() => dispatch(logOut(getCookie('refToken')))} className={styles.profile_link_inactive}>
                     <p className="text text_type_main-medium">Выход</p>
-                </Link>
+                </a>
                 <p className="text text_type_main-default mt-20 text_color_inactive">
                     В этом разделе вы можете
                     изменить свои персональные данные

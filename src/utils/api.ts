@@ -8,7 +8,7 @@ export const config = {
     }
 }
 
-const refreshToken = (token) => {
+const refreshToken = (token: string) => {
     return fetch(`${config.baseUrl}/auth/token`, {
         method: "POST",
         headers: config.headers,
@@ -18,26 +18,33 @@ const refreshToken = (token) => {
     })
 }
 
-export const request = (url, options) => {
+export const request = (url: string, options: any) => {
     return fetch(url, options).then(res => checkResponse(res))
 }
 
-const checkResponse = (res) => {
+const checkResponse = <T>(res: Response): Promise<T> => {
     if (res.ok) {
         return res.json()
     }
 
-    return res.json().then((res) => Promise.reject(res));
+    return res.json().then((res: Response) => Promise.reject(res));
 }
 
-export const fetchWithRefresh = async (url, options) => {
+type TRefreshData = {
+    success: boolean,
+    accessToken: string,
+    refreshToken: string
+}
+
+export const fetchWithRefresh = async (url: string, options: any) => {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)
-    } catch (err) {
-        if (err.message === 'jwt expired' || err.message === 'jwt malformed') {
-            const refreshData = await refreshToken(getCookie('refToken'));
-            await checkResponse(refreshData)
+    } catch (err: any) {
+        if (err.message === 'jwt expired') {
+            let refToken: string = getCookie('refToken')!
+            const refreshData = await refreshToken(refToken);
+            await checkResponse<TRefreshData>(refreshData)
                 .then((refreshData) => {
                     options.headers.Authorization = refreshData.accessToken
                     setCookie('token', refreshData.accessToken);

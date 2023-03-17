@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./styles.module.css";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { userRegister } from "../services/actions/register";
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 
 export function RegisterPage() {
@@ -12,8 +12,8 @@ export function RegisterPage() {
     const [email, setEmail] = React.useState('')
     const [name, setName] = React.useState('')
     const [pass, setPass] = React.useState('')
-    const dispatch = useDispatch()
-    const { res } = useSelector(state => state.userRegister)
+    const dispatch = useAppDispatch()
+    const { res } = useAppSelector(state => state.userRegister)
     const navigate = useNavigate()
 
     React.useEffect(() => {

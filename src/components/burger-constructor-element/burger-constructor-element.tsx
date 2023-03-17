@@ -1,17 +1,23 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import ingredientType from "../../utils/types";
-import { useDispatch } from 'react-redux'
+import React, { FC, useRef } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from "./burger-constructor-element.module.css";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop, XYCoord } from "react-dnd";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
+import { TElement } from "../../utils/types";
+import { useAppDispatch } from "../../hooks/hooks";
 
-export default function BurgerConstructorElement({ index, element, topOrBottom, extraName }) {
+type TConstructorElementProps = {
+    index: number,
+    element: TElement,
+    topOrBottom?: "top" | "bottom",
+    extraName?: string
+};
 
-    const ref = React.useRef(null)
-    const dispatch = useDispatch()
+export const BurgerConstructorElement: FC<TConstructorElementProps> = ({ index, element, topOrBottom, extraName }) => {
+
+    const refElement = useRef<HTMLLIElement>(null)
+    const dispatch = useAppDispatch()
     const { _id } = element
 
     const [{ isDragging }, drag] = useDrag({
@@ -26,10 +32,10 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
 
     const opacity = isDragging ? 0 : 1
 
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<TElement, void>({
         accept: 'element',
         hover: (item, monitor) => {
-            if (!ref.current) {
+            if (!refElement.current) {
                 return
             }
             const dragIndex = item.index
@@ -37,10 +43,10 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
             if (dragIndex === hoverIndex) {
                 return
             }
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
+            const hoverBoundingRect = refElement.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return
             }
@@ -52,14 +58,14 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
         }
     })
 
-    const deleteElement = (uid, price) => {
+    const deleteElement = (uid: string, price: number) => {
         dispatch(deleteIngredient(uid, price))
     }
-    drag(drop(ref))
+    drag(drop(refElement))
 
     return (
         <li
-            ref={element.type !== 'bun' ? ref : null}
+            ref={element.type !== 'bun' ? refElement : null}
             className={element.type === 'bun' ? elementStyles.bun : elementStyles.filling}
             style={{ opacity }}>
             {element.type !== 'bun' && <DragIcon type="primary" />}
@@ -70,15 +76,7 @@ export default function BurgerConstructorElement({ index, element, topOrBottom, 
                 text={element.type === 'bun' ? element.name + extraName : element.name}
                 price={element.price}
                 thumbnail={element.image}
-                className="ml-2"
             />
         </li>
     )
-}
-
-BurgerConstructorElement.propTypes = {
-    index: PropTypes.number,
-    element: ingredientType.isRequired,
-    topOrBottom: PropTypes.string,
-    extraName: PropTypes.string
 }

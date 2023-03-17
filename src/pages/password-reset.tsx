@@ -5,14 +5,15 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { passwordReset } from "../services/actions/password-reset";
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export function PasswordResetPage() {
 
     const [code, setCode] = React.useState('')
     const [newPass, setNewPass] = React.useState('')
-    const dispatch = useDispatch()
-    const { isMailSent } = useSelector(state => state.getToken)
-    const { res } = useSelector(state => state.passwordReset)
+    const dispatch = useAppDispatch()
+    const { isMailSent } = useAppSelector(state => state.getToken)
+    const { res } = useAppSelector(state => state.passwordReset)
     const navigate = useNavigate()
 
     React.useEffect(() => {

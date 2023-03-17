@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom"
 import {
   HomePage, LoginPage, RegisterPage, ForgotPasswordPage,
@@ -6,18 +6,18 @@ import {
 } from '../../pages';
 import { ProtectedRoute } from '../../pages/protected-route';
 import AppHeader from '../app-header/app-header';
-import { useDispatch } from 'react-redux';
 import { getUserInfo } from '../../services/actions/profile';
 import { getCookie } from '../../utils/cookie';
 import ProfileEdit from '../profile-edit/profile-edit';
-import Modal from '../modal/modal';
+import { Modal } from '../modal/modal';
 import { getIngredients } from '../../services/actions/burger-ingredients';
-import IngredientDetails from '../ingredient-details/ingredient-details';
+import { IngredientDetails } from '../ingredient-details/ingredient-details';
+import { useAppDispatch } from '../../hooks/hooks';
 
 
-function App() {
+export const App: FC = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const location = useLocation()
   const background = location.state && location.state.background;
 
@@ -55,5 +55,3 @@ function App() {
     </>
   );
 }
-
-export default App;

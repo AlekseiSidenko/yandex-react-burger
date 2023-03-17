@@ -3,15 +3,15 @@ import styles from "./styles.module.css";
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { getToken } from "../services/actions/forgot-password";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 export function ForgotPasswordPage() {
 
     const [email, setEmail] = React.useState('')
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const { res } = useSelector(state => state.getToken)
+    const dispatch = useAppDispatch()
+    const { res } = useAppSelector(state => state.getToken)
 
     React.useEffect(() =>{
         if (res.success) {

@@ -36,7 +36,6 @@ export default function BurgerConstructor () {
         }
     })
     const orderIt = () => {
-        (console.log('клик сработал'))
         if (authChecked && isLoggedIn) {
             return dispatch(sendOrder(draggedElements, token))
         } else {
@@ -65,7 +64,7 @@ export default function BurgerConstructor () {
                 <Button onClick={() => orderIt()} disabled={draggedElements.length ? false : true} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
             </div>
             {orderRequest &&
-                <Modal handleClose={handleClosePopup}>
+                <Modal>
                     <p className="text text_type_main-large mt-10 mb-10">
                         Отправляю заказ...
                     </p>

@@ -8,19 +8,22 @@ const reactModal = document.getElementById('react-modals') as HTMLElement
 
 type TModal = {
     children: ReactNode,
-    handleClose: () => void,
+    handleClose?: () => void,
     headName?: string
 }
 
 export const Modal: FC<TModal> = ({ children, handleClose, headName }) => {
 
+
     React.useEffect(() => {
-        const handleEsc = (evt: KeyboardEvent) => {
-            evt.key === "Escape" && handleClose()
-        }
-        document.addEventListener("keydown", handleEsc)
-        return () => {
-            document.removeEventListener("keydown", handleEsc)
+        if (handleClose !== undefined) {
+            const handleEsc = (evt: KeyboardEvent) => {
+                evt.key === "Escape" && handleClose()
+            }
+            document.addEventListener("keydown", handleEsc)
+            return () => {
+                document.removeEventListener("keydown", handleEsc)
+            }
         }
     }, [handleClose])
 
@@ -31,9 +34,10 @@ export const Modal: FC<TModal> = ({ children, handleClose, headName }) => {
                     <div className={modalStyles.head}>
                         <p className="text text_type_main-large mt-10 ml-10">{headName}</p>
                     </div>}
-                <button onClick={handleClose} className={modalStyles.close}>
-                    <CloseIcon type="primary" />
-                </button>
+                {handleClose !== undefined &&
+                    <button onClick={handleClose} className={modalStyles.close}>
+                        <CloseIcon type="primary" />
+                    </button>}
                 {children}
             </div>
             <ModalOverlay handleClose={handleClose} />

@@ -36,13 +36,6 @@ export default function BurgerIngredients() {
         }
     }
 
-    const handleClickScroll = (element: any) => {
-        console.log(element)
-        if (element) {
-            element.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     React.useEffect(() => {
         tabSwitch(inViewBuns, inViewSauce, inViewMain)
     }, [inViewBuns, inViewSauce, inViewMain])
@@ -53,13 +46,13 @@ export default function BurgerIngredients() {
                 Соберите бургер
             </p>
             <div className={ingredientStyles.tab}>
-                <Tab value="one" active={current === 'one'} onClick={() => handleClickScroll(pBunsRef)}>
+                <Tab value="one" active={current === 'one'} onClick={() => pBunsRef.current?.scrollIntoView({ behavior: 'smooth' })}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={() => { handleClickScroll(pSauceRef) }}>
+                <Tab value="two" active={current === 'two'} onClick={() => pSauceRef.current?.scrollIntoView({ behavior: 'smooth' })}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={() => { handleClickScroll(pMainRef) }}>
+                <Tab value="three" active={current === 'three'} onClick={() => pMainRef.current?.scrollIntoView({ behavior: 'smooth' })}>
                     Начинки
                 </Tab>
             </div>
@@ -70,7 +63,7 @@ export default function BurgerIngredients() {
                     {ingredientsFailed && 'Произошла ошибка'}
                     {!ingredientsRequest && !ingredientsFailed && ingredients.length && ingredients.map((item) =>
                         item.type === "bun" &&
-                            <BurgerIngredient key={item._id} data={item} />
+                        <BurgerIngredient key={item._id} data={item} />
                     )}
                 </div>
                 <p ref={pSauceRef} className="text text_type_main-medium mt-10 mb-6">Соусы</p>

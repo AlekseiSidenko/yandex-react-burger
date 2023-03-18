@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { IRootState } from "../../services/store";
 import { TElement } from "../../utils/types";
 import ingredientStyles from "./ingredient-details.module.css"
@@ -11,31 +11,24 @@ type TState = {
     ingredients: [TElement]
 }
 
-type TDataElement = {
-    readonly _id?: string,
-    readonly name?: string,
-    readonly image_large?: string,
-    readonly type?: string,
-    readonly calories?: number,
-    readonly carbohydrates?: number,
-    readonly fat?: number,
-    readonly proteins?: number,
-}
-
 export const IngredientDetails: FC = () => {
 
     const { ingredients } = useSelector<IRootState, TState>(state => state.ingredients)
-    let data: TDataElement = {}
     const { ingredientId } = useParams()
-    ingredients.map(element => {
+    const navigate = useNavigate()
+
+    let data: TElement = null!
+    ingredients.forEach(element => {
         if (element._id === ingredientId) {
-            return element
+            return data = element
+        } else {
+            return navigate("*", {replace: true})
         }
     })
 
 
     return (
-        Object.keys(data).length === 0 ?
+        data === null ?
             <p className="text text_type_main-large mt-10 mb-10">
                 Загрузка...
             </p>

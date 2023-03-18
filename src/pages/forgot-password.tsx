@@ -11,16 +11,21 @@ export function ForgotPasswordPage() {
     const [email, setEmail] = React.useState('')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const { res } = useAppSelector(state => state.getToken)
+    const { res, sentPassRequest } = useAppSelector(state => state.getToken)
 
-    React.useEffect(() =>{
+    React.useEffect(() => {
         if (res.success) {
-        navigate('/reset-password');
+            navigate('/reset-password');
+        }
+    }, [res])
+
+    function getTokenOnEmail(event: React.FormEvent) {
+        event.preventDefault()
+        dispatch(getToken(email))
     }
-    },[res])
 
     return (
-        <div className={styles.head}>
+        <form className={styles.form}>
             <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
             <Input
                 type={'email'}
@@ -33,7 +38,12 @@ export function ForgotPasswordPage() {
                 size={'default'}
                 extraClass="mb-6"
             />
-            <Button onClick={() => dispatch(getToken(email))} htmlType="button" type="primary" size="large" extraClass="mb-20">
+            <Button
+                disabled={email === '' || sentPassRequest ? true : false} onClick={getTokenOnEmail}
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="mb-20">
                 Восстановить
             </Button>
             <div className={styles.signature}>
@@ -46,6 +56,6 @@ export function ForgotPasswordPage() {
                     </p>
                 </Link>
             </div>
-        </div>
+        </form>
     )
 }

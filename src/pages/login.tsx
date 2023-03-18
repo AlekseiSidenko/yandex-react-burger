@@ -3,17 +3,23 @@ import styles from "./styles.module.css";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { userLogin } from "../services/actions/login";
 import { Link } from 'react-router-dom'
-import { useAppDispatch } from "../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 
 
 export function LoginPage() {
 
     const [email, setEmail] = React.useState('')
     const [pass, setPass] = React.useState('')
+    const { userLoginRequest } = useAppSelector(state => state.userLogin)
     const dispatch = useAppDispatch()
 
+    function logIn(event: React.FormEvent) {
+        event.preventDefault()
+        dispatch(userLogin(email, pass))
+    }
+
     return (
-        <div className={styles.head}>
+        <form className={styles.form}>
             <p className="text text_type_main-medium mb-6">Вход</p>
             <Input
                 type={'email'}
@@ -32,7 +38,13 @@ export function LoginPage() {
                 name={'password'}
                 extraClass="mb-6"
             />
-            <Button onClick={() => dispatch(userLogin(email, pass))} htmlType="button" type="primary" size="large" extraClass="mb-20">
+            <Button
+                disabled={email === "" || pass === "" || userLoginRequest ? true : false}
+                onClick={logIn}
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="mb-20">
                 Войти
             </Button>
             <div className={styles.signature}>
@@ -55,6 +67,6 @@ export function LoginPage() {
                     </p>
                 </Link>
             </div>
-        </div>
+        </form>
     )
 }

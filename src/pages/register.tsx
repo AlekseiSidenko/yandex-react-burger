@@ -13,17 +13,22 @@ export function RegisterPage() {
     const [name, setName] = React.useState('')
     const [pass, setPass] = React.useState('')
     const dispatch = useAppDispatch()
-    const { res } = useAppSelector(state => state.userRegister)
+    const { res, userRegisterRequest } = useAppSelector(state => state.userRegister)
     const navigate = useNavigate()
 
     React.useEffect(() => {
         if (res.success) {
-            navigate('/login')
+            navigate('/')
         }
-    },[res])
+    }, [res])
+
+    function register(event: React.FormEvent) {
+        event.preventDefault()
+        dispatch(userRegister(name, email, pass))
+    }
 
     return (
-        <div className={styles.head}>
+        <form className={styles.form}>
             <p className="text text_type_main-medium mb-6">Регистрация</p>
             <Input
                 type={'text'}
@@ -53,7 +58,13 @@ export function RegisterPage() {
                 name={'password'}
                 extraClass="mb-6"
             />
-            <Button onClick={() =>  dispatch(userRegister(name, email, pass))} htmlType="button" type="primary" size="large" extraClass="mb-20">
+            <Button
+                disabled={email === '' || name === '' || pass === '' || userRegisterRequest ? true : false}
+                onClick={register}
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="mb-20">
                 Зарегистрироваться
             </Button>
             <div className={styles.signature}>
@@ -66,6 +77,6 @@ export function RegisterPage() {
                     </p>
                 </Link>
             </div>
-        </div>
+        </form>
     )
 }

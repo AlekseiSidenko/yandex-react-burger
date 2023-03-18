@@ -1,6 +1,7 @@
 import { USER_LOGIN_SUCCESS } from "../actions/login"
 import { CLEAN_USER_INFO, GET_USER_INFO, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS } from "../actions/profile"
 import { REFRESH_USER_INFO_SUCCESS } from "../actions/refresh-user"
+import { USER_REGISTER_SUCCESS } from "../actions/register"
 
 const initialState = {
     userInfoRequest: false,
@@ -27,6 +28,13 @@ export const userInfoReduser = (state = initialState, action) => {
             }
         }
         case USER_LOGIN_SUCCESS: {
+            return {
+                ...state,
+                authChecked: true,
+                userInfo: action.res
+            }
+        }
+        case USER_REGISTER_SUCCESS: {
             return {
                 ...state,
                 authChecked: true,

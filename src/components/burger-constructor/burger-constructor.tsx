@@ -36,10 +36,11 @@ export default function BurgerConstructor () {
         }
     })
     const orderIt = () => {
+        (console.log('клик сработал'))
         if (authChecked && isLoggedIn) {
-            dispatch(sendOrder(draggedElements, token))
+            return dispatch(sendOrder(draggedElements, token))
         } else {
-            navigate('/login')
+            return navigate('/login')
         }
     }
 
@@ -61,7 +62,7 @@ export default function BurgerConstructor () {
             <div className={constructorStyles.order}>
                 <p className="text text_type_digits-medium">{bunsPrice + elementsPrice}</p>
                 <img src={Currency} alt="Иконка текущей валюты" className={constructorStyles.currency} />
-                <Button onClick={() => orderIt} disabled={draggedElements.length ? false : true} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
+                <Button onClick={() => orderIt()} disabled={draggedElements.length ? false : true} htmlType="button" type="primary" size="large" extraClass="ml-10">Оформить заказ</Button>
             </div>
             {orderRequest &&
                 <Modal handleClose={handleClosePopup}>

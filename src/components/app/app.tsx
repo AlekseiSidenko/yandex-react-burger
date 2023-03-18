@@ -13,6 +13,7 @@ import { Modal } from '../modal/modal';
 import { getIngredients } from '../../services/actions/burger-ingredients';
 import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { useAppDispatch } from '../../hooks/hooks';
+import { NotFound404 } from '../../pages/404';
 
 
 export const App: FC = () => {
@@ -42,6 +43,7 @@ export const App: FC = () => {
         <Route path='/profile' element={<ProtectedRoute element={<ProfilePage><ProfileEdit /></ProfilePage>} />} />
         <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage />} />} />
         <Route path='/ingredients/:ingredientId' element={<IngredientPage />} />
+        <Route path='*' element={<NotFound404 />}/>
       </Routes>
       {background && (
         <Routes location={location}>

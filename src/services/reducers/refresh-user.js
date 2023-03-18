@@ -3,6 +3,7 @@ import { REFRESH_USER_INFO, REFRESH_USER_INFO_FAILED, REFRESH_USER_INFO_SUCCESS 
 const initialState = {
     userRefreshRequest: false,
     userRefreshFailed: false,
+    userRefresh: {}
 }
 
 export const RefreshUserInfoReduser = (state = initialState, action) => {
@@ -18,6 +19,7 @@ export const RefreshUserInfoReduser = (state = initialState, action) => {
             return {
                 ...state,
                 userRefreshRequest: false,
+                userRefresh: action.res
             }
         }
         case REFRESH_USER_INFO_FAILED: {

@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./styles.module.css";
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux'
 import { passwordReset } from "../services/actions/password-reset";
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
@@ -13,7 +12,7 @@ export function PasswordResetPage() {
     const [newPass, setNewPass] = React.useState('')
     const dispatch = useAppDispatch()
     const { isMailSent } = useAppSelector(state => state.getToken)
-    const { res } = useAppSelector(state => state.passwordReset)
+    const { res, passwordResetRequest } = useAppSelector(state => state.passwordReset)
     const navigate = useNavigate()
 
     React.useEffect(() => {
@@ -26,10 +25,15 @@ export function PasswordResetPage() {
         if (res.success) {
             navigate('/login')
         }
-    },[res])
+    }, [res])
+
+    function resetPassword(event: React.FormEvent) {
+        event.preventDefault()
+        dispatch(passwordReset(newPass, code))
+    }
 
     return (
-        <div className={styles.head}>
+        <form className={styles.form}>
             <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
             <PasswordInput
                 onChange={e => setNewPass(e.target.value)}
@@ -49,7 +53,13 @@ export function PasswordResetPage() {
                 size={'default'}
                 extraClass="mb-6"
             />
-            <Button onClick={() => dispatch(passwordReset(newPass, code))} htmlType="button" type="primary" size="large" extraClass="mb-20">
+            <Button
+                disabled={code === "" || newPass === "" || passwordResetRequest ? true : false}
+                onClick={resetPassword}
+                htmlType="submit"
+                type="primary"
+                size="large"
+                extraClass="mb-20">
                 Сохранить
             </Button>
             <div className={styles.signature}>
@@ -62,6 +72,6 @@ export function PasswordResetPage() {
                     </p>
                 </Link>
             </div>
-        </div>
+        </form>
     )
 }

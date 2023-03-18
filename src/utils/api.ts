@@ -18,7 +18,7 @@ const refreshToken = (token: string) => {
     })
 }
 
-export const request = (url: string, options: any) => {
+export const request = (url: RequestInfo, options: RequestInit) => {
     return fetch(url, options).then(res => checkResponse(res))
 }
 
@@ -40,8 +40,8 @@ export const fetchWithRefresh = async (url: string, options: any) => {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)
-    } catch (err: any) {
-        if (err.message === 'jwt expired') {
+    } catch (err) {
+        if ((err as { message: string }).message === 'jwt expired') {
             let refToken: string = getCookie('refToken')!
             const refreshData = await refreshToken(refToken);
             await checkResponse<TRefreshData>(refreshData)

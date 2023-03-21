@@ -22,7 +22,7 @@ export function PasswordResetPage() {
     })
 
     React.useEffect(() => {
-        if (res.success) {
+        if (res?.success) {
             navigate('/login')
         }
     }, [res])

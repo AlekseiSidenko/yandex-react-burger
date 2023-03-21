@@ -1,12 +1,27 @@
+import { setCookie } from "../../utils/cookie"
 import { REGISTER_CLEAN_STATE, USER_REGISTER, USER_REGISTER_FAILED, USER_REGISTER_SUCCESS } from "../actions/register"
+
+type TState = {
+    userRegisterRequest: boolean,
+    userRegisterFailed: boolean,
+    res?: {
+        accessToken: string,
+        refreshToken: string,
+        success: boolean,
+        user: {
+            name: string,
+            email: string
+        }
+    }
+}
 
 const initialState = {
     userRegisterRequest: false,
     userRegisterFailed: false,
-    res: {}
+    res: undefined
 }
 
-export const userRegisterReduser = (state = initialState, action) => {
+export const userRegisterReduser = (state: TState = initialState, action: any): TState => {
     switch (action.type) {
         case USER_REGISTER: {
             return {
@@ -16,6 +31,8 @@ export const userRegisterReduser = (state = initialState, action) => {
             }
         }
         case USER_REGISTER_SUCCESS: {
+            setCookie('token', action.res.accessToken);
+            setCookie('refToken', action.res.refreshToken)
             return {
                 ...state,
                 userRegisterRequest: false,
@@ -33,7 +50,7 @@ export const userRegisterReduser = (state = initialState, action) => {
             return {
                 userRegisterRequest: false,
                 userRegisterFailed: false,
-                res: {}
+                res: undefined
             }
         }
         default: {

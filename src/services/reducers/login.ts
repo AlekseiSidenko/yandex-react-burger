@@ -1,12 +1,17 @@
 import { setCookie } from "../../utils/cookie"
 import { USER_LOGIN, USER_LOGIN_FAILED, USER_LOGIN_SUCCESS } from "../actions/login"
 
+type TState = {
+    userLoginRequest: boolean,
+    userLoginFailed: boolean,
+}
+
 const initialState = {
     userLoginRequest: false,
     userLoginFailed: false,
 }
 
-export const userLoginReduser = (state=initialState, action) => {
+export const userLoginReduser = (state: TState = initialState, action: any): TState => {
     switch (action.type) {
         case USER_LOGIN: {
             return {

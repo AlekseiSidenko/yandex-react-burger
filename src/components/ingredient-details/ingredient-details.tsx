@@ -1,31 +1,26 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux"
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { IRootState } from "../../services/store";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
 import { TElement } from "../../utils/types";
 import ingredientStyles from "./ingredient-details.module.css"
 
-type TState = {
-    ingredientsRequest: boolean,
-    ingredientsFailed: boolean,
-    ingredients: [TElement]
-}
 
 export const IngredientDetails: FC = () => {
 
-    const { ingredients } = useSelector<IRootState, TState>(state => state.ingredients)
+    const { ingredients, ingredientsRequest } = useAppSelector(state => state.ingredients)
     const { ingredientId } = useParams()
     const navigate = useNavigate()
-
     let data: TElement = null!
-    ingredients.forEach(element => {
-        if (element._id === ingredientId) {
-            return data = element
-        } else {
-            return navigate("*", {replace: true})
-        }
-    })
 
+    if (ingredients.length && !ingredientsRequest) {
+        ingredients.forEach((element, index) => {
+            if (element._id === ingredientId) {
+                data = element
+            } if (index + 1 === ingredients.length && data === null) {
+                return navigate("/*", { replace: true })
+            }
+        })
+    }
 
     return (
         data === null ?

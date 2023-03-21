@@ -1,20 +1,24 @@
-import { compose } from "redux";
+import { Action, ActionCreator, compose, Dispatch } from "redux";
+// import type { Middleware, MiddlewareAPI } from 'redux';
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers';
-import thunk from 'redux-thunk';
-
-// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import thunk, { ThunkAction } from 'redux-thunk';
+import { TBurgerConstructorActions } from "./actions/burger-constructor";
+import { ICleanUserInfo } from "./actions/profile";
 
 const store = configureStore({
     reducer: rootReducer,
     middleware: [thunk],
     enhancers: [compose]
-    // composeEnhancer(
-        
-        // )
 })
 
 export default store
 export type IRootState = ReturnType<typeof rootReducer>
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+
+type TApplicationActions = | TBurgerConstructorActions | ICleanUserInfo; 
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+>
+export type AppDispatch = typeof store.dispatch;
+// export type AppDispatch = Dispatch<TApplicationActions>

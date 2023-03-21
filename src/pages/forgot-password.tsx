@@ -14,7 +14,7 @@ export function ForgotPasswordPage() {
     const { res, sentPassRequest } = useAppSelector(state => state.getToken)
 
     React.useEffect(() => {
-        if (res.success) {
+        if (res?.success) {
             navigate('/reset-password');
         }
     }, [res])

@@ -1,12 +1,13 @@
 import { config, request } from "../../utils/api";
+import { AppDispatch, AppThunk } from "../store";
 
-export const PASSWORD_RESET = "PASSWORD_RESET";
-export const PASSWORD_RESET_SUCCESS = "PASSWORD_RESET_SUCCESS";
-export const PASSWORD_RESET_FAILED = "PASSWORD_RESET_FAILED";
-export const PASSWORD_RESET_CLEAN_STATE = "PASSWORD_RESET_CLEAN_STATE";
+export const PASSWORD_RESET: "PASSWORD_RESET" = "PASSWORD_RESET";
+export const PASSWORD_RESET_SUCCESS: "PASSWORD_RESET_SUCCESS" = "PASSWORD_RESET_SUCCESS";
+export const PASSWORD_RESET_FAILED: "PASSWORD_RESET_FAILED" = "PASSWORD_RESET_FAILED";
+export const PASSWORD_RESET_CLEAN_STATE: "PASSWORD_RESET_CLEAN_STATE" = "PASSWORD_RESET_CLEAN_STATE";
 
-export const passwordReset = (pass, token) => {
-    return function (dispatch) {
+export const passwordReset: AppThunk = (pass: string, token:string) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: PASSWORD_RESET
         })
@@ -32,7 +33,7 @@ export const passwordReset = (pass, token) => {
                 })
             })
             .catch(err => {
-                alert(err)
+                alert(err.message)
                 dispatch({
                     type: PASSWORD_RESET_FAILED
                 })

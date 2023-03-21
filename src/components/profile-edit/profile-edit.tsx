@@ -7,15 +7,15 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export default function ProfileEdit() {
 
-    const { user } = useAppSelector(state => state.userInfo.userInfo)
+    const { userInfo } = useAppSelector(state => state.userInfo)
     const { userRefresh, userRefreshRequest } = useAppSelector(state => state.refreshUser)
 
     const [email, setEmail] = React.useState({
-        mail: `${user.email}`,
+        mail: `${userInfo?.user.email}`,
         disabled: true
     })
     const [name, setName] = React.useState({
-        userName: `${user.name}`,
+        userName: `${userInfo?.user.name}`,
         disabled: true
     })
     const [pass, setPass] = React.useState('')
@@ -31,61 +31,63 @@ export default function ProfileEdit() {
         setEmail({ ...email, disabled: false })
     }
     const canselChanges = () => {
-        setName({ ...name, userName: user.name });
-        setEmail({ ...email, mail: user.email });
-        setPass('')
+        if (userInfo) {
+            setName({ ...name, userName: userInfo?.user.name });
+            setEmail({ ...email, mail: userInfo?.user.email });
+            setPass('')
+        }
     }
     const confirmChanges = (event: React.FormEvent) => {
         event.preventDefault()
         dispatch(refreshUserInfo(name.userName, email.mail, pass, getCookie('token')))
     }
     React.useEffect(() => {
-        if (userRefresh.success) {
+        if (userRefresh?.success) {
             canselChanges()
         }
     }, [userRefresh])
 
     return (
         <form className={editStyles.inputs}>
-                <Input
-                    type={'text'}
-                    placeholder={'Имя'}
-                    onIconClick={onNameClick}
-                    onChange={e => setName({ ...name, userName: e.target.value })}
-                    value={name.userName}
-                    name={'name'}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                    icon={'EditIcon'}
-                    ref={nameRef}
-                    onBlur={() => setName({ ...name, disabled: true })}
-                    disabled={name.disabled ? true : false}
-                />
-                <Input
-                    type={'email'}
-                    placeholder={'Логин'}
-                    onIconClick={onEmailClick}
-                    onChange={e => setEmail({ ...email, mail: e.target.value })}
-                    value={email.mail}
-                    name={'email'}
-                    error={false}
-                    errorText={'Ошибка'}
-                    size={'default'}
-                    extraClass="mb-6"
-                    icon={'EditIcon'}
-                    ref={emailRef}
-                    onBlur={() => setEmail({ ...email, disabled: true })}
-                    disabled={email.disabled ? true : false}
-                />
-                <PasswordInput
-                    onChange={e => setPass(e.target.value)}
-                    value={pass}
-                    name={'password'}
-                    icon="EditIcon"
-                />
-            {email.mail !== user.email || pass !== '' || name.userName !== user.name && !userRefreshRequest ?
+            <Input
+                type={'text'}
+                placeholder={'Имя'}
+                onIconClick={onNameClick}
+                onChange={e => setName({ ...name, userName: e.target.value })}
+                value={name.userName}
+                name={'name'}
+                error={false}
+                errorText={'Ошибка'}
+                size={'default'}
+                extraClass="mb-6"
+                icon={'EditIcon'}
+                ref={nameRef}
+                onBlur={() => setName({ ...name, disabled: true })}
+                disabled={name.disabled ? true : false}
+            />
+            <Input
+                type={'email'}
+                placeholder={'Логин'}
+                onIconClick={onEmailClick}
+                onChange={e => setEmail({ ...email, mail: e.target.value })}
+                value={email.mail}
+                name={'email'}
+                error={false}
+                errorText={'Ошибка'}
+                size={'default'}
+                extraClass="mb-6"
+                icon={'EditIcon'}
+                ref={emailRef}
+                onBlur={() => setEmail({ ...email, disabled: true })}
+                disabled={email.disabled ? true : false}
+            />
+            <PasswordInput
+                onChange={e => setPass(e.target.value)}
+                value={pass}
+                name={'password'}
+                icon="EditIcon"
+            />
+            {email.mail !== userInfo?.user.email || pass !== '' || name.userName !== userInfo?.user.name && !userRefreshRequest ?
                 <div className={editStyles.buttons}>
                     <Button onClick={canselChanges} htmlType="button" type="secondary" size="medium">
                         Отмена
@@ -98,9 +100,9 @@ export default function ProfileEdit() {
                 <></>
             }
             {userRefreshRequest ?
-            <p className="text text_type_main-medium mt-8">Обновляю данные...</p>
-            :
-            <></>
+                <p className="text text_type_main-medium mt-8">Обновляю данные...</p>
+                :
+                <></>
             }
         </form>
     )

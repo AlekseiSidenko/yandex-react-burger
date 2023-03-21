@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { useSelector } from 'react-redux';
 import constructorStyles from "./burger-constructor.module.css"
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components"
 import { OrderDetails } from "../order-details/order-details";
@@ -11,27 +10,26 @@ import { addIngredient } from "../../services/actions/burger-constructor";
 import { hideOrder, sendOrder } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom"
 import { getCookie } from "../../utils/cookie";
-import { IRootState } from "../../services/store";
-import { TStateElements, TStateOrder } from "../../utils/types";
-import { useAppDispatch } from "../../hooks/hooks";
+import { TElement } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 
 export default function BurgerConstructor () {
 
-    const { draggedElements, bunsPrice, elementsPrice } = useSelector<IRootState, TStateElements>((state) => state.elements)
-    const { popupVisible, orderRequest } = useSelector<IRootState, TStateOrder>(state => state.orderDetails)
-    const authChecked = useSelector<IRootState, boolean>(state => state.userInfo.authChecked)
-    const isLoggedIn = !!useSelector<IRootState, boolean>(state => state.userInfo.userInfo)
+    const { draggedElements, bunsPrice, elementsPrice } = useAppSelector((state) => state.elements)
+    const { popupVisible, orderRequest } = useAppSelector(state => state.orderDetails)
+    const authChecked = useAppSelector(state => state.userInfo.authChecked)
+    const isLoggedIn = !!useAppSelector(state => state.userInfo.userInfo)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    let token: any = getCookie('token')
+    let token = getCookie('token')
 
     function handleClosePopup() {
         dispatch(hideOrder())
     }
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop(item: TElement) {
             dispatch(addIngredient(item));
         }
     })

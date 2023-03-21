@@ -5,12 +5,12 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingredientStyles from "./burger-ingredient.module.css"
 import { useDrag } from "react-dnd"
 import { Link, useLocation } from 'react-router-dom'
-import { TElement, TStateElements } from "../../utils/types";
-import { IRootState } from "../../services/store";
+import { TElement } from "../../utils/types";
+import { useAppSelector } from "../../hooks/hooks";
 
 export const BurgerIngredient: FC<{ data: TElement }> = ({ data }) => {
 
-    const { draggedElements } = useSelector<IRootState, TStateElements>((state) => state.elements)
+    const { draggedElements } = useAppSelector((state) => state.elements)
     const location = useLocation();
 
     const ingredientCounter = React.useMemo(() => {

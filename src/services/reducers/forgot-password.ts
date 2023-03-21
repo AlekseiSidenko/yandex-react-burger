@@ -1,13 +1,23 @@
 import { GET_TOKEN, GET_TOKEN_CLEAN_STATE, GET_TOKEN_FAILED, GET_TOKEN_SUCCESS } from "../actions/forgot-password"
 
+type TState = {
+    sentPassRequest: boolean,
+    sentPassFailed: boolean,
+    isMailSent: boolean,
+    res?: {
+        "success": boolean,
+        "message": "Reset email sent"
+    }
+}
+
 const initialState = {
     sentPassRequest: false,
     sentPassFailed: false,
     isMailSent: false,
-    res: {}
+    res: undefined
 }
 
-export const getTokenReduser = (state = initialState, action) => {
+export const getTokenReduser = (state: TState = initialState, action: any): TState => {
     switch (action.type) {
         case GET_TOKEN: {
             return {
@@ -36,7 +46,7 @@ export const getTokenReduser = (state = initialState, action) => {
                 isMailSent: true,
                 sentPassRequest: false,
                 sentPassFailed: false,
-                res: {}
+                res: undefined
             }
         }
         default: {

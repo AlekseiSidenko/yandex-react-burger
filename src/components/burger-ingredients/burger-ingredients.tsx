@@ -1,21 +1,13 @@
 import React, { useRef } from "react";
-import { useSelector } from 'react-redux';
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components"
 import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";
 import ingredientStyles from "./burger-ingredients.module.css"
 import { useInView } from 'react-intersection-observer'
-import { IRootState } from "../../services/store";
-import { TElement } from "../../utils/types";
-
-type TState = {
-    ingredientsRequest: boolean,
-    ingredientsFailed: boolean,
-    ingredients: [TElement]
-}
+import { useAppSelector } from "../../hooks/hooks";
 
 export default function BurgerIngredients() {
 
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector<IRootState, TState>(state => state.ingredients)
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(state => state.ingredients)
 
     const [current, setCurrent] = React.useState<'one' | 'two' | 'three'>('one')
     const pBunsRef = useRef<HTMLParagraphElement>(null)

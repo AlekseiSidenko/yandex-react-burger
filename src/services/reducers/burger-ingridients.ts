@@ -1,4 +1,11 @@
-import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED, INCREACE_INGReDIENT_COUNTER } from "../actions/burger-ingredients";
+import { TElement } from "../../utils/types";
+import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../actions/burger-ingredients";
+
+type TState = {
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean,
+    ingredients: TElement[]
+}
 
 const initialState = {
     ingredientsRequest: false,
@@ -6,7 +13,7 @@ const initialState = {
     ingredients: []
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state: TState = initialState, action: any): TState => {
     switch (action.type) {
         case GET_BURGER_INGREDIENTS: {
             return {
@@ -18,7 +25,7 @@ export const ingredientsReducer = (state = initialState, action) => {
         case GET_BURGER_INGREDIENTS_SUCCESS: {
             return {
                 ...state,
-                ingredients: action.ingredients,
+                ingredients: action.ingredients.data,
                 ingredientsRequest: false
             };
         }

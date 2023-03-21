@@ -1,12 +1,19 @@
-import { ADD_INGREDIENT, CLEAN_CONSTRUCTOR, MOVE_INGREDIENT, REMOVE_INGREDIENT } from "../actions/burger-constructor";
+import { TElement } from "../../utils/types";
+import { ADD_INGREDIENT, CLEAN_CONSTRUCTOR, MOVE_INGREDIENT, REMOVE_INGREDIENT, TBurgerConstructorActions } from "../actions/burger-constructor";
 
-const initialState = {
+type TState = {
+    draggedElements: TElement[],
+    bunsPrice: number,
+    elementsPrice: number
+}
+
+const initialState: TState = {
     draggedElements: [],
     bunsPrice: 0,
     elementsPrice: 0
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TBurgerConstructorActions): TState => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             const element = { ...action.payload.item, uid: action.payload.uid }

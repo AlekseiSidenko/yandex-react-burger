@@ -17,7 +17,7 @@ export function RegisterPage() {
     const navigate = useNavigate()
 
     React.useEffect(() => {
-        if (res.success) {
+        if (res?.success) {
             navigate('/')
         }
     }, [res])

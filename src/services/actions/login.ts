@@ -1,11 +1,12 @@
 import { config, request } from "../../utils/api";
+import { AppDispatch, AppThunk } from "../store";
 
-export const USER_LOGIN = "USER_LOGIN";
-export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
-export const USER_LOGIN_FAILED = "USER_LOGIN_FAILED";
+export const USER_LOGIN: "USER_LOGIN" = "USER_LOGIN";
+export const USER_LOGIN_SUCCESS: "USER_LOGIN_SUCCESS" = "USER_LOGIN_SUCCESS";
+export const USER_LOGIN_FAILED: "USER_LOGIN_FAILED" = "USER_LOGIN_FAILED";
 
-export const userLogin = (email, pass) => {
-    return function (dispatch) {
+export const userLogin: AppThunk = (email: string, pass: string) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_LOGIN
         })
@@ -26,7 +27,7 @@ export const userLogin = (email, pass) => {
                 }
             })
             .catch(err => {
-                alert(err)
+                alert(err.message)
                 dispatch({
                     type: USER_LOGIN_FAILED
                 })

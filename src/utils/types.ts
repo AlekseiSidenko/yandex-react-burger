@@ -15,23 +15,28 @@ export type TElement = {
     index: number
 }
 
-// export type TElementUid = TElement & {
-//     readonly uid: string,
-// }
-
-export type TStateElements = {
-    draggedElements: [TElement],
-    bunsPrice: number,
-    elementsPrice: number
-}
 
 export type TOrderOptions = {
-    [key: string]: string
+    createdAt: string,
+    ingredients: TElement[],
+    name: string,
+    number: number,
+    owner: {
+        name: string,
+        email: string,
+        createdAt: string,
+        updatedAt: string
+    }
+    price: number,
+    status: string
+    updatedAt: string
+    _id: string
 }
 
-export type TStateOrder = {
-    orderRequest: boolean,
-    orderFailed: boolean,
-    popupVisible: boolean,
-    order: TOrderOptions
+export type TUserInfo = {
+    success: boolean
+    user: {
+        name: string,
+        email: string
+    }
 }

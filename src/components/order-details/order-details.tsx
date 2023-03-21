@@ -5,10 +5,10 @@ import { useAppSelector } from "../../hooks/hooks";
 
 
 export const OrderDetails: FC = () => {
-    const { number } = useAppSelector(state => state.orderDetails.order)
+    const { order } = useAppSelector(state => state.orderDetails)
     return (
         <>
-            <p className="text text_type_digits-large mt-30">{number}</p>
+            <p className="text text_type_digits-large mt-30">{order?.number}</p>
             <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
             <img src={orderDone} alt="Иконка состояния готовности" className={orderStyles.done} />
             <p className="text text_type_main-default mt-15">Ваш заказ начали готовить</p>

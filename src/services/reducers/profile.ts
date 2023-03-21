@@ -1,16 +1,24 @@
+import { TUserInfo } from "../../utils/types"
 import { USER_LOGIN_SUCCESS } from "../actions/login"
 import { CLEAN_USER_INFO, GET_USER_INFO, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS } from "../actions/profile"
 import { REFRESH_USER_INFO_SUCCESS } from "../actions/refresh-user"
 import { USER_REGISTER_SUCCESS } from "../actions/register"
 
+type TState = {
+    userInfoRequest: boolean,
+    authChecked: boolean,
+    userInfoFailed: boolean,
+    userInfo: TUserInfo
+}
+
 const initialState = {
     userInfoRequest: false,
     authChecked: false,
     userInfoFailed: false,
-    userInfo: null
+    userInfo: {} as TUserInfo
 }
 
-export const userInfoReduser = (state = initialState, action) => {
+export const userInfoReduser = (state: TState = initialState, action: any): TState => {
     switch (action.type) {
         case GET_USER_INFO: {
             return {
@@ -60,7 +68,7 @@ export const userInfoReduser = (state = initialState, action) => {
                 userInfoRequest: false,
                 authChecked: true,
                 userInfoFailed: false,
-                userInfo: null
+                userInfo: {} as TUserInfo
             }
         }
         default: {

@@ -1,24 +1,25 @@
-import { TUserInfo } from "../../utils/types"
-import { USER_LOGIN_SUCCESS } from "../actions/login"
-import { CLEAN_USER_INFO, GET_USER_INFO, GET_USER_INFO_FAILED, GET_USER_INFO_SUCCESS } from "../actions/profile"
-import { REFRESH_USER_INFO_SUCCESS } from "../actions/refresh-user"
-import { USER_REGISTER_SUCCESS } from "../actions/register"
+import { TUserInfo } from "../types/data"
+import { USER_LOGIN_SUCCESS } from "../constants/login"
+import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO } from "../constants/profile";
+import { TProfileActions } from "../actions/profile";
+import { REFRESH_USER_INFO_SUCCESS } from "../constants/refresh-user";
+import { USER_REGISTER_SUCCESS } from "../constants/register";
 
 type TState = {
     userInfoRequest: boolean,
     authChecked: boolean,
     userInfoFailed: boolean,
-    userInfo: TUserInfo
+    userInfo?: TUserInfo
 }
 
 const initialState = {
     userInfoRequest: false,
     authChecked: false,
     userInfoFailed: false,
-    userInfo: {} as TUserInfo
+    userInfo: undefined
 }
 
-export const userInfoReduser = (state: TState = initialState, action: any): TState => {
+export const userInfoReduser = (state: TState = initialState, action: TProfileActions): TState => {
     switch (action.type) {
         case GET_USER_INFO: {
             return {
@@ -68,7 +69,7 @@ export const userInfoReduser = (state: TState = initialState, action: any): TSta
                 userInfoRequest: false,
                 authChecked: true,
                 userInfoFailed: false,
-                userInfo: {} as TUserInfo
+                userInfo: undefined
             }
         }
         default: {

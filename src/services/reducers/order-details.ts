@@ -1,27 +1,12 @@
-import { TElement, TOrderOptions } from "../../utils/types"
-import { HIDE_ORDER, SEND_ORDER, SEND_ORDER_FAILED, SEND_ORDER_SUCCESS } from "../actions/order-details"
+import { TOrderOptions } from "../types/data"
+import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER } from "../constants/order-details";
+import { TOrderDetailsActions } from "../actions/order-details";
 
 type TState = {
     orderRequest: boolean,
     orderFailed: boolean,
     popupVisible: boolean,
     order?: TOrderOptions
-    // {
-    //     createdAt: string,
-    //     ingredients: TElement[],
-    //     name: string,
-    //     number: number,
-    //     owner: {
-    //         name: string,
-    //         email: string,
-    //         createdAt: string,
-    //         updatedAt: string
-    //     }
-    //     price: number,
-    //     status: string
-    //     updatedAt: string
-    //     _id: string
-    // } | {}
 }
 
 const initialState = {
@@ -31,7 +16,7 @@ const initialState = {
     order: undefined
 }
 
-export const orderDetailsReducer = (state: TState = initialState, action: any): TState => {
+export const orderDetailsReducer = (state: TState = initialState, action: TOrderDetailsActions): TState => {
     switch (action.type) {
         case SEND_ORDER: {
             return {
@@ -41,7 +26,6 @@ export const orderDetailsReducer = (state: TState = initialState, action: any): 
             }
         }
         case SEND_ORDER_SUCCESS: {
-            console.log(action.order.order)
             return {
                 ...state,
                 orderRequest: false,

@@ -42,7 +42,7 @@ export const fetchWithRefresh = async (url: RequestInfo, options: any) => {
         return await checkResponse(res)
     } catch (err) {
         if ((err as { message: string }).message === 'jwt expired') {
-            let refToken: string = getCookie('refToken')!
+            let refToken: string = getCookie('refToken')
             const refreshData = await refreshToken(refToken);
             await checkResponse<TRefreshData>(refreshData)
                 .then((refreshData) => {

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
-import { TElement } from "../../utils/types";
+import { TElement } from "../../services/types/data";
 import ingredientStyles from "./ingredient-details.module.css"
 
 

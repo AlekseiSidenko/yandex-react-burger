@@ -1,10 +1,30 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
+import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants/forgot-password";
+import { TResetForgotPass } from "../types/data";
 
-export const GET_TOKEN: "GET_TOKEN_CODE" = "GET_TOKEN_CODE";
-export const GET_TOKEN_SUCCESS: "GET_TOKEN_SUCCESS" = "GET_TOKEN_SUCCESS";
-export const GET_TOKEN_FAILED: "GET_TOKEN_FAILED" = "GET_TOKEN_FAILED";
-export const GET_TOKEN_CLEAN_STATE: "GET_TOKEN_CLEAN_STATE" = "GET_TOKEN_CLEAN_STATE"
+export interface IGetToken {
+    readonly type: typeof GET_TOKEN
+}
+
+export interface IGetTokenSuccess {
+    readonly type: typeof GET_TOKEN_SUCCESS,
+    readonly res: TResetForgotPass
+}
+
+export interface IGetTokenFailed {
+    readonly type: typeof GET_TOKEN_FAILED
+}
+
+export interface IGetTokenCleanState {
+    readonly type: typeof GET_TOKEN_CLEAN_STATE
+}
+
+export type TForgotPasswordActions = 
+| IGetToken
+| IGetTokenSuccess
+| IGetTokenFailed
+| IGetTokenCleanState
 
 export const getToken: AppThunk = (email: string) => {
     return function (dispatch: AppDispatch) {

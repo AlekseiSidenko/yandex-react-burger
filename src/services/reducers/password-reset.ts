@@ -1,12 +1,11 @@
-import { PASSWORD_RESET, PASSWORD_RESET_CLEAN_STATE, PASSWORD_RESET_FAILED, PASSWORD_RESET_SUCCESS } from "../actions/password-reset"
+import { TPasswordResetActions } from "../actions/password-reset";
+import { PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILED, PASSWORD_RESET_CLEAN_STATE } from "../constants/password-reset";
+import { TResetForgotPass } from "../types/data";
 
 type TState = {
     passwordResetRequest: boolean,
     passwordResetFailed: boolean,
-    res?: {
-        "success": boolean,
-        "message": "Reset email sent"
-    }
+    res?: TResetForgotPass
 }
 
 const initialState = {
@@ -15,7 +14,7 @@ const initialState = {
     res: undefined
 }
 
-export const passwordResetReduser = (state: TState = initialState, action: any): TState => {
+export const passwordResetReduser = (state: TState = initialState, action: TPasswordResetActions): TState => {
     switch (action.type) {
         case PASSWORD_RESET: {
             return {

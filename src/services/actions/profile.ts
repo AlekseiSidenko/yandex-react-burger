@@ -1,14 +1,37 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
+import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO } from "../constants/profile";
+import { TUserInfo } from "../types/data";
+import { IUserLoginSuccess } from "./login";
+import { REFRESH_USER_INFO_SUCCESS } from "../constants/refresh-user";
+import { IRefreshUserInfoSuccess } from "./refresh-user";
+import { IUserRegisterSuccess } from "./register";
 
-export const GET_USER_INFO = "GET_USER_INFO";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
-export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
-export const CLEAN_USER_INFO = "CLEAN_USER_INFO";
+export interface IGetUserInfo {
+    readonly type: typeof GET_USER_INFO
+}
+
+export interface IGetUserInfoSuccess {
+    readonly type: typeof GET_USER_INFO_SUCCESS
+    readonly res: TUserInfo
+}
+
+export interface IGetUserInfoFailed {
+    readonly type: typeof GET_USER_INFO_FAILED
+}
 
 export interface ICleanUserInfo {
     readonly type: typeof CLEAN_USER_INFO
 }
+
+export type TProfileActions =
+    | IGetUserInfo
+    | IGetUserInfoSuccess
+    | IGetUserInfoFailed
+    | ICleanUserInfo
+    | IUserLoginSuccess
+    | IRefreshUserInfoSuccess
+    | IUserRegisterSuccess
 
 export const getUserInfo: AppThunk = (token: string) => {
     return function (dispatch: AppDispatch) {

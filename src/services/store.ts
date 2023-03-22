@@ -13,7 +13,6 @@ const store = configureStore({
 })
 
 export default store
-export type IRootState = ReturnType<typeof rootReducer>
 export type RootState = ReturnType<typeof store.getState>
 
 type TApplicationActions = | TBurgerConstructorActions | ICleanUserInfo; 

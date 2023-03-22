@@ -15,6 +15,11 @@ export type TElement = {
     index: number
 }
 
+export type TOrder = {
+    name: string
+    order: TOrderOptions
+    success: boolean
+}
 
 export type TOrderOptions = {
     createdAt: string,
@@ -38,5 +43,20 @@ export type TUserInfo = {
     user: {
         name: string,
         email: string
+    }
+}
+
+export type TResetForgotPass = {
+    success: boolean,
+    message: string
+}
+
+export type TUserRegLogin = {
+    success: boolean,
+    accessToken: string,
+    refreshToken: string,
+    user: {
+        email: string,
+        name: string
     }
 }

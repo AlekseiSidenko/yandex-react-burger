@@ -1,9 +1,25 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from "../constants/login";
+import { TUserRegLogin } from "../types/data";
 
-export const USER_LOGIN: "USER_LOGIN" = "USER_LOGIN";
-export const USER_LOGIN_SUCCESS: "USER_LOGIN_SUCCESS" = "USER_LOGIN_SUCCESS";
-export const USER_LOGIN_FAILED: "USER_LOGIN_FAILED" = "USER_LOGIN_FAILED";
+export interface IUserLogin {
+    readonly type: typeof USER_LOGIN
+}
+
+export interface IUserLoginSuccess {
+    readonly type: typeof USER_LOGIN_SUCCESS
+    readonly res: TUserRegLogin
+}
+
+export interface IUserLoginFailed {
+    readonly type: typeof USER_LOGIN_FAILED
+}
+
+export type TUserLoginActions =
+    | IUserLogin
+    | IUserLoginSuccess
+    | IUserLoginFailed
 
 export const userLogin: AppThunk = (email: string, pass: string) => {
     return function (dispatch: AppDispatch) {

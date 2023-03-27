@@ -1,6 +1,6 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { REFRESH_USER_INFO, REFRESH_USER_INFO_SUCCESS, REFRESH_USER_INFO_FAILED } from "../constants/refresh-user";
+import { REFRESH_USER_INFO, REFRESH_USER_INFO_SUCCESS, REFRESH_USER_INFO_FAILED } from "../constants";
 import { TUserInfo } from "../types/data";
 
 export interface IRefreshUserInfo {

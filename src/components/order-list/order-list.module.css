@@ -14,3 +14,8 @@
 .item:first-child {
     margin-top: 0;
 }
+
+.link {
+    text-decoration: none;
+    color: rgba(242, 242, 243, 1);
+}

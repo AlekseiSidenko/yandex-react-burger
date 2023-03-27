@@ -1,9 +1,6 @@
 import { TUserInfo } from "../types/data"
-import { USER_LOGIN_SUCCESS } from "../constants/login"
-import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO } from "../constants/profile";
+import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO, REFRESH_USER_INFO_SUCCESS, USER_REGISTER_SUCCESS, USER_LOGIN_SUCCESS } from "../constants";
 import { TProfileActions } from "../actions/profile";
-import { REFRESH_USER_INFO_SUCCESS } from "../constants/refresh-user";
-import { USER_REGISTER_SUCCESS } from "../constants/register";
 
 type TState = {
     userInfoRequest: boolean,

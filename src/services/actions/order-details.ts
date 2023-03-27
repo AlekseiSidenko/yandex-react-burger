@@ -1,8 +1,7 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { TElement, TOrder } from "../types/data";
 import { AppDispatch, AppThunk } from "../store";
-import { CLEAN_CONSTRUCTOR } from "../constants/burger-constructor";
-import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER } from "../constants/order-details";
+import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER, CLEAN_CONSTRUCTOR } from "../constants";
 
 export interface ISendOrder {
   readonly type: typeof SEND_ORDER

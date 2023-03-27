@@ -1,6 +1,6 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from "../constants/login";
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from "../constants";
 import { TUserRegLogin } from "../types/data";
 
 export interface IUserLogin {

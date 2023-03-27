@@ -39,3 +39,18 @@
     display: flex;
     align-items: center;
 }
+
+.footer {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.number {
+    text-align: center;
+}
+
+.done {
+    color: #00CCCC;
+}

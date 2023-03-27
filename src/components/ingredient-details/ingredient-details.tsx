@@ -7,12 +7,12 @@ import ingredientStyles from "./ingredient-details.module.css"
 
 export const IngredientDetails: FC = () => {
 
-    const { ingredients, ingredientsRequest } = useAppSelector(state => state.ingredients)
+    const { ingredients } = useAppSelector(state => state.ingredients)
     const { ingredientId } = useParams()
     const navigate = useNavigate()
     let data: TElement = null!
 
-    if (ingredients.length && !ingredientsRequest) {
+    if (ingredients && ingredients.length) {
         ingredients.forEach((element, index) => {
             if (element._id === ingredientId) {
                 data = element

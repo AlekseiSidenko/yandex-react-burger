@@ -1,6 +1,6 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILED, PASSWORD_RESET_CLEAN_STATE } from "../constants/password-reset";
+import { PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILED, PASSWORD_RESET_CLEAN_STATE } from "../constants";
 import { TResetForgotPass } from "../types/data";
 
 export interface IPasswordReset {

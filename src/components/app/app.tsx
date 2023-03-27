@@ -15,8 +15,8 @@ import { IngredientDetails } from '../ingredient-details/ingredient-details';
 import { useAppDispatch } from '../../hooks/hooks';
 import { NotFound404 } from '../../pages/404';
 import { FeedPage } from '../../pages/feed';
-import { OrdersHistory } from '../orders-history/orders-history';
 import { OrderInfo } from '../order-info/order-info';
+import { OrdersHistory } from '../orders-history/orders-history';
 
 
 export const App: FC = () => {
@@ -45,9 +45,10 @@ export const App: FC = () => {
         <Route path='/reset-password' element={<ProtectedRoute anonymous element={<PasswordResetPage />} />} />
         <Route path='/profile' element={<ProtectedRoute element={<ProfilePage><ProfileEdit /></ProfilePage>} />} />
         <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage><OrdersHistory/></ProfilePage>} />} />
-        <Route path='/profile/orders/test' element={<InfoPage><OrderInfo/></InfoPage>} />
+        <Route path='/profile/orders/:orderId' element={<InfoPage><OrderInfo/></InfoPage>} />
         <Route path='/ingredients/:ingredientId' element={<InfoPage><IngredientDetails/></InfoPage>} />
-        <Route path='/feed' element={<FeedPage />}/>
+        <Route path='/feed' element={<ProtectedRoute element={<FeedPage />} />}/>
+        <Route path='/feed/:feedId' element={<ProtectedRoute element={<InfoPage><OrderInfo/></InfoPage>}/> }/>
         <Route path='*' element={<NotFound404 />}/>
       </Routes>
       {background && (
@@ -57,11 +58,13 @@ export const App: FC = () => {
               <IngredientDetails />
             </Modal>}
           />
-          <Route path='/profile/orders/test' element={
+          <Route path='/profile/orders/:orderId' element={
             <Modal handleClose={handleClose} headName={'номер заказа'}>
               <OrderInfo />
             </Modal>
           }/>
+          <Route path='/feed/:feedId' element={<ProtectedRoute element={<Modal handleClose={handleClose}><OrderInfo /></Modal>
+}/>}/> 
         </Routes>
       )}
     </>

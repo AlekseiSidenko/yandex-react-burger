@@ -1,5 +1,5 @@
 import { TOrderOptions } from "../types/data"
-import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER } from "../constants/order-details";
+import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER } from "../constants";
 import { TOrderDetailsActions } from "../actions/order-details";
 
 type TState = {

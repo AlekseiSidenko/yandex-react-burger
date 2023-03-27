@@ -1,6 +1,6 @@
 import { TElement } from "../types/data";
 import { TBurgerConstructorActions } from "../actions/burger-constructor";
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAN_CONSTRUCTOR } from '../constants/burger-constructor';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAN_CONSTRUCTOR } from "../constants";
 
 
 type TState = {

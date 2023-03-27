@@ -1,6 +1,6 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants/forgot-password";
+import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants";
 import { TResetForgotPass } from "../types/data";
 
 export interface IGetToken {

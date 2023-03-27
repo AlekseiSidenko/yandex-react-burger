@@ -1,5 +1,5 @@
 import { TForgotPasswordActions } from "../actions/forgot-password";
-import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants/forgot-password";
+import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants";
 import { TResetForgotPass } from "../types/data"
 
 type TState = {

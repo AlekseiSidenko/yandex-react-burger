@@ -1,6 +1,6 @@
 import uuid from 'react-uuid';
 import { TElement } from '../types/data';
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAN_CONSTRUCTOR } from '../constants/burger-constructor';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAN_CONSTRUCTOR } from '../constants/';
 
 export interface IAddIngredient {
     readonly type: typeof ADD_INGREDIENT,

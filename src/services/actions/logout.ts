@@ -1,7 +1,7 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
 import { cleanUserInfo } from "./profile";
-import { LOG_OUT, LOG_OUT_SUCCESS, LOG_OUT_FAILED } from "../constants/logout";
+import { LOG_OUT, LOG_OUT_SUCCESS, LOG_OUT_FAILED } from "../constants";
 
 export interface ILogOut {
     readonly type: typeof LOG_OUT
@@ -51,9 +51,3 @@ export const logOut: AppThunk = (token: string) => {
             })
     }
 }
-
-// export const CleanUserInfo = () => {
-//     return {
-//         type: CLEAN_USER_INFO
-//     }
-// }

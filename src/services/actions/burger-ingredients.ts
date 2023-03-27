@@ -1,6 +1,6 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../constants/burger-ingredients";
+import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from '../constants';
 import { TElement } from "../types/data";
 
 export interface IGetBurgerIngredients {

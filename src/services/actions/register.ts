@@ -1,6 +1,6 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { USER_REGISTER, USER_REGISTER_SUCCESS, USER_REGISTER_FAILED, REGISTER_CLEAN_STATE } from "../constants/register";
+import { USER_REGISTER, USER_REGISTER_SUCCESS, USER_REGISTER_FAILED, REGISTER_CLEAN_STATE } from "../constants";
 import { TUserRegLogin } from "../types/data";
 
 export interface IUserRegister {

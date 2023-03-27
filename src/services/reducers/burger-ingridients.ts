@@ -1,5 +1,5 @@
 import { TElement } from "../types/data";
-import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../constants/burger-ingredients";
+import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../constants";
 import { TGetBurgeIngredientsActions } from "../actions/burger-ingredients";
 
 type TState = {

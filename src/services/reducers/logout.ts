@@ -1,6 +1,6 @@
 import { deleteCookie } from "../../utils/cookie";
 import { TlogOutActions } from "../actions/logout";
-import { LOG_OUT, LOG_OUT_SUCCESS, LOG_OUT_FAILED } from "../constants/logout";
+import { LOG_OUT, LOG_OUT_SUCCESS, LOG_OUT_FAILED } from "../constants";
 
 type TState = {
     logOutRequest: boolean,

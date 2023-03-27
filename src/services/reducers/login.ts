@@ -1,6 +1,6 @@
 import { setCookie } from "../../utils/cookie"
 import { TUserLoginActions } from "../actions/login";
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from "../constants/login";
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_FAILED } from "../constants";
 
 type TState = {
     userLoginRequest: boolean,

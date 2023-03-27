@@ -1,28 +1,29 @@
 import React, { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../hooks/hooks";
 import { Order } from "../order/order";
 import listStyles from './order-list.module.css'
 
-export const OrderList: FC = () => {
+export const OrderList = () => {
+    const location = useLocation()
+    const { orderFeed } = useAppSelector(state => state.feedSocket)
+
     return (
         <ul className={listStyles.list}>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
-            <li className={listStyles.item}>
-                <Order />
-            </li>
+            {orderFeed?.orders.map(order => {
+                return (
+                    <Link
+                        key={order._id}
+                        to={`/feed/${order._id}`}
+                        state={{ background: location, orderNumber: order.number }}
+                        className={listStyles.link}>
+                        <li className={listStyles.item}>
+                            <Order order={order} />
+                        </li>
+                    </Link>
+                )
+            })
+            }
         </ul>
     )
 }

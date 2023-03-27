@@ -1,5 +1,5 @@
 import { TPasswordResetActions } from "../actions/password-reset";
-import { PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILED, PASSWORD_RESET_CLEAN_STATE } from "../constants/password-reset";
+import { PASSWORD_RESET, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAILED, PASSWORD_RESET_CLEAN_STATE } from "../constants";
 import { TResetForgotPass } from "../types/data";
 
 type TState = {

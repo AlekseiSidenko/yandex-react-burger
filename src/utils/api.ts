@@ -36,7 +36,8 @@ type TRefreshData = {
     refreshToken: string
 }
 
-export const fetchWithRefresh = async (url: RequestInfo, options: any) => {
+
+export const fetchWithRefresh = async (url: RequestInfo, options: RequestInit) => {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)
@@ -46,7 +47,7 @@ export const fetchWithRefresh = async (url: RequestInfo, options: any) => {
             const refreshData = await refreshToken(refToken);
             await checkResponse<TRefreshData>(refreshData)
                 .then((refreshData) => {
-                    options.headers.authorization = refreshData.accessToken
+                    (options.headers as {Authorization: string}).Authorization = refreshData.accessToken;
                     setCookie('token', refreshData.accessToken);
                     setCookie('refToken', refreshData.refreshToken)
                 })

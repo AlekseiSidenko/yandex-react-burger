@@ -1,9 +1,8 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO } from "../constants/profile";
+import { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAILED, CLEAN_USER_INFO } from "../constants";
 import { TUserInfo } from "../types/data";
 import { IUserLoginSuccess } from "./login";
-import { REFRESH_USER_INFO_SUCCESS } from "../constants/refresh-user";
 import { IRefreshUserInfoSuccess } from "./refresh-user";
 import { IUserRegisterSuccess } from "./register";
 
@@ -55,7 +54,7 @@ export const getUserInfo: AppThunk = (token: string) => {
                 }
             })
             .catch((err) => {
-                console.log(err.message)
+                alert(err.message)
                 dispatch({
                     type: GET_USER_INFO_FAILED
                 })

@@ -10,11 +10,16 @@ export type TElement = {
     readonly carbohydrates: number,
     readonly fat: number,
     readonly proteins: number,
-    readonly __v: number,
+    __v: number,
     readonly uid: string,
     index: number
 }
 
+export type TOrder = {
+    name: string
+    order: TOrderOptions
+    success: boolean
+}
 
 export type TOrderOptions = {
     createdAt: string,
@@ -39,4 +44,40 @@ export type TUserInfo = {
         name: string,
         email: string
     }
+}
+
+export type TResetForgotPass = {
+    success: boolean,
+    message: string
+}
+
+export type TUserRegLogin = {
+    success: boolean,
+    accessToken: string,
+    refreshToken: string,
+    user: {
+        email: string,
+        name: string
+    }
+}
+
+export type TOrderFeed = {
+        success: boolean,
+        orders: TOrderFeedOptions[],
+        total: number,
+        totalToday: number
+}
+
+export type TOrderFeedOptions = {
+    _id: string,
+    ingredients: string[],
+    name: string,
+    status: string,
+    number: number,
+    createdAt: string,
+    updatedAt: string
+}
+
+export type TSameOrderIngredient = TElement & {
+    quantity: number
 }

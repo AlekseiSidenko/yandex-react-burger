@@ -1,9 +1,25 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
+import { REFRESH_USER_INFO, REFRESH_USER_INFO_SUCCESS, REFRESH_USER_INFO_FAILED } from "../constants";
+import { TUserInfo } from "../types/data";
 
-export const REFRESH_USER_INFO: "REFRESH_USER_INFO" = "REFRESH_USER_INFO";
-export const REFRESH_USER_INFO_SUCCESS: "REFRESH_USER_INFO_SUCCESS" = "REFRESH_USER_INFO_SUCCESS";
-export const REFRESH_USER_INFO_FAILED: "REFRESH_USER_INFO_FAILED" = "REFRESH_USER_INFO_FAILED";
+export interface IRefreshUserInfo {
+    readonly type: typeof REFRESH_USER_INFO
+}
+
+export interface IRefreshUserInfoSuccess {
+    readonly type: typeof REFRESH_USER_INFO_SUCCESS
+    readonly res: TUserInfo
+}
+
+export interface IRefreshUserInfoFailed {
+    readonly type: typeof REFRESH_USER_INFO_FAILED
+}
+
+export type TRefreshUserActions =
+    | IRefreshUserInfo
+    | IRefreshUserInfoSuccess
+    | IRefreshUserInfoFailed
 
 export const refreshUserInfo: AppThunk = (userName: string, email: string, pass: string, token: string) => {
     return function (dispatch: AppDispatch) {

@@ -5,7 +5,7 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingredientStyles from "./burger-ingredient.module.css"
 import { useDrag } from "react-dnd"
 import { Link, useLocation } from 'react-router-dom'
-import { TElement } from "../../utils/types";
+import { TElement } from "../../services/types/data";
 import { useAppSelector } from "../../hooks/hooks";
 
 export const BurgerIngredient: FC<{ data: TElement }> = ({ data }) => {
@@ -34,7 +34,7 @@ export const BurgerIngredient: FC<{ data: TElement }> = ({ data }) => {
     return (
         !isDrag ?
         <Link
-            to={{ pathname: `/ingredients/${data._id}` }}
+            to={`/ingredients/${data._id}`}
             state={{ background: location }}
             className={ingredientStyles.link}>
             <div ref={dragRef} className={ingredientStyles.item}>

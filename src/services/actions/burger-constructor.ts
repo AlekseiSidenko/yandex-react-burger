@@ -1,10 +1,6 @@
-import uuid from 'react-uuid'
-import { TElement } from '../../utils/types'
-
-export const ADD_INGREDIENT: "ADD_INGREDIENT" = "ADD_INGREDIENT"
-export const REMOVE_INGREDIENT: "REMOVE_INGREDIENT" = "REMOVE_INGREDIENT"
-export const MOVE_INGREDIENT: "MOVE_INGREDIENT" = "MOVE_INGREDIENT"
-export const CLEAN_CONSTRUCTOR: "CLEAN_CONSTRUCTOR" = "CLEAN_CONSTRUCTOR"
+import uuid from 'react-uuid';
+import { TElement } from '../types/data';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAN_CONSTRUCTOR } from '../constants/';
 
 export interface IAddIngredient {
     readonly type: typeof ADD_INGREDIENT,
@@ -37,7 +33,11 @@ export interface ICleanConstructor {
     readonly type: typeof CLEAN_CONSTRUCTOR
 }
 
-export type TBurgerConstructorActions = | IAddIngredient | IDeleteIngredient | IMoveIngredient | ICleanConstructor;
+export type TBurgerConstructorActions =
+    | IAddIngredient
+    | IDeleteIngredient
+    | IMoveIngredient
+    | ICleanConstructor;
 
 export const addIngredient = (item: TElement) => {
     return {

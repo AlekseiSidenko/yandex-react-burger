@@ -5,8 +5,8 @@ import { logOut } from "../services/actions/logout";
 import { getCookie } from "../utils/cookie";
 import { useAppDispatch } from "../hooks/hooks";
 
-export const ProfilePage: FC<{children?: ReactNode}> = ({ children }) => {
-    
+export const ProfilePage: FC<{ children?: ReactNode }> = ({ children }) => {
+
     const dispatch = useAppDispatch()
     const { pathname } = useLocation()
     const editPage = pathname === "/profile"
@@ -24,10 +24,16 @@ export const ProfilePage: FC<{children?: ReactNode}> = ({ children }) => {
                 <a onClick={() => dispatch(logOut(getCookie('refToken')))} className={styles.profile_link_inactive}>
                     <p className="text text_type_main-medium">Выход</p>
                 </a>
-                <p className="text text_type_main-default mt-20 text_color_inactive">
-                    В этом разделе вы можете
-                    изменить свои персональные данные
-                </p>
+                {editPage &&
+                    <p className="text text_type_main-default mt-20 text_color_inactive">
+                        В этом разделе вы можете изменить свои персональные данные
+                    </p>
+                }
+                {orderHistoryPage &&
+                    <p className="text text_type_main-default mt-20 text_color_inactive">
+                        В этом разделе вы можете просмотреть свою историю заказов
+                    </p>
+                }
             </div>
             {children}
         </div>

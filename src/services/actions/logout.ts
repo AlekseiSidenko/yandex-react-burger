@@ -1,15 +1,24 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
-import { cleanUserInfo, CLEAN_USER_INFO } from "./profile";
+import { cleanUserInfo } from "./profile";
+import { LOG_OUT, LOG_OUT_SUCCESS, LOG_OUT_FAILED } from "../constants";
 
-export const LOG_OUT: "LOG_OUT" = "LOG_OUT";
-export const LOG_OUT_SUCCESS: "LOG_OUT_SUCCESS" = "LOG_OUT_SUCCESS";
-export const LOG_OUT_FAILED: "LOG_OUT_FAILED" = "LOG_OUT_FAILED";
-// export const CLEAN_LOG_OUT_INFO: "CLEAN_LOG_OUT_INFO" = "CLEAN_LOG_OUT_INFO";
+export interface ILogOut {
+    readonly type: typeof LOG_OUT
+}
 
-// export interface ICleanUserInfo {
-//     readonly type: typeof CLEAN_LOG_OUT_INFO
-// }
+export interface ILogOutSuccess {
+    readonly type: typeof LOG_OUT_SUCCESS
+}
+
+export interface ILogOutFailed {
+    readonly type: typeof LOG_OUT_FAILED
+}
+
+export type TlogOutActions =
+    | ILogOut
+    | ILogOutSuccess
+    | ILogOutFailed
 
 export const logOut: AppThunk = (token: string) => {
     return function (dispatch: AppDispatch) {
@@ -42,9 +51,3 @@ export const logOut: AppThunk = (token: string) => {
             })
     }
 }
-
-// export const CleanUserInfo = () => {
-//     return {
-//         type: CLEAN_USER_INFO
-//     }
-// }

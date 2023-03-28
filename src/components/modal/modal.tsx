@@ -3,6 +3,7 @@ import modalStyles from "./modal.module.css"
 import ReactDOM from 'react-dom';
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { useLocation } from "react-router-dom";
 
 const reactModal = document.getElementById('react-modals') as HTMLElement
 
@@ -13,7 +14,7 @@ type TModal = {
 }
 
 export const Modal: FC<TModal> = ({ children, handleClose, headName }) => {
-
+    const location = useLocation()
 
     React.useEffect(() => {
         if (handleClose !== undefined) {
@@ -33,8 +34,13 @@ export const Modal: FC<TModal> = ({ children, handleClose, headName }) => {
                 {headName &&
                     <div className={modalStyles.head}>
                         <p className="text text_type_main-large mt-10 ml-10">{headName}</p>
+                    </div>
+                }
+                {location.state && location.state.orderNumber &&
+                    <div className={modalStyles.head}>
+                        <p className="text text_type_digits-default mt-15 ml-10"># {location.state.orderNumber}</p>
                     </div>}
-                {handleClose !== undefined &&
+                {handleClose &&
                     <button onClick={handleClose} className={modalStyles.close}>
                         <CloseIcon type="primary" />
                     </button>}

@@ -1,5 +1,6 @@
-import { TElement } from "../../utils/types";
-import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../actions/burger-ingredients";
+import { TElement } from "../types/data";
+import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from "../constants";
+import { TGetBurgeIngredientsActions } from "../actions/burger-ingredients";
 
 type TState = {
     ingredientsRequest: boolean,
@@ -13,7 +14,7 @@ const initialState = {
     ingredients: []
 }
 
-export const ingredientsReducer = (state: TState = initialState, action: any): TState => {
+export const ingredientsReducer = (state: TState = initialState, action: TGetBurgeIngredientsActions): TState => {
     switch (action.type) {
         case GET_BURGER_INGREDIENTS: {
             return {

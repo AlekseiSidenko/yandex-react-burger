@@ -10,7 +10,7 @@ import { addIngredient } from "../../services/actions/burger-constructor";
 import { hideOrder, sendOrder } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom"
 import { getCookie } from "../../utils/cookie";
-import { TElement } from "../../utils/types";
+import { TElement } from "../../services/types/data";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 

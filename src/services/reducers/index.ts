@@ -9,6 +9,8 @@ import { userInfoReduser } from "./profile";
 import { logOutReduser } from "./logout";
 import { ingredientsReducer } from "./burger-ingridients";
 import { RefreshUserInfoReduser } from "./refresh-user";
+import { orderFeedReducer } from "./order-feed";
+import { orderHistoryReducer } from "./order-history";
 
 
 export default combineReducers({
@@ -21,5 +23,7 @@ export default combineReducers({
     passwordReset: passwordResetReduser,
     userInfo: userInfoReduser,
     logOutSucces: logOutReduser,
-    refreshUser: RefreshUserInfoReduser
+    refreshUser: RefreshUserInfoReduser,
+    feedSocket: orderFeedReducer,
+    historySocket: orderHistoryReducer
 })

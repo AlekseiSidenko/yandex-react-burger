@@ -1,12 +1,30 @@
 import { config, fetchWithRefresh } from "../../utils/api";
-import { TElement } from "../../utils/types";
+import { TElement, TOrder } from "../types/data";
 import { AppDispatch, AppThunk } from "../store";
-import { CLEAN_CONSTRUCTOR } from "./burger-constructor";
+import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER, CLEAN_CONSTRUCTOR } from "../constants";
 
-export const SEND_ORDER: "SEND_ORDER" = "SEND_ORDER";
-export const SEND_ORDER_SUCCESS: "SEND_ORDER_SUCCESS" = "SEND_ORDER_SUCCESS";
-export const SEND_ORDER_FAILED: "SEND_ORDER_FAILED" = "SEND_ORDER_FAILED";
-export const HIDE_ORDER: "HIDE_ORDER" = "HIDE_ORDER"
+export interface ISendOrder {
+  readonly type: typeof SEND_ORDER
+}
+
+export interface ISendOrderSuccess {
+  readonly type: typeof SEND_ORDER_SUCCESS
+  order: TOrder
+}
+
+export interface ISendOrderFailed {
+  readonly type: typeof SEND_ORDER_FAILED
+}
+
+export interface IHideOrder {
+  readonly type: typeof HIDE_ORDER
+}
+
+export type TOrderDetailsActions =
+  | ISendOrder
+  | ISendOrderSuccess
+  | ISendOrderFailed
+  | IHideOrder;
 
 export const sendOrder: AppThunk = (ingredients: TElement[], token: string) => {
   return function (dispatch: AppDispatch) {

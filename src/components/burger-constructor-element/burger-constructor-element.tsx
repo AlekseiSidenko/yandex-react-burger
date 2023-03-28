@@ -4,7 +4,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementStyles from "./burger-constructor-element.module.css";
 import { useDrag, useDrop, XYCoord } from "react-dnd";
 import { deleteIngredient, moveIngredient } from "../../services/actions/burger-constructor";
-import { TElement } from "../../utils/types";
+import { TElement } from "../../services/types/data";
 import { useAppDispatch } from "../../hooks/hooks";
 
 type TConstructorElementProps = {

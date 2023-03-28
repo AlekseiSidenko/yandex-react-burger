@@ -1,15 +1,11 @@
-import { REFRESH_USER_INFO, REFRESH_USER_INFO_FAILED, REFRESH_USER_INFO_SUCCESS } from "../actions/refresh-user"
+import { TRefreshUserActions } from "../actions/refresh-user";
+import { REFRESH_USER_INFO, REFRESH_USER_INFO_SUCCESS, REFRESH_USER_INFO_FAILED } from "../constants";
+import { TUserInfo } from "../types/data";
 
 type TState = {
     userRefreshRequest: boolean,
     userRefreshFailed: boolean,
-    userRefresh?: {
-        success: boolean
-        user: {
-            name: string,
-            email: string
-        }
-    }
+    userRefresh?: TUserInfo
 }
 
 const initialState = {
@@ -18,7 +14,7 @@ const initialState = {
     userRefresh: undefined
 }
 
-export const RefreshUserInfoReduser = (state: TState = initialState, action: any): TState => {
+export const RefreshUserInfoReduser = (state: TState = initialState, action: TRefreshUserActions ): TState => {
     switch (action.type) {
         case REFRESH_USER_INFO: {
             return {

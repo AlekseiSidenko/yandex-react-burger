@@ -1,9 +1,28 @@
 import { config, request } from "../../utils/api";
 import { AppDispatch, AppThunk } from "../store";
+import { GET_BURGER_INGREDIENTS, GET_BURGER_INGREDIENTS_SUCCESS, GET_BURGER_INGREDIENTS_FAILED } from '../constants';
+import { TElement } from "../types/data";
 
-export const GET_BURGER_INGREDIENTS: "GET_BURGER_INGREDIENTS" = "GET_BURGER_INGREDIENTS";
-export const GET_BURGER_INGREDIENTS_SUCCESS: "GET_BURGER_INGREDIENTS_SUCCESS" = "GET_BURGER_INGREDIENTS_SUCCESS";
-export const GET_BURGER_INGREDIENTS_FAILED: "GET_BURGER_INGREDIENTS_FAILED" = "GET_BURGER_INGREDIENTS_FAILED";
+export interface IGetBurgerIngredients {
+    readonly type: typeof GET_BURGER_INGREDIENTS,
+}
+
+export interface IGetBurgerIngredientsSuccess {
+    readonly type: typeof GET_BURGER_INGREDIENTS_SUCCESS,
+    ingredients: {
+        readonly success: boolean,
+        readonly data: TElement[]
+    }
+}
+
+export interface IGetBurgerIngredientsFailed {
+    readonly type: typeof GET_BURGER_INGREDIENTS_FAILED,
+}
+
+export type TGetBurgeIngredientsActions =
+    | IGetBurgerIngredients
+    | IGetBurgerIngredientsSuccess
+    | IGetBurgerIngredientsFailed;
 
 export const getIngredients: AppThunk = () => {
     return function (dispatch: AppDispatch) {
@@ -13,8 +32,8 @@ export const getIngredients: AppThunk = () => {
         request(`${config.baseUrl}/ingredients`, {
             method: "GET",
             headers: config.headers
-            }
-            )
+        }
+        )
             .then(res => {
                 if (res) {
                     dispatch({

@@ -47,8 +47,8 @@ export const App: FC = () => {
         <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage><OrdersHistory/></ProfilePage>} />} />
         <Route path='/profile/orders/:orderId' element={<InfoPage><OrderInfo/></InfoPage>} />
         <Route path='/ingredients/:ingredientId' element={<InfoPage><IngredientDetails/></InfoPage>} />
-        <Route path='/feed' element={<ProtectedRoute element={<FeedPage />} />}/>
-        <Route path='/feed/:feedId' element={<ProtectedRoute element={<InfoPage><OrderInfo/></InfoPage>}/> }/>
+        <Route path='/feed' element={<FeedPage />} />
+        <Route path='/feed/:feedId' element={<InfoPage><OrderInfo/></InfoPage>}/>
         <Route path='*' element={<NotFound404 />}/>
       </Routes>
       {background && (
@@ -59,7 +59,7 @@ export const App: FC = () => {
             </Modal>}
           />
           <Route path='/profile/orders/:orderId' element={
-            <Modal handleClose={handleClose} headName={'номер заказа'}>
+            <Modal handleClose={handleClose}>
               <OrderInfo />
             </Modal>
           }/>

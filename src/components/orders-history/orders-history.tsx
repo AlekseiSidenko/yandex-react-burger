@@ -27,7 +27,7 @@ export const OrdersHistory: FC = () => {
                 return (
                     <Link
                         to={`/profile/orders/${order._id}`}
-                        state={{ background: location }}
+                        state={{ background: location, orderNumber: order.number}}
                         className={historyStyles.link}
                         key={order._id}
                         >

@@ -54,7 +54,7 @@ export const getUserInfo: AppThunk = (token: string) => {
                 }
             })
             .catch((err) => {
-                alert(err.message)
+                console.log(err.message)
                 dispatch({
                     type: GET_USER_INFO_FAILED
                 })

@@ -10,7 +10,7 @@ type TWSState = {
 
 const initialState = {
     wsConnected: false,
-    orderFeed: null
+    orderFeed: null,
 };
 
 export const orderFeedReducer = (state: TWSState = initialState, action: any): TWSState => {

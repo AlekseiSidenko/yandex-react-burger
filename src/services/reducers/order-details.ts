@@ -43,8 +43,10 @@ export const orderDetailsReducer = (state: TState = initialState, action: TOrder
         }
         case HIDE_ORDER: {
             return {
-                ...state,
-                popupVisible: false
+                orderRequest: false,
+                orderFailed: false,
+                popupVisible: false,
+                order: undefined
             }
         }
         default: {

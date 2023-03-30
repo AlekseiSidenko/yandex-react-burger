@@ -37,15 +37,8 @@ export const getTokenReduser = (state: TState = initialState, action: TForgotPas
             return {
                 ...state,
                 sentPassRequest: false,
-                sentPassFailed: true
-            }
-        }
-        case GET_TOKEN_CLEAN_STATE: {
-            return {
-                isMailSent: true,
-                sentPassRequest: false,
-                sentPassFailed: false,
-                res: undefined
+                sentPassFailed: true,
+                isMailSent: false
             }
         }
         default: {

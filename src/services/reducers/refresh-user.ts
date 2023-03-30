@@ -14,7 +14,7 @@ const initialState = {
     userRefresh: undefined
 }
 
-export const RefreshUserInfoReduser = (state: TState = initialState, action: TRefreshUserActions ): TState => {
+export const refreshUserInfoReduser = (state: TState = initialState, action: TRefreshUserActions ): TState => {
     switch (action.type) {
         case REFRESH_USER_INFO: {
             return {

@@ -46,11 +46,6 @@ export const getToken: AppThunk = (email: string) => {
                     })
                 }
             })
-            .then(() => {
-                dispatch({
-                    type: GET_TOKEN_CLEAN_STATE
-                })
-            })
             .catch(err => {
                 alert(err.message)
                 dispatch({

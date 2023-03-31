@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useDeferredValue } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 import { Order } from "../order/order";
@@ -7,6 +7,7 @@ import listStyles from './order-list.module.css'
 export const OrderList = () => {
     const location = useLocation()
     const { orderFeed } = useAppSelector(state => state.feedSocket)
+    const defferedValue = useDeferredValue(orderFeed)
 
     return (
         <ul className={listStyles.list}>

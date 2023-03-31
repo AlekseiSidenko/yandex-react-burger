@@ -43,7 +43,7 @@ export const OrderInfo: FC = () => {
 
     if (orderFeed && orderFeed.orders.length) {
         orderFeed.orders.forEach((order, index) => {
-            if (order._id === feedId || order._id === orderId) {
+            if (order._id === feedId) {
                 data = order
                 orderDate = new Date(data.createdAt)
                 dataReduce = data.ingredients.reduce((acc: { [key: string]: number }, el) => {
@@ -58,7 +58,7 @@ export const OrderInfo: FC = () => {
 
     if (orderHistory && orderHistory.orders.length) {
         orderHistory.orders.forEach((order, index) => {
-            if (order._id === feedId || order._id === orderId) {
+            if (order._id === orderId) {
                 data = order
                 orderDate = new Date(data.createdAt)
                 dataReduce = data.ingredients.reduce((acc: { [key: string]: number }, el) => {

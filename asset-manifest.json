@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/yandex-react-burger/static/css/main.fb0623e3.css",
-    "main.js": "/yandex-react-burger/static/js/main.bed68fdd.js",
+    "main.js": "/yandex-react-burger/static/js/main.a6c2660e.js",
     "static/media/JetBrainsMono-Bold.woff": "/yandex-react-burger/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "/yandex-react-burger/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
     "static/media/JetBrainsMono-Bold.woff2": "/yandex-react-burger/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
@@ -11,10 +11,10 @@
     "static/media/Currency.svg": "/yandex-react-burger/static/media/Currency.c76f6647af73f2e14862a4e6a39d317e.svg",
     "index.html": "/yandex-react-burger/index.html",
     "main.fb0623e3.css.map": "/yandex-react-burger/static/css/main.fb0623e3.css.map",
-    "main.bed68fdd.js.map": "/yandex-react-burger/static/js/main.bed68fdd.js.map"
+    "main.a6c2660e.js.map": "/yandex-react-burger/static/js/main.a6c2660e.js.map"
   },
   "entrypoints": [
     "static/css/main.fb0623e3.css",
-    "static/js/main.bed68fdd.js"
+    "static/js/main.a6c2660e.js"
   ]
 }

@@ -1,7 +1,7 @@
 import * as types from "../constants"
 import { orderFeedReducer } from "./order-feed"
 
-const wsMessagePayload = {
+export const wsMessagePayload = {
     success: true,
     total: 46814,
     totalToday: 235,

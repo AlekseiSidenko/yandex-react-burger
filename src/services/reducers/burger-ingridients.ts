@@ -8,13 +8,13 @@ type TState = {
     ingredients: TElement[]
 }
 
-const initialState = {
+export const ingredientsInitialState = {
     ingredientsRequest: false,
     ingredientsFailed: false,
     ingredients: []
 }
 
-export const ingredientsReducer = (state: TState = initialState, action: TGetBurgeIngredientsActions): TState => {
+export const ingredientsReducer = (state: TState = ingredientsInitialState, action: TGetBurgeIngredientsActions): TState => {
     switch (action.type) {
         case GET_BURGER_INGREDIENTS: {
             return {

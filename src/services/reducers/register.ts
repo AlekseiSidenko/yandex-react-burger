@@ -15,13 +15,13 @@ type TState = {
     }
 }
 
-const initialState = {
+export const registerInitialState = {
     userRegisterRequest: false,
     userRegisterFailed: false,
     res: undefined
 }
 
-export const userRegisterReduser = (state: TState = initialState, action: any): TState => {
+export const userRegisterReduser = (state: TState = registerInitialState, action: any): TState => {
     switch (action.type) {
         case USER_REGISTER: {
             return {

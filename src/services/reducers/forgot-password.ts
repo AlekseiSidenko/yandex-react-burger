@@ -9,14 +9,14 @@ type TState = {
     res?: TResetForgotPass
 }
 
-const initialState = {
+export const forgotPassInitialState = {
     sentPassRequest: false,
     sentPassFailed: false,
     isMailSent: false,
     res: undefined
 }
 
-export const getTokenReduser = (state: TState = initialState, action: TForgotPasswordActions): TState => {
+export const getTokenReduser = (state: TState = forgotPassInitialState, action: TForgotPasswordActions): TState => {
     switch (action.type) {
         case GET_TOKEN: {
             return {

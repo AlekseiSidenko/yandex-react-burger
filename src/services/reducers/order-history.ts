@@ -1,3 +1,4 @@
+import { TOrderHistoryActions } from '../actions/order-history';
 import { ORDER_HISTORY_CLOSE, ORDER_HISTORY_CLOSED, ORDER_HISTORY_ERROR, ORDER_HISTORY_GET_MESSAGE, ORDER_HISTORY_SUCCESS } from '../constants';
 import { TOrderFeed } from '../types/data';
 
@@ -14,7 +15,7 @@ const initialState = {
 };
 
 
-export const orderHistoryReducer = (state: TWSState = initialState, action: any): TWSState => {
+export const orderHistoryReducer = (state: TWSState = initialState, action: TOrderHistoryActions): TWSState => {
     switch (action.type) {
         case ORDER_HISTORY_SUCCESS:
             return {

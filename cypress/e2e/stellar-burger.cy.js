@@ -1,11 +1,12 @@
 describe('app works correctly with routes', function () {
+  const interceptConfig = 'https://norma.nomoreparties.space/api'
   beforeEach(function () {
     cy.visit('http://localhost:3000/yandex-react-burger#/');
     cy.viewport(1280, 1024)
   });
 
   it('should check modal ingredient details', function() {
-    cy.intercept('https://norma.nomoreparties.space/api/ingredients').as('getIngredients')
+    cy.intercept(`${interceptConfig}/ingredients`).as('getIngredients')
     cy.wait('@getIngredients')
     cy.get('a').contains('Флюоресцентная булка').click()
     cy.contains('Детали ингридиента').should('be.visible');
@@ -13,8 +14,22 @@ describe('app works correctly with routes', function () {
     cy.contains('Детали ингридиента').should('not.exist');
   });
 
+  it('should check tab switch', function() {
+    cy.intercept(`${interceptConfig}/ingredients`).as('getIngredients')
+    cy.wait('@getIngredients')
+    cy.get('span').contains('Соусы').click()
+    cy.contains('Соус Spicy-X').should('be.visible')
+    cy.contains('Краторная булка N-200i').should('be.not.visible')
+    cy.get('span').contains('Начинки').click()
+    cy.contains('Соус Spicy-X').should('be.not.visible')
+    cy.contains('Краторная булка N-200i').should('be.not.visible')
+    cy.contains('Мясо бессмертных моллюсков Protostomia').should('be.visible')
+    cy.get('span').contains('Булки').click()
+    cy.contains('Краторная булка N-200i').should('be.visible')
+  })
+
   it('should drag ingredients, login, make order again, check preloader and popup with order ', function() {
-    cy.intercept('https://norma.nomoreparties.space/api/ingredients').as('getIngredients')
+    cy.intercept(`${interceptConfig}/ingredients`).as('getIngredients')
     cy.wait('@getIngredients')
     const dataTransfer = new DataTransfer();
     cy.get('a').contains('Флюоресцентная булка').trigger('dragstart', { dataTransfer });
@@ -31,7 +46,7 @@ describe('app works correctly with routes', function () {
     cy.get('button').contains('Войти').click();
     cy.get('button').contains('Оформить заказ').click();
     cy.contains('Отправляю заказ...').should('be.visible');
-    cy.intercept('https://norma.nomoreparties.space/api/orders').as('getOrder');
+    cy.intercept(`${interceptConfig}/orders`).as('getOrder');
     cy.wait('@getOrder');
     cy.contains('идентификатор заказа').should('be.visible');
     cy.get('[class^=modal_close]').click()

@@ -1,82 +1,54 @@
 import * as types from "../constants"
-import { getTokenReduser } from "./forgot-password"
+import { forgotPassInitialState, getTokenReduser } from "./forgot-password"
+
+export const successForgotPassRequest = {
+    message: "Reset email sent",
+    success: true
+}
 
 describe('forgot password reducer', () => {
     it('should return the initial state', () => {
-        expect(getTokenReduser(undefined, {})).toEqual(
-            {
-                sentPassRequest: false,
-                sentPassFailed: false,
-                isMailSent: false,
-                res: undefined
-            }
-        )
+        expect(getTokenReduser(undefined, {})).toEqual(forgotPassInitialState)
     })
+
     it('start request forgot password', () => {
-        expect(getTokenReduser(
-            {
-                sentPassRequest: false,
-                sentPassFailed: false,
-                isMailSent: false,
-                res: undefined
-            },
+        expect(getTokenReduser(forgotPassInitialState,
             {
                 type: types.GET_TOKEN
             }
-        )).toEqual(
-            {
-                sentPassRequest: true,
-                sentPassFailed: false,
-                isMailSent: false,
-                res: undefined
-            }
-        )
+        )).toEqual({
+            ...forgotPassInitialState,
+            sentPassRequest: true,
+        })
     })
     it('request forgot password success', () => {
         expect(getTokenReduser(
             {
+                ...forgotPassInitialState,
                 sentPassRequest: true,
-                sentPassFailed: false,
-                isMailSent: false,
-                res: undefined
             },
             {
                 type: types.GET_TOKEN_SUCCESS,
-                res: {
-                    message: "Reset email sent",
-                    success: true
-                }
+                res: successForgotPassRequest
             }
-        )).toEqual(
-            {
-                sentPassRequest: false,
-                sentPassFailed: false,
-                isMailSent: true,
-                res: {
-                    message: "Reset email sent",
-                    success: true
-                }
-            }
-        )
+        )).toEqual({
+            ...forgotPassInitialState,
+            res: successForgotPassRequest,
+            isMailSent: true
+        })
     })
     it('request forgot password false', () => {
         expect(getTokenReduser(
             {
+                ...forgotPassInitialState,
                 sentPassRequest: true,
-                sentPassFailed: false,
-                isMailSent: false,
-                res: undefined
             },
             {
                 type: types.GET_TOKEN_FAILED,
             }
-        )).toEqual(
-            {
-                sentPassRequest: false,
-                sentPassFailed: true,
-                isMailSent: false,
-                res: undefined
-            }
-        )
+        )).toEqual({
+            ...forgotPassInitialState,
+            sentPassFailed: true,
+        })
     })
 })

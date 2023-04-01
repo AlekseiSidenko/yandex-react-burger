@@ -1,96 +1,71 @@
 import * as types from "../constants"
-import { passwordResetReduser } from "./password-reset"
+import { passResetInitialState, passwordResetReduser } from "./password-reset"
+
+export const successPassReset = {
+    message: "Password successfully reset",
+    success: true
+}
 
 describe('password reset reducer', () => {
     it('should return the initial state', () => {
-        expect(passwordResetReduser(undefined, {})).toEqual(
-            {
-                passwordResetRequest: false,
-                passwordResetFailed: false,
-                res: undefined
-            }
-        )
+        expect(passwordResetReduser(undefined, {})).toEqual(passResetInitialState)
     })
+
     it('start request password reset', () => {
         expect(passwordResetReduser(
-            {
-                passwordResetRequest: false,
-                passwordResetFailed: false,
-                res: undefined
-            },
+            passResetInitialState,
             {
                 type: types.PASSWORD_RESET
             }
         )).toEqual(
             {
-                passwordResetRequest: true,
-                passwordResetFailed: false,
-                res: undefined
+                ...passResetInitialState,
+                passwordResetRequest: true
             }
         )
     })
     it('request password reset success', () => {
         expect(passwordResetReduser(
             {
-                passwordResetRequest: true,
-                passwordResetFailed: false,
-                res: undefined
+                ...passResetInitialState,
+                passwordResetRequest: true
             },
             {
                 type: types.PASSWORD_RESET_SUCCESS,
-                res: {
-                    message: "Password successfully reset",
-                    success: true
-                }
+                res: successPassReset
             }
         )).toEqual(
             {
-                passwordResetRequest: false,
-                passwordResetFailed: false,
-                res: {
-                    message: "Password successfully reset",
-                    success: true
-                }
+                ...passResetInitialState,
+                res: successPassReset
             }
         )
     })
     it('request password reset false', () => {
         expect(passwordResetReduser(
             {
-                passwordResetRequest: true,
-                passwordResetFailed: false,
-                res: undefined
+                ...passResetInitialState,
+                passwordResetRequest: true
             },
             {
                 type: types.PASSWORD_RESET_FAILED,
             }
         )).toEqual(
             {
-                passwordResetRequest: false,
+                ...passResetInitialState,
                 passwordResetFailed: true,
-                res: undefined
             }
         )
     })
     it('password clean state', () => {
         expect(passwordResetReduser(
             {
-                passwordResetRequest: false,
-                passwordResetFailed: false,
-                res: {
-                    message: "Password successfully reset",
-                    success: true
-                }
+                ...passResetInitialState,
+                res: successPassReset
             },
             {
                 type: types.PASSWORD_RESET_CLEAN_STATE,
             }
-        )).toEqual(
-            {
-                passwordResetRequest: false,
-                passwordResetFailed: false,
-                res: undefined
-            }
-        )
+        )).toEqual(passResetInitialState)
     })
 })

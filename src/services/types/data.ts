@@ -77,7 +77,3 @@ export type TOrderFeedOptions = {
     createdAt: string,
     updatedAt: string
 }
-
-export type TSameOrderIngredient = TElement & {
-    quantity: number
-}

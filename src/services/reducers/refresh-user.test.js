@@ -1,80 +1,62 @@
 import * as types from "../constants"
-import { refreshUserInfoReduser } from "./refresh-user"
+import { refreshUserInfoReduser, refreshUserInitialState } from "./refresh-user"
+
+export const successUserRefresh = {
+    success: true,
+    user: {
+        email: "test@ya.ru",
+        name: "Test"
+    }
+}
 
 describe('refresh user reducer', () => {
     it('should return the initial state', () => {
-        expect(refreshUserInfoReduser(undefined, {})).toEqual(
-            {
-                userRefreshRequest: false,
-                userRefreshFailed: false,
-                userRefresh: undefined
-            }
-        )
+        expect(refreshUserInfoReduser(undefined, {})).toEqual(refreshUserInitialState)
     })
+
     it('start refresh user request', () => {
         expect(refreshUserInfoReduser(
-            {
-                userRefreshRequest: false,
-                userRefreshFailed: false,
-                userRefresh: undefined
-            },
+            refreshUserInitialState,
             {
                 type: types.REFRESH_USER_INFO
             }
         )).toEqual(
             {
-                userRefreshRequest: true,
-                userRefreshFailed: false,
-                userRefresh: undefined
+                ...refreshUserInitialState,
+                userRefreshRequest: true
             }
         )
     })
     it('request refresh user success', () => {
         expect(refreshUserInfoReduser(
             {
-                userRefreshRequest: true,
-                userRefreshFailed: false,
-                userRefresh: undefined
+                ...refreshUserInitialState,
+                userRefreshRequest: true
             },
             {
                 type: types.REFRESH_USER_INFO_SUCCESS,
-                res: {
-                        success: true,
-                        user: {
-                            email: "test@ya.ru",
-                            name: "Test"
-                        }
-                }
+                res: successUserRefresh
             }
         )).toEqual(
             {
-                userRefreshRequest: false,
-                userRefreshFailed: false,
-                userRefresh: {
-                    success: true,
-                    user: {
-                        email: "test@ya.ru",
-                        name: "Test"
-                    }
-                }
+                ...refreshUserInitialState,
+                userRefresh: successUserRefresh
             }
         )
     })
     it('request refresh user false', () => {
         expect(refreshUserInfoReduser(
             {
-                userRefreshRequest: true,
-                userRefreshFailed: false,
-                userRefresh: undefined
+                ...refreshUserInitialState,
+                userRefreshRequest: true
             },
             {
                 type: types.REFRESH_USER_INFO_FAILED,
             }
         )).toEqual(
             {
-                userRefreshRequest: false,
+                ...refreshUserInitialState,
                 userRefreshFailed: true,
-                userRefresh: undefined
             }
         )
     })

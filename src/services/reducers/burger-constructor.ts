@@ -9,13 +9,13 @@ type TState = {
     elementsPrice: number
 }
 
-const initialState: TState = {
+export const constructorInitialState: TState = {
     draggedElements: [],
     bunsPrice: 0,
     elementsPrice: 0
 }
 
-export const constructorReducer = (state = initialState, action: TBurgerConstructorActions): TState => {
+export const constructorReducer = (state = constructorInitialState, action: TBurgerConstructorActions): TState => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             const element = { ...action.payload.item, uid: action.payload.uid }

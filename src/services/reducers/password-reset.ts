@@ -8,13 +8,13 @@ type TState = {
     res?: TResetForgotPass
 }
 
-const initialState = {
+export const passResetInitialState = {
     passwordResetRequest: false,
     passwordResetFailed: false,
     res: undefined
 }
 
-export const passwordResetReduser = (state: TState = initialState, action: TPasswordResetActions): TState => {
+export const passwordResetReduser = (state: TState = passResetInitialState, action: TPasswordResetActions): TState => {
     switch (action.type) {
         case PASSWORD_RESET: {
             return {

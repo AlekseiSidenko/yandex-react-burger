@@ -44,12 +44,12 @@ export const App: FC = () => {
         <Route path='/forgot-password' element={<ProtectedRoute anonymous element={<ForgotPasswordPage />} />} />
         <Route path='/reset-password' element={<ProtectedRoute anonymous element={<PasswordResetPage />} />} />
         <Route path='/profile' element={<ProtectedRoute element={<ProfilePage><ProfileEdit /></ProfilePage>} />} />
-        <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage><OrdersHistory/></ProfilePage>} />} />
-        <Route path='/profile/orders/:orderId' element={<InfoPage><OrderInfo/></InfoPage>} />
-        <Route path='/ingredients/:ingredientId' element={<InfoPage><IngredientDetails/></InfoPage>} />
+        <Route path='/profile/orders' element={<ProtectedRoute element={<ProfilePage><OrdersHistory /></ProfilePage>} />} />
+        <Route path='/profile/orders/:orderId' element={<InfoPage><OrderInfo /></InfoPage>} />
+        <Route path='/ingredients/:ingredientId' element={<InfoPage><IngredientDetails /></InfoPage>} />
         <Route path='/feed' element={<FeedPage />} />
-        <Route path='/feed/:feedId' element={<InfoPage><OrderInfo/></InfoPage>}/>
-        <Route path='*' element={<NotFound404 />}/>
+        <Route path='/feed/:feedId' element={<InfoPage><OrderInfo /></InfoPage>} />
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (
         <Routes location={location}>
@@ -58,13 +58,17 @@ export const App: FC = () => {
               <IngredientDetails />
             </Modal>}
           />
-          <Route path='/profile/orders/:orderId' element={
+          <Route path='/profile/orders/:orderId' element={<ProtectedRoute
+            element={
+              <Modal handleClose={handleClose}>
+                <OrderInfo />
+              </Modal>
+            } />} />
+          <Route path='/feed/:feedId' element={
             <Modal handleClose={handleClose}>
               <OrderInfo />
             </Modal>
-          }/>
-          <Route path='/feed/:feedId' element={<ProtectedRoute element={<Modal handleClose={handleClose}><OrderInfo /></Modal>
-}/>}/> 
+          } />
         </Routes>
       )}
     </>

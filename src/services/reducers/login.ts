@@ -7,12 +7,12 @@ type TState = {
     userLoginFailed: boolean,
 }
 
-const initialState = {
+export const userLoginInitialState = {
     userLoginRequest: false,
     userLoginFailed: false,
 }
 
-export const userLoginReduser = (state: TState = initialState, action: TUserLoginActions): TState => {
+export const userLoginReduser = (state: TState = userLoginInitialState, action: TUserLoginActions): TState => {
     switch (action.type) {
         case USER_LOGIN: {
             return {

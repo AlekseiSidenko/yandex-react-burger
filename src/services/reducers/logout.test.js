@@ -1,60 +1,47 @@
 import * as types from "../constants"
-import { logOutReduser } from "./logout"
+import { logOutReduser, logOutnitialState } from "./logout"
 
 describe('logout reducer', () => {
     it('should return the initial state', () => {
-        expect(logOutReduser(undefined, {})).toEqual(
-            {
-                logOutRequest: false,
-                logOutFailed: false,
-            }
-        )
+        expect(logOutReduser(undefined, {})).toEqual(logOutnitialState)
     })
+
     it('start request logout', () => {
         expect(logOutReduser(
-            {
-                logOutRequest: false,
-                logOutFailed: false,
-            },
+            logOutnitialState,
             {
                 type: types.LOG_OUT
             }
-        )).toEqual(
-            {
-                logOutRequest: true,
-                logOutFailed: false,
-            }
-        )
+        )).toEqual({
+            ...logOutnitialState,
+            logOutRequest: true
+        })
     })
+
     it('request logout success', () => {
         expect(logOutReduser(
             {
-                logOutRequest: true,
-                logOutFailed: false,
+                ...logOutnitialState,
+                logOutRequest: true
             },
             {
                 type: types.LOG_OUT_SUCCESS,
             }
-        )).toEqual(
-            {
-                logOutRequest: false,
-                logOutFailed: false,
-            }
-        )
-    })
+        )).toEqual(logOutnitialState)})
+
     it('request logout false', () => {
         expect(logOutReduser(
             {
-                logOutRequest: true,
-                logOutFailed: false,
+                ...logOutnitialState,
+                logOutRequest: true
             },
             {
                 type: types.LOG_OUT_FAILED,
             }
         )).toEqual(
             {
-                logOutRequest: false,
-                logOutFailed: true,
+                ...logOutnitialState,
+                logOutFailed: true
             }
         )
     })

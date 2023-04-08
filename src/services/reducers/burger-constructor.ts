@@ -15,7 +15,7 @@ export const constructorInitialState: TState = {
     elementsPrice: 0
 }
 
-export const constructorReducer = (state = constructorInitialState, action: TBurgerConstructorActions): TState => {
+export const constructorReducer = (state: TState = constructorInitialState, action: TBurgerConstructorActions): TState => {
     switch (action.type) {
         case ADD_INGREDIENT: {
             const element = { ...action.payload.item, uid: action.payload.uid }

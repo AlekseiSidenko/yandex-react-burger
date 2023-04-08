@@ -7,11 +7,12 @@ import listStyles from './order-list.module.css'
 export const OrderList = () => {
     const location = useLocation()
     const { orderFeed } = useAppSelector(state => state.feedSocket)
-    const defferedValue = useDeferredValue(orderFeed)
+    console.log(orderFeed)
 
     return (
         <ul className={listStyles.list}>
-            {orderFeed?.orders.map(order => {
+            {orderFeed && orderFeed.success ?
+            orderFeed.orders.map(order => {
                 return (
                     <Link
                         key={order._id}
@@ -24,6 +25,8 @@ export const OrderList = () => {
                     </Link>
                 )
             })
+            :
+            <></>
             }
         </ul>
     )

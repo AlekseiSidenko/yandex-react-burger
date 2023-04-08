@@ -11,7 +11,7 @@ export const FeedPage: FC = () => {
     const { orderFeed } = useAppSelector(state => state.feedSocket)
 
     React.useEffect(() => {
-        dispatch(orderFeedStart(`${baseWsURL}`))
+        dispatch(orderFeedStart(`${baseWsURL}/all`))
         return () => {
             dispatch(orderFeedClose('closed by client'))
         }

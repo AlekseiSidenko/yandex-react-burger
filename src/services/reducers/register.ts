@@ -1,18 +1,12 @@
 import { setCookie } from "../../utils/cookie"
+import { TRegisterActions } from "../actions/register";
 import { USER_REGISTER, USER_REGISTER_SUCCESS, USER_REGISTER_FAILED, REGISTER_CLEAN_STATE } from "../constants";
+import { TUserRegLogin } from "../types/data";
 
 type TState = {
     userRegisterRequest: boolean,
     userRegisterFailed: boolean,
-    res?: {
-        accessToken: string,
-        refreshToken: string,
-        success: boolean,
-        user: {
-            name: string,
-            email: string
-        }
-    }
+    res?: TUserRegLogin
 }
 
 export const registerInitialState = {
@@ -21,7 +15,7 @@ export const registerInitialState = {
     res: undefined
 }
 
-export const userRegisterReduser = (state: TState = registerInitialState, action: any): TState => {
+export const userRegisterReduser = (state: TState = registerInitialState, action: TRegisterActions): TState => {
     switch (action.type) {
         case USER_REGISTER: {
             return {

@@ -28,7 +28,7 @@ export const OrderInfo: FC = () => {
     React.useEffect(() => {
         if (!orderFeed && feedId) {
             console.log('connect')
-            dispatch(orderFeedStart(`${baseWsURL}`))
+            dispatch(orderFeedStart(`${baseWsURL}/all`))
             return () => {
                 dispatch(orderFeedClose('closed by client'))
             }

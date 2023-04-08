@@ -77,3 +77,8 @@ export type TOrderFeedOptions = {
     createdAt: string,
     updatedAt: string
 }
+
+export type TIngredients = {
+    readonly success: boolean,
+    readonly data: TElement[]
+}

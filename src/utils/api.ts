@@ -18,7 +18,7 @@ const refreshToken = (token: string) => {
     })
 }
 
-export const request = (url: RequestInfo, options: RequestInit) => {
+export const request = <T>(url: RequestInfo, options: RequestInit): Promise<T> => {
     return fetch(url, options).then(res => checkResponse(res))
 }
 
@@ -37,7 +37,7 @@ type TRefreshData = {
 }
 
 
-export const fetchWithRefresh = async (url: RequestInfo, options: RequestInit) => {
+export const fetchWithRefresh = async <T>(url: RequestInfo, options: RequestInit): Promise<T> => {
     try {
         const res = await fetch(url, options)
         return await checkResponse(res)

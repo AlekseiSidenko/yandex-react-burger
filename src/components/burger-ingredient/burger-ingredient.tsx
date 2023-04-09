@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux"
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingredientStyles from "./burger-ingredient.module.css"
@@ -36,7 +35,8 @@ export const BurgerIngredient: FC<{ data: TElement }> = ({ data }) => {
         <Link
             to={`/ingredients/${data._id}`}
             state={{ background: location }}
-            className={ingredientStyles.link}>
+            className={ingredientStyles.link}
+            >
             <div ref={dragRef} className={ingredientStyles.item}>
                 {ingredientCounter > 0 &&
                     <div className={ingredientStyles.counter}>

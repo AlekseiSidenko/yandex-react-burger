@@ -1,5 +1,5 @@
 import { config, request } from "../../utils/api";
-import { AppDispatch, AppThunk } from "../store";
+import { AppThunk } from "../store";
 import { GET_TOKEN, GET_TOKEN_SUCCESS, GET_TOKEN_FAILED, GET_TOKEN_CLEAN_STATE } from "../constants";
 import { TResetForgotPass } from "../types/data";
 
@@ -20,42 +20,35 @@ export interface IGetTokenCleanState {
     readonly type: typeof GET_TOKEN_CLEAN_STATE
 }
 
-export type TForgotPasswordActions = 
-| IGetToken
-| IGetTokenSuccess
-| IGetTokenFailed
-| IGetTokenCleanState
+export type TForgotPasswordActions =
+    | IGetToken
+    | IGetTokenSuccess
+    | IGetTokenFailed
+    | IGetTokenCleanState
 
-export const getToken: AppThunk = (email: string) => {
-    return function (dispatch: AppDispatch) {
-        dispatch({
-            type: GET_TOKEN
+export const getToken = (email: string): AppThunk => (dispatch) => {
+    dispatch({
+        type: GET_TOKEN
+    })
+    request<TResetForgotPass>(`${config.baseUrl}/password-reset`, {
+        method: "POST",
+        headers: config.headers,
+        body: JSON.stringify({
+            "email": `${email}`,
         })
-        request(`${config.baseUrl}/password-reset`, {
-            method: "POST",
-            headers: config.headers,
-            body: JSON.stringify({
-                "email": `${email}`,
+    })
+        .then(res => {
+            if (res) {
+                dispatch({
+                    type: GET_TOKEN_SUCCESS,
+                    res: res
+                })
+            }
+        })
+        .catch(err => {
+            alert(err.message)
+            dispatch({
+                type: GET_TOKEN_FAILED
             })
         })
-            .then(res => {
-                if (res) {
-                    dispatch({
-                        type: GET_TOKEN_SUCCESS,
-                        res: res
-                    })
-                }
-            })
-            .then(() => {
-                dispatch({
-                    type: GET_TOKEN_CLEAN_STATE
-                })
-            })
-            .catch(err => {
-                alert(err.message)
-                dispatch({
-                    type: GET_TOKEN_FAILED
-                })
-            })
-    }
 }

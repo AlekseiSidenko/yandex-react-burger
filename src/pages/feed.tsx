@@ -4,13 +4,14 @@ import { OrderList } from "../components/order-list/order-list";
 import styles from "./styles.module.css"
 import { useAppDispatch, useAppSelector } from "../hooks/hooks";
 import { orderFeedClose, orderFeedStart } from "../services/actions/order-feed";
+import { baseWsURL } from "../utils/constants";
 
 export const FeedPage: FC = () => {
     const dispatch = useAppDispatch()
     const { orderFeed } = useAppSelector(state => state.feedSocket)
 
     React.useEffect(() => {
-        dispatch(orderFeedStart('wss://norma.nomoreparties.space/orders/all'))
+        dispatch(orderFeedStart(`${baseWsURL}/all`))
         return () => {
             dispatch(orderFeedClose('closed by client'))
         }

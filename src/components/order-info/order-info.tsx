@@ -4,11 +4,11 @@ import orderStyles from './order-info.module.css';
 import { SmallIngredient } from "../small-ingredient/small-ingredient";
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { TElement, TOrderFeedOptions, TSameOrderIngredient } from "../../services/types/data";
+import { TElement, TOrderFeedOptions } from "../../services/types/data";
 import { orderFeedClose, orderFeedStart } from "../../services/actions/order-feed";
-import uuid from 'react-uuid';
 import { getCookie } from "../../utils/cookie";
 import { orderHistoryClose, orderHistoryStart } from "../../services/actions/order-history";
+import { baseWsURL } from "../../utils/constants";
 
 export const OrderInfo: FC = () => {
     const { ingredients } = useAppSelector(state => state.ingredients)
@@ -28,13 +28,13 @@ export const OrderInfo: FC = () => {
     React.useEffect(() => {
         if (!orderFeed && feedId) {
             console.log('connect')
-            dispatch(orderFeedStart('wss://norma.nomoreparties.space/orders/all'))
+            dispatch(orderFeedStart(`${baseWsURL}/all`))
             return () => {
                 dispatch(orderFeedClose('closed by client'))
             }
         }
         if (!orderHistory && orderId) {
-            dispatch(orderHistoryStart(`wss://norma.nomoreparties.space/orders?token=${getCookie('token')}`))
+            dispatch(orderHistoryStart(`${baseWsURL}?token=${getCookie('token')}`))
             return () => {
                 dispatch(orderHistoryClose('closed by client'))
             }
@@ -43,7 +43,7 @@ export const OrderInfo: FC = () => {
 
     if (orderFeed && orderFeed.orders.length) {
         orderFeed.orders.forEach((order, index) => {
-            if (order._id === feedId || order._id === orderId) {
+            if (order._id === feedId) {
                 data = order
                 orderDate = new Date(data.createdAt)
                 dataReduce = data.ingredients.reduce((acc: { [key: string]: number }, el) => {
@@ -58,7 +58,7 @@ export const OrderInfo: FC = () => {
 
     if (orderHistory && orderHistory.orders.length) {
         orderHistory.orders.forEach((order, index) => {
-            if (order._id === feedId || order._id === orderId) {
+            if (order._id === orderId) {
                 data = order
                 orderDate = new Date(data.createdAt)
                 dataReduce = data.ingredients.reduce((acc: { [key: string]: number }, el) => {
@@ -123,7 +123,7 @@ export const OrderInfo: FC = () => {
                     {orderIngredients.map(ingredient => {
                         if (ingredient.type === 'bun') {
                             return (
-                                <li key={uuid()} className={orderStyles.ingredient}>
+                                <li key={ingredient._id} className={orderStyles.ingredient}>
                                     <div className={orderStyles.picture}>
                                         <SmallIngredient ingredient={ingredient} />
                                         <p className="text text_type_main-default ml-4">{ingredient.name}</p>
@@ -136,7 +136,7 @@ export const OrderInfo: FC = () => {
                             )
                         } else {
                             return (
-                                <li key={uuid()} className={orderStyles.ingredient}>
+                                <li key={ingredient._id} className={orderStyles.ingredient}>
                                     <div className={orderStyles.picture}>
                                         <SmallIngredient ingredient={ingredient} />
                                         <p className="text text_type_main-default ml-4">{ingredient.name}</p>

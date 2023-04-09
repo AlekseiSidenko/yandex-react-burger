@@ -9,14 +9,14 @@ type TState = {
     userInfo?: TUserInfo
 }
 
-const initialState = {
+export const profileInitialState = {
     userInfoRequest: false,
     authChecked: false,
     userInfoFailed: false,
     userInfo: undefined
 }
 
-export const userInfoReduser = (state: TState = initialState, action: TProfileActions): TState => {
+export const userInfoReduser = (state: TState = profileInitialState, action: TProfileActions): TState => {
     switch (action.type) {
         case GET_USER_INFO: {
             return {
@@ -50,6 +50,7 @@ export const userInfoReduser = (state: TState = initialState, action: TProfileAc
         case REFRESH_USER_INFO_SUCCESS: {
             return {
                 ...state,
+                authChecked: true,
                 userInfo: action.res
             }
         }
@@ -62,12 +63,7 @@ export const userInfoReduser = (state: TState = initialState, action: TProfileAc
             }
         }
         case CLEAN_USER_INFO: {
-            return {
-                userInfoRequest: false,
-                authChecked: true,
-                userInfoFailed: false,
-                userInfo: undefined
-            }
+            return profileInitialState
         }
         default: {
             return state

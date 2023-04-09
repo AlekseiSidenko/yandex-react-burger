@@ -1,0 +1,1 @@
+export const baseWsURL = 'wss://norma.nomoreparties.space/orders'

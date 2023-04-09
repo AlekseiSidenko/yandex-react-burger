@@ -1,6 +1,6 @@
-import { Action, ActionCreator, applyMiddleware, createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from './reducers';
-import thunk, { ThunkAction } from 'redux-thunk';
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TBurgerConstructorActions } from "./actions/burger-constructor";
 import { TProfileActions } from "./actions/profile";
 import { TGetBurgeIngredientsActions } from "./actions/burger-ingredients";
@@ -14,6 +14,7 @@ import { socketMiddleware } from "./middleware/socketMiddleware";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { orderFeedActions, TOrderFeedActions } from "./actions/order-feed";
 import { orderHistoryActions, TOrderHistoryActions } from "./actions/order-history";
+import { TRegisterActions } from "./actions/register";
 
 
 const store = createStore(rootReducer, 
@@ -23,7 +24,7 @@ const store = createStore(rootReducer,
 
 
 export default store
-export type RootState = ReturnType<typeof store.getState>
+
 
 export type TApplicationActions = 
 | TWsApplicationActions
@@ -36,13 +37,14 @@ export type TApplicationActions =
 | TPasswordResetActions
 | TProfileActions
 | TRefreshUserActions
+| TRegisterActions
+
 
 export type TWsApplicationActions = 
 | TOrderFeedActions
 | TOrderHistoryActions
 
-export type AppThunk<TReturn = void> = ActionCreator<
-ThunkAction<TReturn, Action, RootState, TApplicationActions>
->
-
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
+// export type AppThunk<TReturn = void> = ThunkAction<TReturn, Action, RootState, TApplicationActions>
+export type AppThunk<TReturn = void> = ThunkAction<TReturn, RootState, unknown, TApplicationActions>

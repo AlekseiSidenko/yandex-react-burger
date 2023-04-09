@@ -1,6 +1,6 @@
 import { config, fetchWithRefresh } from "../../utils/api";
 import { TElement, TOrder } from "../types/data";
-import { AppDispatch, AppThunk } from "../store";
+import { AppThunk } from "../store";
 import { SEND_ORDER, SEND_ORDER_SUCCESS, SEND_ORDER_FAILED, HIDE_ORDER, CLEAN_CONSTRUCTOR } from "../constants";
 
 export interface ISendOrder {
@@ -26,41 +26,39 @@ export type TOrderDetailsActions =
   | ISendOrderFailed
   | IHideOrder;
 
-export const sendOrder: AppThunk = (ingredients: TElement[], token: string) => {
-  return function (dispatch: AppDispatch) {
-    dispatch({
-      type: SEND_ORDER
+export const sendOrder = (ingredients: TElement[], token: string): AppThunk => (dispatch) => {
+  dispatch({
+    type: SEND_ORDER
+  })
+  fetchWithRefresh<TOrder>(`${config.baseUrl}/orders`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + `${token}`
+    },
+    body: JSON.stringify({
+      ingredients: ingredients.map(ingredient => ingredient._id)
     })
-    fetchWithRefresh(`${config.baseUrl}/orders`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + `${token}`
-      },
-      body: JSON.stringify({
-        ingredients: ingredients.map(ingredient => ingredient._id)
+  })
+    .then(res => {
+      if (res) {
+        dispatch({
+          type: SEND_ORDER_SUCCESS,
+          order: res,
+        })
+      }
+    })
+    .then(() => {
+      dispatch({
+        type: CLEAN_CONSTRUCTOR
       })
     })
-      .then(res => {
-        if (res) {
-          dispatch({
-            type: SEND_ORDER_SUCCESS,
-            order: res,
-          })
-        }
+    .catch(err => {
+      alert(err.message)
+      dispatch({
+        type: SEND_ORDER_FAILED
       })
-      .then(() => {
-        dispatch({
-          type: CLEAN_CONSTRUCTOR
-        })
-      })
-      .catch(err => {
-        alert(err.message)
-        dispatch({
-          type: SEND_ORDER_FAILED
-        })
-      })
-  }
+    })
 }
 
 export const hideOrder = () => {

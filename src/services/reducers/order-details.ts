@@ -9,14 +9,14 @@ type TState = {
     order?: TOrderOptions
 }
 
-const initialState = {
+export const orderDetailsInitialState = {
     orderRequest: false,
     orderFailed: false,
     popupVisible: false,
     order: undefined
 }
 
-export const orderDetailsReducer = (state: TState = initialState, action: TOrderDetailsActions): TState => {
+export const orderDetailsReducer = (state: TState = orderDetailsInitialState, action: TOrderDetailsActions): TState => {
     switch (action.type) {
         case SEND_ORDER: {
             return {
@@ -42,10 +42,7 @@ export const orderDetailsReducer = (state: TState = initialState, action: TOrder
             }
         }
         case HIDE_ORDER: {
-            return {
-                ...state,
-                popupVisible: false
-            }
+            return orderDetailsInitialState
         }
         default: {
             return state

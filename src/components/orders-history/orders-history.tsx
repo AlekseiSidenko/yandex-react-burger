@@ -1,20 +1,19 @@
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../hooks/hooks";
-import { getToken } from "../../services/actions/forgot-password";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { orderHistoryClose, orderHistoryStart } from "../../services/actions/order-history";
 import { getCookie } from "../../utils/cookie";
 import { Order } from "../order/order";
 import historyStyles from './orders-history.module.css'
+import { baseWsURL } from "../../utils/constants";
 
 export const OrdersHistory: FC = () => {
     const location = useLocation()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { orderHistory } = useAppSelector(state => state.historySocket)
 
     React.useEffect(() => {
-        dispatch(orderHistoryStart(`wss://norma.nomoreparties.space/orders?token=${getCookie('token')}`))
+        dispatch(orderHistoryStart(`${baseWsURL}?token=${getCookie('token')}`))
         return () => {
             dispatch(orderHistoryClose('closed by client'))
         }
